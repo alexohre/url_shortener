@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
-
+  
   namespace :account do
-
+  get 'dashboard', to: 'dashboard#home'
+  
   end
 
   namespace :admin do
-
+  get 'dashboard', to: 'dashboard#home'
+  
   end
 
   devise_for :accounts, controllers: {
