@@ -1,13 +1,28 @@
 Rails.application.routes.draw do
   
   namespace :account do
-  get 'dashboard', to: 'dashboard#home'
-  
+    get 'dashboard', to: 'dashboard#home'
   end
 
   namespace :admin do
-  get 'dashboard', to: 'dashboard#home'
-  
+    get 'dashboard', to: 'dashboard#home'
+    get 'users', to: 'dashboard#users'
+    # mails
+    get 'emails', to: 'email#sent'
+    get 'email/new', to: 'email#new'
+    # trade
+    get 'trade/active', to: 'trade#active'
+    get 'trade/inactive', to: 'trade#inactive'
+    # deposit 
+    get 'deposit/pending', to: 'deposit#pending'
+    get 'deposit/approved', to: 'deposit#approved'
+    get 'deposit/declined', to: 'deposit#declined'
+    # withdrawals
+    get 'withdrawal/pending', to: 'withdrawal#pending'
+    get 'withdrawal/approved', to: 'withdrawal#approved'
+    get 'withdrawal/declined', to: 'withdrawal#declined'
+    # settings
+    get 'settings/account', to: 'setting#account'
   end
 
   devise_for :accounts, controllers: {
