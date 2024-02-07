@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    resource :site, only: [:new, :create, :edit, :update]
     get 'dashboard', to: 'dashboard#home'
     get 'users', to: 'dashboard#users'
     # mails
@@ -23,6 +24,7 @@ Rails.application.routes.draw do
     get 'withdrawal/declined', to: 'withdrawal#declined'
     # settings
     get 'settings/account', to: 'setting#account'
+    get 'settings/site_details', to: 'setting#site_details'
   end
 
   devise_for :accounts, controllers: {

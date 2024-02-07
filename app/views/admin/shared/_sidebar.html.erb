@@ -163,14 +163,14 @@
 			</a>
 		</li>
 		<!-- User interface -->
-		<li class="menu-item <%= 'active open' if request.path == admin_settings_account_path %>">
+		<li class="menu-item <%= 'active open' if request.path == admin_settings_account_path || request.path == admin_settings_site_details_path %>">
 			<a href="javascript:void(0)" class="menu-link menu-toggle">
 				<i class="menu-icon tf-icons bx bx-cog"></i>
 				<div data-i18n="User interface">Settings</div>
 			</a>
 			<ul class="menu-sub">
 				<li class="menu-item <%= 'active' if request.path == admin_settings_account_path %>">
-					<a href="<%= admin_settings_account_path %>" class="menu-link">
+					<a href="<%= admin_settings_account_path %>" class="menu-link" data-turbo="false">
 						<div data-i18n="Accordion">Account</div>
 					</a>
 				</li>
@@ -189,16 +189,11 @@
 						<div data-i18n="Buttons">Trade Currency Pairs</div>
 					</a>
 				</li>
-				<%# <li class="menu-item">
-					<a href="ui-carousel.html" class="menu-link">
-						<div data-i18n="Carousel">Carousel</div>
+				<li class="menu-item <%= 'active' if request.path == admin_settings_site_details_path %>">
+					<a href="<%= admin_settings_site_details_path %>" class="menu-link" data-turbo="false">
+						<div data-i18n="Carousel">Contact Details</div>
 					</a>
 				</li>
-				<li class="menu-item">
-					<a href="ui-collapse.html" class="menu-link">
-						<div data-i18n="Collapse">Collapse</div>
-					</a>
-				</li> %>
 			</ul>
 		</li>
 	</ul>
