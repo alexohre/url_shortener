@@ -16,4 +16,11 @@ class Admin::SettingController < AdminController
     @currency_pairs = CurrencyPair.all
   end
 
+  def payment_methods
+    @title = "Payment Method" 
+
+    @payment_method = PaymentMethod.new
+    @payment_methods = PaymentMethod.all
+  end
+
 end

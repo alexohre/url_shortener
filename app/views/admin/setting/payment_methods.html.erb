@@ -1,0 +1,86 @@
+<div class="container-xxl flex-grow-1 container-p-y">
+	<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Settings /</span> Payment Method</h4>
+	<div class="row">
+		<div class="col-md-8 mx-auto">
+			<div class="card mb-4">
+				<h5 class="card-header">Create Payment Method</h5>
+				<!-- Account -->
+				<div class="card-body">
+					<%= form_with(model: [:admin, @payment_method], url: admin_payment_methods_path, local: true) do |form| %>
+						<% if @payment_method.errors.any? %>
+							<div id="error_explanation">
+								<h2><%= pluralize(@payment_method.errors.count, "error") %> prohibited this currency pair from being saved:</h2>
+								<ul>
+									<% @payment_method.errors.full_messages.each do |message| %>
+										<li><%= message %></li>
+									<% end %>
+								</ul>
+							</div>
+						<% end %>
+						<div class="row">
+							<div class="mb-3 col-md-4">
+								<label class="form-label" for="phoneNumber">Payment Name</label>
+								<div class="input-group input-group-merge">
+									<%= form.text_field :name, class: "form-control", placeholder: "eg Bitcoin", required: true %>
+								</div>
+							</div>
+							<div class="mb-3 col-md-4">
+								<label class="form-label" for="phoneNumber">Wallet Address</label>
+								<div class="input-group input-group-merge">
+									<%= form.text_field :wallet, class: "form-control", placeholder: "y48fhxxxxxxxxxxxxxxxxxxx", required: true %>
+								</div>
+							</div>
+							<div class="mb-3 col-md-4">
+								<label class="form-label" for="phoneNumber">Wallet Qrcode</label>
+								<div class="input-group input-group-merge">
+									<%= form.file_field :wallet_qrcode, class: "form-control", placeholder: "", required: true %>
+								</div>
+							</div>
+						</div>
+						<div class="mt-2">
+							<%= form.submit 'Create ', class: "btn btn-primary me-2", data: {turbo: false} %>
+						</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+	<% if @payment_methods.present? %>
+		<div class="card">
+			<div class="table-responsive text-nowrap">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Currency Pairs</th>
+							<th>Address</th>
+							<th>Qrcode</th>
+							<th>Created Date</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody class="table-border-bottom-0">
+						<% @payment_methods.each do |pay| %>
+							<tr>
+								<td><strong><%= pay.name %> </strong></td>
+								<td><%= pay.wallet %></td>
+								<td><%= pay.wallet_qrcode.present? ? image_tag(pay.wallet_qrcode, width: 50) : "No Qrcode" %></td>
+								<td><%= pay.created_at.strftime("%m/%d/%y - %l:%M%P") %></td>
+								<td>
+									<%= link_to 'Delete', admin_payment_method_path(pay), class: "btn btn-sm btn-outline-danger", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+								</td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	<% else %>
+		<div class="card mb-4 ">
+			<div class="card-body mx-auto">
+				<p class="card-text">
+					You have no Currency pair 
+				</p>
+			</div>
+		</div>
+	<% end %>
+</div>

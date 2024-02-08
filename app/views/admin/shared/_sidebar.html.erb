@@ -156,14 +156,14 @@
 		</li>
 		<!-- Components -->
 		<!-- Cards -->
-		<li class="menu-item <%= 'active' if request.path == admin_emails_path || request.path === admin_email_new_path %>">
+		<li class="menu-item <%= 'active' if request.path == admin_emails_path || request.path == admin_email_new_path %>">
 			<a href="<%= admin_emails_path %>" class="menu-link" data-turbo="false">
 				<i class="menu-icon tf-icons bx bx-envelope"></i>
 				<div data-i18n="Basic">Emails</div>
 			</a>
 		</li>
 		<!-- User interface -->
-		<li class="menu-item <%= 'active open' if request.path == admin_settings_account_path || request.path == admin_settings_site_details_path || admin_settings_currency_pairs_path %>">
+		<li class="menu-item <%= 'active open' if request.path == admin_settings_account_path || request.path == admin_settings_site_details_path || request.path == admin_settings_currency_pairs_path || request.path == admin_settings_payment_method_path %>">
 			<a href="javascript:void(0)" class="menu-link menu-toggle">
 				<i class="menu-icon tf-icons bx bx-cog"></i>
 				<div data-i18n="User interface">Settings</div>
@@ -174,16 +174,16 @@
 						<div data-i18n="Accordion">Account</div>
 					</a>
 				</li>
-				<li class="menu-item">
-					<a href="#" class="menu-link">
+				<li class="menu-item <%= 'active' if request.path == admin_settings_payment_method_path %>">
+					<a href="<%= admin_settings_payment_method_path %>" class="menu-link" data-turbo="false">
 						<div data-i18n="Alerts">Payment Methods</div>
 					</a>
 				</li>
-				<li class="menu-item">
+				<%# <li class="menu-item">
 					<a href="#" class="menu-link">
 						<div data-i18n="Badges">Subscription Plans</div>
 					</a>
-				</li>
+				</li> %>
 				<li class="menu-item <%= 'active' if request.path == admin_settings_currency_pairs_path %>">
 					<a href="<%= admin_settings_currency_pairs_path %>" class="menu-link" data-turbo="false">
 						<div data-i18n="Buttons">Trade Currency Pairs</div>
