@@ -5,6 +5,11 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    resources :currency_pairs, only: [:create, :destroy] do
+      collection do
+        post :import_csv
+      end
+    end
     resource :site, only: [:new, :create, :edit, :update]
     get 'dashboard', to: 'dashboard#home'
     get 'users', to: 'dashboard#users'
@@ -25,6 +30,7 @@ Rails.application.routes.draw do
     # settings
     get 'settings/account', to: 'setting#account'
     get 'settings/site_details', to: 'setting#site_details'
+    get 'settings/currency_pairs', to: 'setting#currency_pairs'
   end
 
   devise_for :accounts, controllers: {
