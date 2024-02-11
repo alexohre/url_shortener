@@ -62,7 +62,12 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  # for email preview on development
+  gem "letter_opener"
 end
 
 
 gem "devise", "~> 4.9"
+
+gem "pagy", "~> 6.0"

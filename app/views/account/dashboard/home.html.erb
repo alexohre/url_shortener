@@ -1,2 +1,275 @@
-<h1>Account::Dashboard#home</h1>
-<p>Find me in app/views/dashboard/home.html.erb</p>
+<div class="container-xxl flex-grow-1 container-p-y">
+  <div class="row">
+    <div class="col-lg-8 mb-4 order-0">
+      <div class="card">
+        <div class="d-flex align-items-end row">
+          <div class="col-sm-7">
+            <div class="card-body">
+              <h5 class="card-title text-primary">Welcome Back John! 🎉</h5>
+              <p class="mb-4">
+                Today is a brand new oppotunity to do more
+              </p>
+            </div>
+          </div>
+          <div class="col-sm-5 text-center text-sm-left">
+            <div class="card-body pb-0 px-0 px-md-4">
+              <img
+                src="../assets/img/illustrations/girl-doing-yoga-light.png"
+                height="140"
+                alt="View Badge User"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 order-1">
+      <div class="row">
+        <div class="col-lg-6 col-md-12 col-6 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-title d-flex align-items-start justify-content-between">
+                <div class="avatar flex-shrink-0">
+                  <%= image_tag "img/icons/unicons/chart-success.png", alt: "chart success", class: "rounded" %>
+                </div>
+                
+              </div>
+              <span class="fw-semibold d-block mb-1">Clock</span>
+              <h3 class="card-title mb-2">12:23 am</h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-6 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-title d-flex align-items-start justify-content-between">
+                <div class="avatar flex-shrink-0">
+                  <img
+                    src="../assets/img/icons/unicons/wallet-info.png"
+                    alt="Credit Card"
+                    class="rounded"
+                  />
+                </div>
+                
+              </div>
+              <span>Deposits</span>
+              <h3 class="card-title text-nowrap mb-1">0</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Total Revenue -->
+    <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
+      <div class="card">
+        <div class="row row-bordered g-0">
+          <div class="col">
+            <h5 class="card-header m-0 me-2 pb-3">(5) Recent Deposits</h5>
+            <div class="table-responsive text-nowrap">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Reference</th>
+                    <th>Amount</th>
+                    <th>User</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                  <tr>
+                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>2iksjksmsm</strong></td>
+                    <td>$378</td>
+                    <td>
+                      Albert Cook
+
+                    </td>
+                    <td><span class="badge bg-label-warning me-1">Pending</span></td>
+                    <td>
+                      2023-06-21 11:13:38
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="fab fa-react fa-lg text-info me-3"></i> <strong>feksjsmjsj7</strong></td>
+                    <td>$38</td>
+                    <td>
+                      Barry Hunter
+                    </td>
+                    <td><span class="badge bg-label-success me-1">Completed</span></td>
+                    <td>
+                      2023-06-21 11:13:38 
+
+                    </td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%# <div class="card mt-4">
+        <div class="row row-bordered g-0">
+          <div class="col">
+            <h5 class="card-header m-0 me-2 pb-3">(5) Recent Withdrawals</h5>
+            <div class="table-responsive text-nowrap">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Reference</th>
+                    <th>Amount</th>
+                    <th>User</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                  <tr>
+                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>2iksjksmsm</strong></td>
+                    <td>$378</td>
+                    <td>
+                      Albert Cook
+
+                    </td>
+                    <td><span class="badge bg-label-warning me-1">Pending</span></td>
+                    <td>
+                      2023-06-21 11:13:38
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="fab fa-react fa-lg text-info me-3"></i> <strong>feksjsmjsj7</strong></td>
+                    <td>$38</td>
+                    <td>
+                      Barry Hunter
+                    </td>
+                    <td><span class="badge bg-label-success me-1">Completed</span></td>
+                    <td>
+                      2023-06-21 11:13:38 
+
+                    </td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div> %>
+      <div class="card mt-4">
+        <div class="row row-bordered g-0">
+          <div class="col">
+            <h5 class="card-header m-0 me-2 pb-3">(5) Recent Trades</h5>
+            <div class="table-responsive text-nowrap">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Reference</th>
+                    <th>Amount</th>
+                    <th>User</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                  <tr>
+                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>2iksjksmsm</strong></td>
+                    <td>$378</td>
+                    <td>
+                      Albert Cook
+
+                    </td>
+                    <td><span class="badge bg-label-warning me-1">Pending</span></td>
+                    <td>
+                      2023-06-21 11:13:38
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><i class="fab fa-react fa-lg text-info me-3"></i> <strong>feksjsmjsj7</strong></td>
+                    <td>$38</td>
+                    <td>
+                      Barry Hunter
+                    </td>
+                    <td><span class="badge bg-label-success me-1">Completed</span></td>
+                    <td>
+                      2023-06-21 11:13:38 
+
+                    </td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <!--/ Total Revenue -->
+    <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
+      <div class="row">
+        <div class="col-6 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-title d-flex align-items-start justify-content-between">
+                <div class="avatar flex-shrink-0">
+                  <img src="../assets/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
+                </div>
+                
+              </div>
+              <span class="d-block mb-1">Withdrawals</span>
+              <h3 class="card-title text-nowrap mb-2">0</h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-title d-flex align-items-start justify-content-between">
+                <div class="avatar flex-shrink-0">
+                  <img src="../assets/img/icons/unicons/cc-primary.png" alt="Credit Card" class="rounded" />
+                </div>
+                
+              </div>
+              <span class="fw-semibold d-block mb-1">Trades</span>
+              <h3 class="card-title mb-2">0</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
+                <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
+                  <div class="card-title">
+                    <h5 class="text-nowrap mb-2">Deposits Stats</h5>
+                  </div>
+                  <div class="mt-sm-auto">
+                    
+                     <p class="mb-2 d-flex  fs-16 text-black font-w500">Pending
+                      <span class="ms-auto text-dark fs-14 font-w400">0/45</span>
+                    </p>
+                    <div class="progress mb-3" style="height:18px;">
+                      <div class="progress-bar bg-primary progress-animated" style="width:0%; height:18px;" role="progressbar"></div>
+                    </div>
+                    <p class="mb-2 d-flex  fs-16 text-black font-w500">Completed
+                      <span class="ms-auto text-dark fs-14 font-w400">0/45</span>
+                    </p>
+                    <div class="progress mb-3" style="height:18px">
+                      <div class="progress-bar bg-primary progress-animated" style="width:0%; height:18px;" role="progressbar"></div>
+                    </div>
+                    <span class="text-white">Lorem, ipsum dolor sit amet consectetur adipisicing elit. </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+  </div>
+ 
+</div>

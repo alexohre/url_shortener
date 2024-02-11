@@ -4,4 +4,6 @@ class Account < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, 
          :timeoutable, :trackable, :confirmable
+
+  has_one_attached :avatar       
 end

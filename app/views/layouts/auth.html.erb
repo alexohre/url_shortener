@@ -1,12 +1,25 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>BaseApp - Authentication</title>
+		<title>Fx-App - Authentication</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
 		<%= csrf_meta_tags %>
 		<%= csp_meta_tag %>
-		<%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-		<%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+		<%= stylesheet_link_tag "core", class: "template-customizer-core-css", "data-turbo-track": "reload" %>
+		<%= stylesheet_link_tag "theme-default", class: "template-customizer-theme-css", "data-turbo-track": "reload" %>
+		<%= stylesheet_link_tag "demo", "data-turbo-track": "reload" %>
+		<%= stylesheet_link_tag "perfect-scrollbar", "data-turbo-track": "reload" %>
+		<%= stylesheet_link_tag "page-auth", "data-turbo-track": "reload" %>
+		<%= javascript_include_tag "account", "data-turbo-track": "reload", defer: true %>
+
 	</head>
 	<body>
 		<%= yield %>

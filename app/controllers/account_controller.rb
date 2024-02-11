@@ -1,5 +1,5 @@
 class AccountController < ActionController::Base
-  # before_action :authenticate_account!
+  before_action :authenticate_account!
   # before_action :check
 
   # def check
