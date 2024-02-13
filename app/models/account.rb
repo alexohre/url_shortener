@@ -5,5 +5,6 @@ class Account < ApplicationRecord
          :recoverable, :rememberable, :validatable, 
          :timeoutable, :trackable, :confirmable
 
-  has_one_attached :avatar       
+  has_one_attached :avatar 
+  # validates :first_name, :last_name, :username, presence: { on: :update }
 end

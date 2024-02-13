@@ -1,6 +1,6 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
 	<div class="app-brand demo">
-		<a href="<%#= admin_dashboard_path %>" class="app-brand-link" data-turbo="false">
+		<a href="<%= account_dashboard_path %>" class="app-brand-link" data-turbo="false">
 			<span class="app-brand-logo demo">
 				<svg
                   width="25"
@@ -65,8 +65,8 @@
 	<div class="menu-inner-shadow"></div>
 	<ul class="menu-inner py-1">
 		<!-- Dashboard -->
-		<li class="menu-item <%#= 'active' if request.path == admin_dashboard_path %>">
-			<a href="<%#= admin_dashboard_path %>" class="menu-link" data-turbo="false">
+		<li class="menu-item <%= 'active' if request.path == account_dashboard_path %>">
+			<a href="<%= account_dashboard_path %>" class="menu-link" data-turbo="false">
 				<i class="menu-icon tf-icons bx bx-home-circle"></i>
 				<div data-i18n="Analytics">Dashboard</div>
 			</a>
@@ -133,19 +133,24 @@
 		</li>
 		<!-- Components -->
 		<!-- User interface -->
-		<li class="menu-item <%#= 'active open' if request.path == admin_settings_account_path || request.path == admin_settings_site_details_path || request.path == admin_settings_currency_pairs_path || request.path == admin_settings_payment_method_path %>">
+		<li class="menu-item <%= 'active open' if request.path == edit_account_registration_path || request.path == account_settings_change_password_path || request.path == account_settings_profile_path %>">
 			<a href="javascript:void(0)" class="menu-link menu-toggle">
 				<i class="menu-icon tf-icons bx bx-cog"></i>
 				<div data-i18n="User interface">Settings</div>
 			</a>
 			<ul class="menu-sub">
-				<li class="menu-item <%#= 'active' if request.path == admin_settings_account_path %>">
-					<a href="<%#= admin_settings_account_path %>" class="menu-link" data-turbo="false">
+				<li class="menu-item <%= 'active' if request.path == account_settings_profile_path %>">
+					<a href="<%= account_settings_profile_path %>" class="menu-link" data-turbo="false">
 						<div data-i18n="Accordion">Profile</div>
 					</a>
 				</li>
-				<li class="menu-item <%#= 'active' if request.path == admin_settings_payment_method_path %>">
-					<a href="<%#= admin_settings_payment_method_path %>" class="menu-link" data-turbo="false">
+				<li class="menu-item <%= 'active' if request.path == edit_account_registration_path %>">
+					<a href="<%= edit_account_registration_path %>" class="menu-link" data-turbo="false">
+						<div data-i18n="Accordion">Edit Profile</div>
+					</a>
+				</li>
+				<li class="menu-item <%= 'active' if request.path == account_settings_change_password_path %>">
+					<a href="<%= account_settings_change_password_path %>" class="menu-link" data-turbo="false">
 						<div data-i18n="Alerts">Change Password</div>
 					</a>
 				</li>

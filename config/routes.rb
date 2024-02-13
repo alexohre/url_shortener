@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   
   namespace :account do
     get 'dashboard', to: 'dashboard#home'
+    # setting
+    get 'settings/change_password', to: 'setting#change_password'
+    get 'settings/profile', to: 'setting#profile'
   end
 
   namespace :admin do
