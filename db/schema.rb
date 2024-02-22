@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_10_234935) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_20_221236) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,6 +41,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_10_234935) do
     t.string "zip_code"
     t.string "state"
     t.string "country"
+    t.decimal "balance", precision: 10, scale: 2, default: "0.0"
+    t.integer "trade", default: 0
+    t.integer "deposit", default: 0
+    t.integer "withdrawal", default: 0
     t.index ["confirmation_token"], name: "index_accounts_on_confirmation_token", unique: true
     t.index ["email"], name: "index_accounts_on_email", unique: true
     t.index ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true
@@ -94,6 +98,21 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_10_234935) do
     t.text "contact_address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "trades", force: :cascade do |t|
+    t.integer "currency_pair_id"
+    t.decimal "amount", precision: 10, scale: 2, default: "0.0"
+    t.decimal "profit_loss", precision: 10, scale: 2, default: "0.0"
+    t.integer "time_duration"
+    t.string "trade_type"
+    t.string "account_type"
+    t.string "order_id"
+    t.integer "status"
+    t.integer "account_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "job_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -5,7 +5,7 @@
         <div class="d-flex align-items-end row">
           <div class="col-sm-7">
             <div class="card-body">
-              <h5 class="card-title text-primary">Welcome Back John! 🎉</h5>
+              <h5 class="card-title text-primary">Welcome Back <%= current_account.first_name.present? ? current_account.first_name : current_account.username %>! 🎉</h5>
               <p class="mb-4">
                 Today is a brand new oppotunity to do more
               </p>
@@ -30,12 +30,12 @@
             <div class="card-body">
               <div class="card-title d-flex align-items-start justify-content-between">
                 <div class="avatar flex-shrink-0">
-                  <%= image_tag "img/icons/unicons/chart-success.png", alt: "chart success", class: "rounded" %>
+                  <%= image_tag "img/icons/unicons/cc-primary.png", alt: "credit card", class: "rounded" %>
                 </div>
                 
               </div>
-              <span class="fw-semibold d-block mb-1">Clock</span>
-              <h3 class="card-title mb-2">12:23 am</h3>
+              <span class="fw-semibold d-block mb-1">Balance</span>
+              <h3 class="card-title mb-2"><%= number_to_currency(current_account.balance, precision: 2) %></h3>
             </div>
           </div>
         </div>
@@ -44,16 +44,11 @@
             <div class="card-body">
               <div class="card-title d-flex align-items-start justify-content-between">
                 <div class="avatar flex-shrink-0">
-                  <img
-                    src="../assets/img/icons/unicons/wallet-info.png"
-                    alt="Credit Card"
-                    class="rounded"
-                  />
+                  <%= image_tag "img/icons/unicons/wallet-info.png", alt: "wallet", class: "rounded" %>
                 </div>
-                
               </div>
               <span>Deposits</span>
-              <h3 class="card-title text-nowrap mb-1">0</h3>
+              <h3 class="card-title text-nowrap mb-1"><%= current_account.deposit %></h3>
             </div>
           </div>
         </div>
@@ -213,12 +208,12 @@
             <div class="card-body">
               <div class="card-title d-flex align-items-start justify-content-between">
                 <div class="avatar flex-shrink-0">
-                  <img src="../assets/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
+                  <%= image_tag "img/icons/unicons/wallet-info.png", alt: "wallet", class: "rounded" %>
                 </div>
                 
               </div>
               <span class="d-block mb-1">Withdrawals</span>
-              <h3 class="card-title text-nowrap mb-2">0</h3>
+              <h3 class="card-title text-nowrap mb-2"><%= current_account.withdrawal %></h3>
             </div>
           </div>
         </div>
@@ -227,12 +222,11 @@
             <div class="card-body">
               <div class="card-title d-flex align-items-start justify-content-between">
                 <div class="avatar flex-shrink-0">
-                  <img src="../assets/img/icons/unicons/cc-primary.png" alt="Credit Card" class="rounded" />
+                  <%= image_tag "img/icons/unicons/chart-success.png", alt: "chart success", class: "rounded" %>
                 </div>
-                
               </div>
               <span class="fw-semibold d-block mb-1">Trades</span>
-              <h3 class="card-title mb-2">0</h3>
+              <h3 class="card-title mb-2"><%= current_account.trade %></h3>
             </div>
           </div>
         </div>

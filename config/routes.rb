@@ -5,6 +5,11 @@ Rails.application.routes.draw do
     # setting
     get 'settings/change_password', to: 'setting#change_password'
     get 'settings/profile', to: 'setting#profile'
+    # Trade
+    get 'trades/new_trade', to: 'trades#new_trade'
+    get 'trades/trade_history', to: 'trades#trade_history'
+    post 'trades/:id/cancel', to: 'trades#cancel', as: 'cancel_trade'
+    resources :trades
   end
 
   namespace :admin do

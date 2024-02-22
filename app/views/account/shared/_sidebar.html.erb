@@ -75,19 +75,19 @@
 			<span class="menu-header-text">Pages</span>
 		</li>
 		<!-- Extended components -->
-		<li class="menu-item <%#= 'active open' if request.path == admin_trade_active_path || request.path === admin_trade_inactive_path %>">
+		<li class="menu-item <%= 'active open' if request.path == account_trades_new_trade_path || request.path == account_trades_trade_history_path %>">
 			<a href="javascript:void(0)" class="menu-link menu-toggle">
 				<i class="menu-icon tf-icons bx bx-candles"></i>
 				<div data-i18n="Extended UI">Trades</div>
 			</a>
 			<ul class="menu-sub">
-				<li class="menu-item <%#= 'active' if request.path == admin_trade_active_path %>">
-					<a href="<%#= admin_trade_active_path %>" class="menu-link" data-turbo="false">
+				<li class="menu-item <%= 'active' if request.path == account_trades_new_trade_path %>">
+					<a href="<%= account_trades_new_trade_path %>" class="menu-link" data-turbo="false">
 						<div data-i18n="Perfect Scrollbar">Trade</div>
 					</a>
 				</li>
-				<li class="menu-item <%#= 'active' if request.path == admin_trade_inactive_path %>">
-					<a href="<%#= admin_trade_inactive_path %>" class="menu-link" data-turbo="false">
+				<li class="menu-item <%= 'active' if request.path == account_trades_trade_history_path %>">
+					<a href="<%= account_trades_trade_history_path %>" class="menu-link" data-turbo="false">
 						<div data-i18n="Text Divider">My Trades</div>
 					</a>
 				</li>

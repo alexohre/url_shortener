@@ -1,0 +1,200 @@
+<div class="container-xxl flex-grow-1 container-p-y">
+	<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Trade /</span> New Trade</h4>
+	<div class="row">
+		<div class="col-md-8">
+			<div class="card mb-4" style="height: 450px !important">
+				<!-- TradingView Widget BEGIN -->
+				<div class="tradingview-widget-container">
+					<div class="tradingview-widget-container__widget"></div>
+					<script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+						{
+						  "symbols": [
+						    {
+						      "description": "",
+						      "proName": "TURQUOISE:SHELL"
+						    },
+						    {
+						      "description": "",
+						      "proName": "TURQUOISE:BARCL"
+						    },
+						    {
+						      "description": "",
+						      "proName": "TURQUOISE:RRL"
+						    },
+						    {
+						      "description": "",
+						      "proName": "TURQUOISE:BPL"
+						    },
+						    {
+						      "description": "",
+						      "proName": "TURQUOISE:BTL"
+						    },
+						    {
+						      "description": "",
+						      "proName": "TURQUOISE:TSCOL"
+						    },
+						    {
+						      "description": "",
+						      "proName": "TURQUOISE:BATSL"
+						    },
+						    {
+						      "description": "",
+						      "proName": "TURQUOISE:ULVRL"
+						    }
+						  ],
+						  "showSymbolLogo": true,
+						  "colorTheme": "light",
+						  "isTransparent": false,
+						  "displayMode": "regular",
+						  "locale": "en"
+						}
+					</script>
+				</div>
+				<!-- TradingView Widget END -->
+				<div class="card-body p-1 m-0">
+					<!-- TradingView Widget BEGIN -->
+					<div class="tradingview-widget-container" >
+						<div class="tradingview-widget-container__widget"></div>
+						<script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
+							{
+							"title": "Currencies",
+							"title_link": "/markets/currencies/rates-major/",
+							"width": "100%",
+							"height": "100%",
+							"locale": "en",
+							"showSymbolLogo": true,
+							"symbolsGroups": [
+							  {
+							    "name": "Major",
+							    "symbols": [
+							      {
+							        "name": "FX_IDC:EURUSD",
+							        "displayName": "EUR to USD"
+							      },
+							      {
+							        "name": "FX_IDC:USDJPY",
+							        "displayName": "USD to JPY"
+							      },
+							      {
+							        "name": "FX_IDC:GBPUSD",
+							        "displayName": "GBP to USD"
+							      },
+							      {
+							        "name": "FX_IDC:AUDUSD",
+							        "displayName": "AUD to USD"
+							      },
+							      {
+							        "name": "FX_IDC:USDCAD",
+							        "displayName": "USD to CAD"
+							      },
+							      {
+							        "name": "FX_IDC:USDCHF",
+							        "displayName": "USD to CHF"
+							      }
+							    ]
+							  },
+							  {
+							    "name": "Minor",
+							    "symbols": [
+							      {
+							        "name": "FX_IDC:EURGBP",
+							        "displayName": "EUR to GBP"
+							      },
+							      {
+							        "name": "FX_IDC:EURJPY",
+							        "displayName": "EUR to JPY"
+							      },
+							      {
+							        "name": "FX_IDC:GBPJPY",
+							        "displayName": "GBP to JPY"
+							      },
+							      {
+							        "name": "FX_IDC:CADJPY",
+							        "displayName": "CAD to JPY"
+							      },
+							      {
+							        "name": "FX_IDC:GBPCAD",
+							        "displayName": "GBP to CAD"
+							      },
+							      {
+							        "name": "FX_IDC:EURCAD",
+							        "displayName": "EUR to CAD"
+							      }
+							    ]
+							  },
+							  {
+							    "name": "Exotic",
+							    "symbols": [
+							      {
+							        "name": "FX_IDC:USDSEK",
+							        "displayName": "USD to SEK"
+							      },
+							      {
+							        "name": "FX_IDC:USDMXN",
+							        "displayName": "USD to MXN"
+							      },
+							      {
+							        "name": "FX_IDC:USDZAR",
+							        "displayName": "USD to ZAR"
+							      },
+							      {
+							        "name": "FX_IDC:EURTRY",
+							        "displayName": "EUR to TRY"
+							      },
+							      {
+							        "name": "FX_IDC:EURNOK",
+							        "displayName": "EUR to NOK"
+							      },
+							      {
+							        "name": "FX_IDC:GBPPLN",
+							        "displayName": "GBP to PLN"
+							      }
+							    ]
+							  }
+							],
+							"colorTheme": "dark"
+							    }
+						</script>
+					</div>
+					<!-- TradingView Widget END -->
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card mb-4">
+				<%= form_with(model: [:account, @trade]) do |form| %>
+					<div class="card-body">
+						<div class="mb-3">
+							<%= form.label :account_type, class: "form-label" %>
+							<%= form.text_field :account_type, value: "Main Account", class: "form-control", readonly: true %>
+						</div>
+						<div class="mb-3">
+							<%= form.label :currency_pair_id, 'Currency Pair', class: "form-label" %>
+							<%= form.select :currency_pair_id, options_for_select(@currency_pairs.map { |cp| ["#{cp.base_currency}/#{cp.quote_currency}", cp.id] }), { prompt: "Select Pairs"}, class: 'form-control' %>
+						</div>
+						<div class="mb-3">
+							<%= form.label :amount, class: "form-label" %>
+							<%= form.text_field :amount, class: 'form-control', placeholder: 'Enter trade amount' %>
+						</div>
+						<div class="mb-3">
+							<%= form.label :time_duration, class: "form-label" %>
+							<%= form.select :time_duration, Trade.time_durations.keys, {}, class: 'form-control' %>
+						</div>
+						<%= form.hidden_field :trade_type %>
+						<div class="row">
+							<div class="col d-flex justify-content-between mt-3">
+								<div class="text-end">
+									<%= form.submit 'Sell', name: 'trade_type', value: 'sell', class: 'btn btn-danger' %>
+								</div>
+								<div class="text-start">
+									<%= form.submit 'Buy', name: 'trade_type', value: 'buy', class: 'btn btn-success' %>
+								</div>
+							</div>
+						</div>
+					</div>
+				<% end %>
+			</div>
+		</div>
+		<!-- Form controls -->
+	</div>
+</div>
