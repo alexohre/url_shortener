@@ -94,19 +94,19 @@
 			</ul>
 		</li>
 		<!-- Extended components -->
-		<li class="menu-item <%#= 'active open' if request.path == admin_deposit_pending_path || request.path == admin_deposit_approved_path || request.path == admin_deposit_declined_path %>">
+		<li class="menu-item <%= 'active open' if request.path == account_deposits_deposit_path || request.path == account_deposits_deposit_history_path %>">
 			<a href="javascript:void(0)" class="menu-link menu-toggle">
 				<i class="menu-icon tf-icons bx bx-wallet"></i>
 				<div data-i18n="Extended UI">Deposits</div>
 			</a>
 			<ul class="menu-sub">
-				<li class="menu-item <%#= 'active' if request.path == admin_deposit_pending_path %>">
-					<a href="<%#= admin_deposit_pending_path %>" class="menu-link" data-turbo='false'>
+				<li class="menu-item <%= 'active' if request.path == account_deposits_deposit_path %>">
+					<a href="<%= account_deposits_deposit_path %>" class="menu-link" data-turbo='false'>
 						<div data-i18n="Perfect Scrollbar">Deposit</div>
 					</a>
 				</li>
-				<li class="menu-item <%#= 'active' if request.path == admin_deposit_approved_path %>">
-					<a href="<%#= admin_deposit_approved_path %>" class="menu-link" data-turbo='false'>
+				<li class="menu-item <%= 'active' if request.path == account_deposits_deposit_history_path %>">
+					<a href="<%= account_deposits_deposit_history_path %>" class="menu-link" data-turbo='false'>
 						<div data-i18n="Text Divider">Deposit History</div>
 					</a>
 				</li>

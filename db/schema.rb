@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_20_221236) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_23_134751) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -83,6 +83,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_20_221236) do
     t.string "quote_currency"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "deposits", force: :cascade do |t|
+    t.string "order_id"
+    t.string "amount"
+    t.integer "payment_method_id"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "account_id"
+    t.index ["account_id"], name: "index_deposits_on_account_id"
   end
 
   create_table "payment_methods", force: :cascade do |t|

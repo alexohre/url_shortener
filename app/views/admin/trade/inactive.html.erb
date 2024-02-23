@@ -18,8 +18,11 @@
 					<thead>
 						<tr>
 							<th>Ref No</th>
+							<th>Email</th>
 							<th>Amount</th>
 							<th>Currency Pair</th>
+							<th>Duration</th>
+							<th>Date</th>
 							<th>Trade Type</th>
 							<th>Profit/Loss</th>
 							<th>Status</th>
@@ -27,24 +30,56 @@
 						</tr>
 					</thead>
 					<tbody class="table-border-bottom-0">
-						<tr>
-							<td><strong>vzwshhg3l3</strong></td>
-							<td>$50</td>
-							<td>USD/GPD</td>
-							<td>
-								<span class="badge bg-label-danger me-1">sell</span>
-							</td>
-							<td>$0.00</td>
-							<td><span class="badge bg-label-success me-1">completed</span></td>
-							<td>
-								<button type="button" class="btn btn-sm btn-outline-danger">
-									<span class="tf-icons bx bx-candles"></span>&nbsp; Delete Trade
-								</button>
-							</td>
-						</tr>
+						<% if @inactive_trades.present? %>
+							<% @inactive_trades.each do |trade| %>
+								<tr>
+									<td><strong><%= trade.order_id %></strong></td>
+									<td><%= trade.account.email %></td>
+									<td><%= number_to_currency(trade.amount, precision: 2) %></td>
+									<td><%= trade.currency_pair.base_currency %> / <%= trade.currency_pair.quote_currency %></td>
+									<td><%= trade.time_duration %></td>
+									<td><%= trade.created_at.strftime("	%d-%m-%Y ") %> </td>
+									<td>
+										<% if trade.trade_type == "buy" %>
+											<span class="badge bg-label-success me-1"><%= trade.trade_type %></span>
+										<% elsif trade.trade_type == "sell" %>
+											<span class="badge bg-label-danger me-1"><%= trade.trade_type %></span>
+										<% end %>
+									</td>
+									<td>
+										<% if trade.status == "completed" %>
+											<%= number_to_currency(trade.profit_loss, precision: 2) %>
+										<% elsif trade.status == "cancelled" %>
+											<%= number_to_currency(trade.profit_loss, precision: 2) %>
+										<% else %>
+											$-.--
+										<% end %>
+									</td>
+									<td>
+										<% if trade.status == "completed" %>
+											<span class="badge bg-label-success me-1">completed</span>
+										<% elsif trade.status == "cancelled" %>
+											<span class="badge bg-label-danger me-1">cancelled</span>
+										<% end %>
+									</td>
+									<td>
+										<button type="button" class="btn btn-sm btn-outline-danger">
+											<span class="tf-icons bx bx-candles"></span>&nbsp; Delete Trade
+										</button>
+									</td>
+								</tr>
+							<% end %>
+						<% else %>
+							<tr >
+								<td colspan="10" class="text-center fs-3 ">No Trades Yet, Please check back later </td>
+							</tr>
+						<% end %>
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
+	<%# pagination %>
+	<%= render 'admin/shared/pagy', locals: {pagy: @pagy} %>
+	<!-- Basic Pagination -->
 </div>

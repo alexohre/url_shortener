@@ -10,6 +10,7 @@ class Account < ApplicationRecord
   validates :first_name, :last_name, :gender, :state, :country, :zip_code, :address, presence: { on: :update }
 
   has_many :trades
+  has_many :deposits
 
   private
 

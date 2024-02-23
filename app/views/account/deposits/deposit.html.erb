@@ -1,0 +1,92 @@
+<div class="container-xxl flex-grow-1 container-p-y">
+	<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Deposits /</span> Add Funds</h4>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="card mb-4">
+				<h5 class="card-header">Deposit</h5>
+				<div class="card-body">
+					<%= form_with(model: [:account, @deposit], url: account_deposits_path, method: :post, multipart: true, data: {turbo: false}) do |f| %>
+						<div class="mb-3">
+							<%= f.label :payment_method, class: "form-label" %>
+							<%= f.collection_select :payment_method_id, PaymentMethod.all, :id, :name, { prompt: "Select Payment Method"}, class: "form-select", id: "payment_method_select", required: true %>
+						</div>
+						<div class="mb-3" id="address_field" style="display: none;">
+							<%= f.label :address, class: "form-label" %>
+							<div class="input-group">
+								<%= f.text_field :wallet_address, class: "form-control", value: :wallet_address, aria_label: "Recipient's address" %>
+								<button class="btn btn-primary" type="button" id="copyButton">Copy</button>
+							</div>
+						</div>
+						<div class="mb-3">
+							<%= f.label :amount, class: "form-label" %>
+							<%= f.text_field :amount, placeholder: "500.00", class: "form-control", required: true %>
+						</div>
+						<div class="mb-3">
+							<%= f.label :payment_proof, class: "form-label" %>
+							<%= f.file_field :payment_proof, class: "form-control", required: true %>
+						</div>
+						<div class="actions">
+							<%= f.submit "Deposit", class: 'btn btn-primary me-2' %>
+						</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="card mb-4">
+				<div class="card-body">
+					<div class="text-center">
+						<%= image_tag "https://cdn-icons-png.flaticon.com/512/6195/6195699.png", class: "image-fluid", width: "60%", id: "payment_method_image" %>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Form controls -->
+	</div>
+</div>
+<script>
+	document.addEventListener("turbo:load", () => {
+	  const paymentMethodSelect = document.getElementById("payment_method_select");
+	  const walletAddressField = document.getElementById("address_field");
+	    const paymentMethodImage = document.getElementById("payment_method_image");
+
+	  let walletAddresses = <%= PaymentMethod.pluck(:id, :wallet).map { |id, wallet, wallet_qrcode| { id: id, wallet: wallet, wallet_qrcode: url_for(PaymentMethod.find(id).wallet_qrcode)  } }.to_json.html_safe %>;
+
+	  paymentMethodSelect.addEventListener("change", () => {
+	    const selectedPaymentMethodId = paymentMethodSelect.value;
+	    const selectedPaymentMethod = walletAddresses.find(method => method.id == selectedPaymentMethodId);
+
+	    if (selectedPaymentMethod && selectedPaymentMethod.wallet) {
+	      // Set the value of the text_field with the wallet address
+	      walletAddressField.querySelector("input").value = selectedPaymentMethod.wallet;
+	      walletAddressField.style.display = "block";
+	    } else {
+	      walletAddressField.style.display = "none";
+	    }
+	      if (selectedPaymentMethod && selectedPaymentMethod.wallet_qrcode) {
+	            // Update the src attribute of the img tag with the selected payment method's QR code image
+	            paymentMethodImage.src = selectedPaymentMethod.wallet_qrcode;
+	        } else {
+	            // Reset the image source to an empty string if no QR code image is available for the selected payment method
+	            paymentMethodImage.src = "https://cdn-icons-png.flaticon.com/512/6195/6195699.png";
+	        }
+	  });
+	});
+
+	   copyButton.addEventListener("click", () => {
+	        // Select the text in the wallet address field
+	        wallet_address.select();
+	        // Copy the selected text to the clipboard
+	        document.execCommand("copy");
+	        // Log a message or provide feedback to the user
+	        console.log("Address copied to clipboard: " + wallet_address.value);
+	          copyButton.disabled = true;
+	          // Change the button text to "Copied"
+	          copyButton.textContent = "Copied";
+	          // After 3 seconds, enable the button and change the text back to "Copy"
+	         setTimeout(() => {
+	              copyButton.disabled = false;
+	              copyButton.textContent = "Copy";
+	          }, 3000);
+	    });
+</script>

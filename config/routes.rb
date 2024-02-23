@@ -10,6 +10,11 @@ Rails.application.routes.draw do
     get 'trades/trade_history', to: 'trades#trade_history'
     post 'trades/:id/cancel', to: 'trades#cancel', as: 'cancel_trade'
     resources :trades
+
+    # deposit
+    get 'deposits/deposit', to: 'deposits#deposit'
+    get 'deposits/deposit_history', to: 'deposits#deposit_history'
+    resource :deposits, only: [:create]
   end
 
   namespace :admin do

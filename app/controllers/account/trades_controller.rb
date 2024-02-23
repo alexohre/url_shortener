@@ -1,5 +1,4 @@
 class Account::TradesController < AccountController
-  require 'sidekiq'
 
   def new_trade
     @title = "Place a trade"
@@ -10,6 +9,7 @@ class Account::TradesController < AccountController
   def trade_history
     @title = "Trade histories"
     @trades = current_account.trades.includes(:currency_pair).order(id: :desc)
+    @pagy, @trades = pagy(current_account.trades.includes(:currency_pair).order(id: :desc), items: 8)
   end
 
   def create

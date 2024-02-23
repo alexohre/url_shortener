@@ -13,7 +13,7 @@ class Admin::SettingController < AdminController
     @title = "Currency Pairs"
     @currency_pair = CurrencyPair.new
 
-    @currency_pairs = CurrencyPair.all
+    @pagy, @currency_pairs = pagy(CurrencyPair.all, items: 5)
   end
 
   def payment_methods

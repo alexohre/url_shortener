@@ -9,6 +9,6 @@ class AccountController < ActionController::Base
   #  end
   # end
 
-  # include Pagy::Backend
+  include Pagy::Backend
   layout "account"
 end

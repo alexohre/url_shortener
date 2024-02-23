@@ -1,0 +1,15 @@
+<% if @pagy.pages > 1 %>
+	<div class="card mt-4">
+		<!-- Basic Pagination -->
+		<div class="card-body mx-auto py-1">
+			<div class="row ">
+				<div class="col ">
+					<div class="demo-inline-spacing mb-3">
+						<%== pagy_nav(@pagy) %>
+						<!-- Basic Pagination -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<% end %>

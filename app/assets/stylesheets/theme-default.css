@@ -165,6 +165,52 @@ a.bg-primary:focus {
 	box-shadow: 0 0.125rem 0.25rem rgba(105, 108, 255, 0.4);
 }
 
+.pagy-nav.pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 0px; /* Adjust margin as needed */
+}
+
+.page {
+	padding: 8px 8px;
+	padding-left: 16px; /* Add more padding to the left */
+	padding-right: 16px;
+	margin: 0 2px;
+	border: 1px solid #e2e8f0;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.page.active {
+	background-color: #6366f1;
+	color: #ffffff;
+}
+
+.page.prev.disabled,
+.page.next.disabled {
+	cursor: not-allowed;
+	color: #a0aec0;
+}
+
+/* Add hover styles for better user feedback */
+.page:not(.active):hover {
+	background-color: #f0f4f8;
+}
+
+/* Additional styles for active Pagy nav item */
+.pagy-nav.pagination .page-item.active .page-link,
+.pagy-nav.pagination .page-item.active .page-link:hover,
+.pagy-nav.pagination .page-item.active .page-link:focus,
+.pagination li.active > a:not(.page-link),
+.pagination li.active > a:not(.page-link):hover,
+.pagination li.active > a:not(.page-link):focus {
+	border-color: #696cff;
+	background-color: #696cff;
+	color: #fff;
+	box-shadow: 0 0.125rem 0.25rem rgba(105, 108, 255, 0.4);
+}
+
 .progress-bar {
 	background-color: #696cff;
 	color: #fff;
