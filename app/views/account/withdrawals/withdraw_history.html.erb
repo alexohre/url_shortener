@@ -13,7 +13,6 @@
 							<th>Payment Method</th>
 							<th>Date</th>
 							<th>Status</th>
-							<th>Actions</th>
 						</tr>
 					</thead>
 					<tbody class="table-border-bottom-0">
@@ -32,11 +31,6 @@
 										<% elsif withdraw.status == "Cancelled" %>
 											<span class="badge bg-label-danger me-1"><%= withdraw.status %></span>
 										<% end %>
-									</td>
-									<td>
-										<button type="button" class="btn btn-sm btn-outline-secondary disabled" >
-											<span class="tf-icons bx bx-credit-card"></span>&nbsp; View deposit
-										</button>
 									</td>
 								</tr>
 							<% end %>

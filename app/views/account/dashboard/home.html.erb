@@ -66,37 +66,39 @@
                   <tr>
                     <th>Reference</th>
                     <th>Amount</th>
-                    <th>User</th>
+                    <th>Payment method</th>
                     <th>Status</th>
                     <th>Date</th>
                   </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                  <tr>
-                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>2iksjksmsm</strong></td>
-                    <td>$378</td>
-                    <td>
-                      Albert Cook
-
-                    </td>
-                    <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                    <td>
-                      2023-06-21 11:13:38
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><i class="fab fa-react fa-lg text-info me-3"></i> <strong>feksjsmjsj7</strong></td>
-                    <td>$38</td>
-                    <td>
-                      Barry Hunter
-                    </td>
-                    <td><span class="badge bg-label-success me-1">Completed</span></td>
-                    <td>
-                      2023-06-21 11:13:38 
-
-                    </td>
-                  </tr>
-                  
+                  <% if @recent_deposits.present? %>
+                    <% @recent_deposits.each do |deposit| %>
+                    <tr>
+                      <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><%= deposit.order_id %></strong></td>
+                      <td><%= number_to_currency(deposit.amount, precision: 2) %></td>
+                      <td>
+                        <%= deposit.payment_method.name %>
+                      </td>
+                      <td>
+                        <% if deposit.status == "Pending" %>
+                            <span class="badge bg-label-warning me-1"><%= deposit.status %></span>
+                          <% elsif deposit.status == "Approved" %>
+                            <span class="badge bg-label-success me-1"><%= deposit.status %></span>
+                          <% elsif deposit.status == "Cancelled" %>
+                          <span class="badge bg-label-danger me-1"><%= deposit.status %></span>
+                        <% end %>
+                      </td>
+                      <td>
+                        <%= deposit.created_at.strftime("	%d-%m-%Y ") %>
+                      </td>
+                    </tr>
+                    <% end %>
+                  <% else %>
+                    <tr >
+                      <td colspan="4" class="text-center fs-3 ">No Deposit Yet </td>
+                    </tr>
+                  <% end %>
                 </tbody>
               </table>
             </div>
@@ -166,30 +168,34 @@
                   </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                  <tr>
-                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>2iksjksmsm</strong></td>
-                    <td>$378</td>
-                    <td>
-                      Albert Cook
-
-                    </td>
-                    <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                    <td>
-                      2023-06-21 11:13:38
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><i class="fab fa-react fa-lg text-info me-3"></i> <strong>feksjsmjsj7</strong></td>
-                    <td>$38</td>
-                    <td>
-                      Barry Hunter
-                    </td>
-                    <td><span class="badge bg-label-success me-1">Completed</span></td>
-                    <td>
-                      2023-06-21 11:13:38 
-
-                    </td>
-                  </tr>
+                  <% if @recent_trades.present? %>
+                  <% @recent_trades.each do |trade| %>
+                    <tr>
+                      <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><%= trade.order_id %></strong></td>
+                      <td><%= number_to_currency(trade.amount, precision: 2) %></td>
+                      <td>
+                        <%= trade.currency_pair.base_currency %> / <%= trade.currency_pair.quote_currency %>
+                      </td>
+                      <td>
+                        <% if trade.status == "running" %>
+                          <span class="badge bg-label-warning me-1"><%= trade.status %></span>
+                        <% elsif trade.status == "completed" %>
+                          <span class="badge bg-label-success me-1"><%= trade.status %></span>
+                        <% elsif trade.status == "cancelled" %>
+                         <span class="badge bg-label-danger me-1"><%= trade.status %></span>
+                        <% end %>
+                      </td>
+                      <td>
+                        <%= trade.created_at.strftime("	%d-%m-%Y ") %>
+                      </td>
+                    </tr>
+                    
+                  <% end %>
+                  <% else %>
+                    <tr >
+                      <td colspan="4" class="text-center fs-3 ">No Trades Yet </td>
+                    </tr>
+                  <% end %>
                   
                 </tbody>
               </table>

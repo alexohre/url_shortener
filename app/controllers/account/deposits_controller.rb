@@ -1,16 +1,17 @@
 class Account::DepositsController < AccountController
   def deposit
     @title = "Deposit funds to your account"
+    @payment_methods = PaymentMethod.includes(wallet_qrcode_attachment: :blob)
     @deposit = Deposit.new
   end
 
   def deposit_history
     @title = "Deposit History"
-    @pagy, @deposits = pagy(current_account.deposits.includes(:account, :payment_method).order(id: :desc), items: 8)
+    @pagy, @deposits = pagy(current_account.deposits.includes(:account, :payment_method, payment_proof_attachment: :blob).order(id: :desc), items: 8)
   end
 
   def create
-    @deposit = Deposit.new(deposit_params)
+    @deposit = Deposit.new(deposit_params.except(:wallet_address))
     @deposit.account = current_account
     @deposit.status = "Pending" # Set the initial status to "Running"
     @deposit.order_id = SecureRandom.hex(5)
