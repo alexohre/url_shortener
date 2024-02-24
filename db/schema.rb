@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_23_134751) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_23_234820) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -87,7 +87,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_23_134751) do
 
   create_table "deposits", force: :cascade do |t|
     t.string "order_id"
-    t.string "amount"
+    t.decimal "amount", precision: 10, scale: 2
     t.integer "payment_method_id"
     t.integer "status"
     t.datetime "created_at", null: false
@@ -138,6 +138,21 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_23_134751) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "withdrawals", force: :cascade do |t|
+    t.decimal "amount", precision: 10, scale: 2
+    t.bigint "payment_method_id", null: false
+    t.text "address"
+    t.integer "status"
+    t.bigint "account_id", null: false
+    t.string "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_withdrawals_on_account_id"
+    t.index ["payment_method_id"], name: "index_withdrawals_on_payment_method_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "withdrawals", "accounts"
+  add_foreign_key "withdrawals", "payment_methods"
 end

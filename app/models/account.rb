@@ -11,6 +11,7 @@ class Account < ApplicationRecord
 
   has_many :trades
   has_many :deposits
+  has_many :withdrawals
 
   private
 

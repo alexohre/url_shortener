@@ -16,6 +16,7 @@ class Account::DepositsController < AccountController
     @deposit.order_id = SecureRandom.hex(5)
 
     if @deposit.save
+      current_account.increment!(:deposit)
       redirect_to account_deposits_deposit_history_path, notice: 'Deposit created successfully.'
     else
       redirect_to account_deposits_deposit_path, alert: "Oops, Something went wrong"

@@ -15,6 +15,11 @@ Rails.application.routes.draw do
     get 'deposits/deposit', to: 'deposits#deposit'
     get 'deposits/deposit_history', to: 'deposits#deposit_history'
     resource :deposits, only: [:create]
+
+    # withdrawals
+    get 'withdrawals/withdraw', to: 'withdrawals#withdraw'
+    get 'withdrawals/withdraw_history', to: 'withdrawals#withdraw_history'
+    resource :withdrawals, only: [:create]
   end
 
   namespace :admin do
