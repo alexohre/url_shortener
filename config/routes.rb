@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     # mails
     get 'emails', to: 'email#sent'
     get 'email/new', to: 'email#new'
+    post 'emails', to: 'email#create'
     # trade
     get 'trade/active', to: 'trade#active'
     get 'trade/inactive', to: 'trade#inactive'

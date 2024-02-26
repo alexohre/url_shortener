@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_23_234820) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_26_183453) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -94,6 +94,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_23_234820) do
     t.datetime "updated_at", null: false
     t.integer "account_id"
     t.index ["account_id"], name: "index_deposits_on_account_id"
+  end
+
+  create_table "emailers", force: :cascade do |t|
+    t.string "email"
+    t.string "subject"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "payment_methods", force: :cascade do |t|

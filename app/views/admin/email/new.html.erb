@@ -8,29 +8,45 @@
 						<div class="col-md-6">
 							<div class="card mb-4">
 								<div class="card-body">
-									<form action="">
+									<%= form_with(model: [:admin, @emailer], url: admin_emails_path, method: :post) do |f| %>
+										<% if @emailer.errors.any? %>
+											<div id="error_explanation">
+												<div class="alert alert-danger alert-dismissible pb-1" role="alert">
+													<ul>
+														<% @emailer.errors.full_messages.each do |message| %>
+															<li><%= message %></li>
+														<% end %>
+														<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+													</ul>
+												</div>
+											</div>
+										<% end %>
 										<div class="mb-3">
 											<label for="defaultFormControlInput" class="form-label">Select User</label>
-											<select id="defaultSelect" class="form-select">
-												<option>Default select</option>
-												<option value="1">One</option>
-												<option value="2">Two</option>
-												<option value="3">Three</option>
-											</select>
+											<%= f.select :email, options_for_select(@accounts), { prompt: "Select recipient" }, class: "form-select" %>
 										</div>
 										<div class="mb-3">
 											<label for="defaultFormControlInput" class="form-label">Subject</label>
-											<input type="text" class="form-control" id="defaultFormControlInput" placeholder="John Doe" aria-describedby="defaultFormControlHelp">
+											<%= f.text_field :subject, class: "form-control", placeholder: "Enter Email Subject" %>
 										</div>
 										<div class="mb-3">
-											<textarea class="form-control" name="" id="" cols="30" rows="5"></textarea>
+											<label for="defaultFormControlInput" class="form-label">Message Content</label>
+											<%= f.text_area :content, class: "form-control", placeholder: "Enter your message here...", cols: 30, rows: 5 %>
 										</div>
 										<div class="demo-inline-spacing">
 											<button type="submit" class="btn btn-primary float-end" data-turbo="false">
 												<span class="tf-icons bx bx-mail-send"></span>&nbsp; Send Email
 											</button>
 										</div>
-									</form>
+									<% end %>
+								</div>
+							</div>
+						</div>
+						<%# photo %>
+						<div class="col-md-6">
+							<div class="card mb-4">
+								<div class="card-body">
+									phote goes in here
 								</div>
 							</div>
 						</div>
