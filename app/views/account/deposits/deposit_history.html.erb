@@ -27,11 +27,11 @@
 									<td><%= deposit.payment_proof.filename %> </td>
 									<td><%= deposit.created_at.strftime("	%d-%m-%Y ") %> </td>
 									<td>
-										<% if deposit.status == "Pending" %>
+										<% if deposit.status == "pending" %>
 											<span class="badge bg-label-warning me-1"><%= deposit.status %></span>
-										<% elsif deposit.status == "Approved" %>
+										<% elsif deposit.status == "approved" %>
 											<span class="badge bg-label-success me-1"><%= deposit.status %></span>
-										<% elsif deposit.status == "Cancelled" %>
+										<% elsif deposit.status == "declined" %>
 											<span class="badge bg-label-danger me-1"><%= deposit.status %></span>
 										<% end %>
 									</td>
@@ -75,7 +75,7 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<h3>Order ID: <strong><span id="order_id"></span></strong></h3>
+				<h3>Ref No: <strong><span id="order_id"></span></strong></h3>
 				<h3>Date: <strong><span id="date"></span></strong></h3>
 				<h3>Amount: <strong><span id="amount"></span></strong></h3>
 				<h3>Payment Method:<strong> <span id="payment_method"></span></strong></h3>

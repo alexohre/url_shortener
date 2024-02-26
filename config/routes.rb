@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     resource :withdrawals, only: [:create]
   end
 
+
   namespace :admin do
     resources :payment_methods, only: [:create, :destroy]
 
@@ -44,6 +45,10 @@ Rails.application.routes.draw do
     get 'deposit/pending', to: 'deposit#pending'
     get 'deposit/approved', to: 'deposit#approved'
     get 'deposit/declined', to: 'deposit#declined'
+    post 'deposit/approve/:id', to: 'deposit#approve', as: 'deposit_approve'
+    post 'deposit/decline/:id', to: 'deposit#decline', as: 'deposit_decline'
+    resources :deposit, only: [:show]
+ 
     # withdrawals
     get 'withdrawal/pending', to: 'withdrawal#pending'
     get 'withdrawal/approved', to: 'withdrawal#approved'

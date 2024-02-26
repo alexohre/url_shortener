@@ -9,7 +9,7 @@
               <p class="mb-4">
                 Today is a brand new oppotunity to do more
               </p>
-                <h4 class="pb-0 mb-0"><i class="menu-icon tf-icons bx bx-time"></i>12:00</h4>
+                <h4 class="pb-0 mb-0"><i class="menu-icon tf-icons bx bx-time"> <span id="clock" class="fw-bold"></span></i></h4>
             </div>
           </div>
           <div class="col-sm-5 text-center text-sm-left">
@@ -33,7 +33,7 @@
             <div class="card-body">
               <div class="card-title d-flex align-items-start justify-content-between">
                 <div class="avatar flex-shrink-0">
-                  <%= image_tag "img/icons/unicons/chart-success.png", alt: "chart success", class: "rounded" %>
+                  <i class='bx bx-group rounded fs-1'></i>
                 </div>
                 
               </div>
@@ -47,16 +47,12 @@
             <div class="card-body">
               <div class="card-title d-flex align-items-start justify-content-between">
                 <div class="avatar flex-shrink-0">
-                  <img
-                    src="../assets/img/icons/unicons/wallet-info.png"
-                    alt="Credit Card"
-                    class="rounded"
-                  />
+                  <%= image_tag "img/icons/unicons/wallet-info.png", alt: "Credit Card", class: "rounded" %>
                 </div>
                 
               </div>
               <span>Deposits</span>
-              <h3 class="card-title text-nowrap mb-1">679</h3>
+              <h3 class="card-title text-nowrap mb-1"><%= @total_deposit %></h3>
             </div>
           </div>
         </div>
@@ -80,31 +76,34 @@
                   </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                  <tr>
-                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>2iksjksmsm</strong></td>
-                    <td>$378</td>
-                    <td>
-                      Albert Cook
-
-                    </td>
-                    <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                    <td>
-                      2023-06-21 11:13:38
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><i class="fab fa-react fa-lg text-info me-3"></i> <strong>feksjsmjsj7</strong></td>
-                    <td>$38</td>
-                    <td>
-                      Barry Hunter
-                    </td>
-                    <td><span class="badge bg-label-success me-1">Completed</span></td>
-                    <td>
-                      2023-06-21 11:13:38 
-
-                    </td>
-                  </tr>
-                  
+                  <% if @recent_deposits.present? %>
+                    <% @recent_deposits.each do |deposit| %>
+                      <tr>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><%= deposit.order_id %></strong></td>
+                        <td><%= number_to_currency(deposit.amount, precision: 2) %></td>
+                        <td>
+                          <% full_name = deposit.account.first_name + " " + deposit.account.last_name %>
+                          <%= full_name %>
+                        </td>
+                        <td>
+                          <% if deposit.status == "Pending" %>
+                              <span class="badge bg-label-warning me-1"><%= deposit.status %></span>
+                            <% elsif deposit.status == "Approved" %>
+                              <span class="badge bg-label-success me-1"><%= deposit.status %></span>
+                            <% elsif deposit.status == "Cancelled" %>
+                            <span class="badge bg-label-danger me-1"><%= deposit.status %></span>
+                            <% end %>
+                        </td>
+                        <td>
+                          <%= deposit.created_at.strftime("	%d-%m-%Y ") %>
+                        </td>
+                      </tr>
+                    <% end %>
+                  <% else %>
+                    <tr >
+                      <td colspan="4" class="text-center fs-3 ">No Deposits Yet </td>
+                    </tr>
+                  <% end %>
                 </tbody>
               </table>
             </div>
@@ -127,31 +126,34 @@
                   </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                  <tr>
-                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>2iksjksmsm</strong></td>
-                    <td>$378</td>
-                    <td>
-                      Albert Cook
-
-                    </td>
-                    <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                    <td>
-                      2023-06-21 11:13:38
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><i class="fab fa-react fa-lg text-info me-3"></i> <strong>feksjsmjsj7</strong></td>
-                    <td>$38</td>
-                    <td>
-                      Barry Hunter
-                    </td>
-                    <td><span class="badge bg-label-success me-1">Completed</span></td>
-                    <td>
-                      2023-06-21 11:13:38 
-
-                    </td>
-                  </tr>
-                  
+                  <% if @recent_withdrawals.present? %>
+                    <% @recent_withdrawals.each do |withdraw| %>
+                      <tr>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><%= withdraw.order_id %></strong></td>
+                        <td><%= number_to_currency(withdraw.amount, precision: 2) %></td>
+                        <td>
+                          <% full_name = withdraw.account.first_name + " " + withdraw.account.last_name %>
+                          <%= full_name %>
+                        </td>
+                        <td>
+                          <% if withdraw.status == "Pending" %>
+                              <span class="badge bg-label-warning me-1"><%= withdraw.status %></span>
+                            <% elsif withdraw.status == "Approved" %>
+                              <span class="badge bg-label-success me-1"><%= withdraw.status %></span>
+                            <% elsif withdraw.status == "Cancelled" %>
+                            <span class="badge bg-label-danger me-1"><%= withdraw.status %></span>
+                            <% end %>
+                        </td>
+                        <td>
+                          <%= withdraw.created_at.strftime("	%d-%m-%Y ") %>
+                        </td>
+                      </tr>
+                    <% end %>
+                  <% else %>
+                    <tr >
+                      <td colspan="4" class="text-center fs-3 ">No Withdrawals Yet </td>
+                    </tr>
+                  <% end %>
                 </tbody>
               </table>
             </div>
@@ -222,12 +224,12 @@
             <div class="card-body">
               <div class="card-title d-flex align-items-start justify-content-between">
                 <div class="avatar flex-shrink-0">
-                  <img src="../assets/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
+                 <%= image_tag "img/icons/unicons/wallet-info.png", alt: "Credit Card", class: "rounded" %>
                 </div>
                 
               </div>
               <span class="d-block mb-1">Withdrawals</span>
-              <h3 class="card-title text-nowrap mb-2">456</h3>
+              <h3 class="card-title text-nowrap mb-2"><%= @total_withdrawal %></h3>
             </div>
           </div>
         </div>
@@ -236,7 +238,7 @@
             <div class="card-body">
               <div class="card-title d-flex align-items-start justify-content-between">
                 <div class="avatar flex-shrink-0">
-                  <img src="../assets/img/icons/unicons/cc-primary.png" alt="Credit Card" class="rounded" />
+                  <%= image_tag "img/icons/unicons/chart-success.png", alt: "chart success", class: "rounded" %>
                 </div>
                 
               </div>
@@ -312,3 +314,38 @@
   </div>
  
 </div>
+
+<script>
+  document.addEventListener("turbo:load", function() {
+    function updateClock() {
+      let now = new Date();
+      let year = now.getFullYear().toString().slice(-2); // Extract last two digits of the year
+      let month = (now.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+      let day = now.getDate().toString().padStart(2, '0'); // Get the day of the month
+
+      let hours = now.getHours();
+      let minutes = now.getMinutes();
+      let seconds = now.getSeconds();
+
+      // Determine AM or PM
+      let meridiem = hours < 12 ? 'AM' : 'PM';
+
+      // Convert hours to 12-hour format
+      hours = hours % 12;
+      hours = hours ? hours : 12; // Handle midnight (0 hours)
+
+      // Add leading zeros if necessary
+      hours = hours < 10 ? '0' + hours : hours;
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      seconds = seconds < 10 ? '0' + seconds : seconds;
+
+      // Update the clock display
+      let clockElement = document.getElementById('clock');
+      clockElement.textContent = day + '.' + month + '.' + year + ' ' + hours + ':' + minutes + ':' + seconds + ' ' + meridiem;
+    }
+
+    // Update the clock immediately and then every second
+    updateClock();
+    setInterval(updateClock, 1000);
+  });
+</script>

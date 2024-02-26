@@ -22,29 +22,44 @@
 							<th>Email</th>
 							<th>Name</th>
 							<th>Method</th>
+							<th>Date</th>
 							<th>Status</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
 					<tbody class="table-border-bottom-0">
-						<tr>
-							<td><strong>j53hhg3l3</strong></td>
-							<td>$50</td>
-							<td>example@mail.com</td>
-							<td>
-								John Doe
-							</td>
-							<td>Bitcoin</td>
-							<td><span class="badge bg-label-secondary me-1">Declined</span></td>
-							<td>
-								<button type="button" class="btn btn-sm btn-outline-secondary">
-									<span class="tf-icons bx bx-show-alt"></span>&nbsp; View
-								</button>
-							</td>
-						</tr>
+						<% if @declined_deposits.present? %>
+							<% @declined_deposits.each do |deposit| %>
+								<tr>
+									<td><strong><%= deposit.order_id %></strong></td>
+									<td><%= number_to_currency(deposit.amount, precision: 2)  %></td>
+									<td><%= deposit.account.email %></td>
+									<td>
+										<% full_name = deposit.account.first_name + " " + deposit.account.last_name %>
+										<%= full_name %>
+									</td>
+									<td><%= deposit.payment_method.name %></td>
+									<td><%= deposit.created_at.strftime("	%d-%m-%Y ") %></td>
+									<td><span class="badge bg-label-secondary me-1"><%= deposit.status %></span></td>
+									<td>
+										<%= link_to  admin_deposit_path(deposit), data: {turbo: false} do %>
+											<span class="btn btn-sm btn-outline-secondary">
+												<span class="tf-icons bx bx-show-alt"></span>&nbsp; View
+											</span>
+										<% end %>
+									</td>
+								</tr>
+							<% end %>
+						<% else %>
+							<tr >
+								<td colspan="8" class="text-center fs-3 ">No Declined Deposits Yet </td>
+							</tr>
+						<% end %>
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
+	<%# pagination %>
+	<%= render 'admin/shared/pagy', locals: {pagy: @pagy} %>
 </div>

@@ -13,7 +13,7 @@ class Account::DepositsController < AccountController
   def create
     @deposit = Deposit.new(deposit_params.except(:wallet_address))
     @deposit.account = current_account
-    @deposit.status = "Pending" # Set the initial status to "Running"
+    @deposit.status = "pending" # Set the initial status to "Running"
     @deposit.order_id = SecureRandom.hex(5)
 
     if @deposit.save

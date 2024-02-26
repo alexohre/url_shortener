@@ -1,0 +1,48 @@
+<div class="container-xxl flex-grow-1 container-p-y">
+	<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Deposits /</span> Show</h4>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="card mb-4">
+				<h5 class="card-header">Deposits</h5>
+				<div class="card-body">
+					<h3>Order ID: <strong><%= @deposit.order_id %></strong></h3>
+					<h3>Date: <strong><%= @deposit.created_at.strftime("	%d-%m-%Y ") %></strong></h3>
+					<h3>Amount: <strong><%= number_to_currency(@deposit.amount, precision: 2) %></strong></h3>
+					<h3>Payment Method:<strong> <%= @deposit.payment_method.name %></strong></h3>
+					<h3>Status: 
+						<strong>
+							<% if @deposit.status == "pending" %>
+								<span class="badge bg-label-warning me-1"><%= @deposit.status %></span>
+							<% elsif @deposit.status == "approved" %>
+								<span class="badge bg-label-success me-1"><%= @deposit.status %></span>
+							<% elsif @deposit.status == "declined" %>
+								<span class="badge bg-label-danger me-1"><%= @deposit.status %></span>
+							<% end %>
+						</strong>
+					</h3>
+					<% if @deposit.status == "pending" %>
+						<div class="btn-group my-4">
+							<%= button_to admin_deposit_approve_path(@deposit), method: :post, class: "btn btn-success me-3", data: { turbo_confirm: "Are you sure?" } do %>
+								Approve
+							<% end %>
+							<%= button_to admin_deposit_decline_path(@deposit), method: :post, class: "btn btn-outline-danger", data: { turbo_confirm: "Are you sure?" } do %>
+								Decline
+							<% end %>
+						</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="card mb-4">
+				<div class="card-body">
+					<div class="text-center">
+						<h3><strong>Proof: </strong></h3>
+						<%= image_tag(@deposit.payment_proof, class: "img-fluid") if @deposit.payment_proof.present? %>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Form controls -->
+	</div>
+</div>
