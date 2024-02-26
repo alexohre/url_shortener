@@ -22,26 +22,39 @@
 							<th>Email</th>
 							<th>Name</th>
 							<th>Method</th>
+							<th>Date</th>
 							<th>Status</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
 					<tbody class="table-border-bottom-0">
-						<tr>
-							<td><strong>j53hhg3l3</strong></td>
-							<td>$50</td>
-							<td>example@mail.com</td>
-							<td>
-								John Doe
-							</td>
-							<td>Bitcoin</td>
-							<td><span class="badge bg-label-success me-1">Approved</span></td>
-							<td>
-								<button type="button" class="btn btn-sm btn-outline-secondary">
-									<span class="tf-icons bx bx-show-alt"></span>&nbsp; View
-								</button>
-							</td>
-						</tr>
+						<% if @approved_withdrawals.present? %>
+							<% @approved_withdrawals.each do |withdrawal| %>
+								<tr>
+									<td><strong><%= withdrawal.order_id %></strong></td>
+									<td><%= number_to_currency(withdrawal.amount, precision: 2)  %></td>
+									<td><%= withdrawal.account.email %></td>
+									<td>
+										<% full_name = withdrawal.account.first_name + " " + withdrawal.account.last_name %>
+										<%= full_name %>
+									</td>
+									<td><%= withdrawal.payment_method.name %></td>
+									<td><%= withdrawal.created_at.strftime("	%d-%m-%Y ") %></td>
+									<td><span class="badge bg-label-success me-1"><%= withdrawal.status %></span></td>
+									<td>
+										<%= link_to  admin_withdrawal_path(withdrawal), data: {turbo: false} do %>
+											<span class="btn btn-sm btn-outline-secondary">
+												<span class="tf-icons bx bx-show-alt"></span>&nbsp; View
+											</span>
+										<% end %>
+									</td>
+								</tr>
+							<% end %>
+						<% else %>
+							<tr >
+								<td colspan="8" class="text-center fs-3 ">No Approved withdrawals Yet </td>
+							</tr>
+						<% end %>
 					</tbody>
 				</table>
 			</div>

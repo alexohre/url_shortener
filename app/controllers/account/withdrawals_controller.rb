@@ -12,7 +12,7 @@ class Account::WithdrawalsController < AccountController
   def create
     @withdrawal = Withdrawal.new(withdrawal_params)
     @withdrawal.account = current_account
-    @withdrawal.status = "Pending" # Set the initial status to "Running"
+    @withdrawal.status = "pending" # Set the initial status to "Running"
     @withdrawal.order_id = SecureRandom.hex(5)
 
     if current_account.balance >= @withdrawal.amount

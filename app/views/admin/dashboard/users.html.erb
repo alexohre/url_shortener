@@ -35,7 +35,7 @@
 								<td>
 									<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
 										<li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="" data-bs-original-title="<%= full_name%>">
-											<%= account.avatar.present? ? image_tag(account.avatar, class: "rounded-circle", alt: "Avatar") : image_tag("img/avatars/5.png", alt: "avatar", class: "rounded-circle") %>
+											<%= account.avatar.present? ? image_tag(account.avatar.variant(resize_to_fill: [100, 100]), class: "rounded-circle", alt: "Avatar") : image_tag("img/avatars/5.png", alt: "avatar", class: "rounded-circle") %>
 										</li>
 									</ul>
 								</td>

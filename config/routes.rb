@@ -53,6 +53,10 @@ Rails.application.routes.draw do
     get 'withdrawal/pending', to: 'withdrawal#pending'
     get 'withdrawal/approved', to: 'withdrawal#approved'
     get 'withdrawal/declined', to: 'withdrawal#declined'
+    post 'withdrawal/approve/:id', to: 'withdrawal#approve', as: 'withdrawal_approve'
+    post 'withdrawal/decline/:id', to: 'withdrawal#decline', as: 'withdrawal_decline'
+    resources :withdrawal, only: [:show]
+
     # settings
     get 'settings/account', to: 'setting#account'
     get 'settings/site_details', to: 'setting#site_details'
