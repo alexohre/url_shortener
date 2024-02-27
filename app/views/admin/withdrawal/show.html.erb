@@ -7,7 +7,11 @@
 				<div class="card-body">
 					<h3>Ref No: <strong><%= @withdrawal.order_id %></strong></h3>
 					<h3>Date: <strong><%= @withdrawal.created_at.strftime("	%d-%m-%Y ") %></strong></h3>
-					<h3>Name: <strong><%= @withdrawal.account.first_name + " " + @withdrawal.account.last_name %></strong></h3>
+					<h3>Name: <strong>
+							<% full_name = "#{@withdrawal.account.first_name} #{@withdrawal.account.last_name}" if @withdrawal.account.first_name.present? && @withdrawal.account.last_name.present? %>
+							<%= full_name.present? ? full_name : "Awaiting names" %>
+						</strong>
+					</h3>
 					<h3>Amount: <strong><%= number_to_currency(@withdrawal.amount, precision: 2) %></strong></h3>
 					<h3>Payment Method:<strong> <%= @withdrawal.payment_method.name %></strong></h3>
 					<h3>Wallet Address:<strong> <%= @withdrawal.address %></strong></h3>

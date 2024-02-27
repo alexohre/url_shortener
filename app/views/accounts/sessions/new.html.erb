@@ -122,10 +122,17 @@
 
               <p class="text-center">
                 <span>New on our platform?</span>
-                <a href="<%= new_account_registration_path%>">
+                <a href="<%= new_account_registration_path%>" data-turbo="false">
                   <span>Create an account</span>
                 </a>
               </p>
+              <div class="text-center">
+
+                <span>Didn't recieve confirmation email?</span>
+                <a href="<%= new_account_confirmation_path%>" data-turbo="false">
+                  <span>Click here</span>
+                </a>
+              </div>
             </div>
           </div>
           <!-- /Register -->

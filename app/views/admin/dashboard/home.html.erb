@@ -82,8 +82,8 @@
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><%= deposit.order_id %></strong></td>
                         <td><%= number_to_currency(deposit.amount, precision: 2) %></td>
                         <td>
-                          <% full_name = deposit.account.first_name + " " + deposit.account.last_name %>
-                          <%= full_name %>
+                          <% full_name = "#{deposit.account.first_name} #{deposit.account.last_name}" if deposit.account.first_name.present? && deposit.account.last_name.present? %>
+                          <%= full_name.present? ? full_name : "Awaiting names" %>
                         </td>
                         <td>
                           <% if deposit.status == "Pending" %>
@@ -132,8 +132,8 @@
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><%= withdraw.order_id %></strong></td>
                         <td><%= number_to_currency(withdraw.amount, precision: 2) %></td>
                         <td>
-                          <% full_name = withdraw.account.first_name + " " + withdraw.account.last_name %>
-                          <%= full_name %>
+                          <% full_name = "#{withdraw.account.first_name} #{withdraw.account.last_name}" if withdraw.account.first_name.present? && withdraw.account.last_name.present? %>
+                          <%= full_name.present? ? full_name : "Awaiting names" %>
                         </td>
                         <td>
                           <% if withdraw.status == "Pending" %>
@@ -182,9 +182,9 @@
                       <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><%= trade.order_id %></strong></td>
                       <td><%= number_to_currency(trade.amount, precision: 2) %></td>
                       <td>
-                        <% full_name = trade.account.first_name + " " + trade.account.last_name %>
+                        <% full_name = "#{trade.account.first_name} #{trade.account.last_name}" if trade.account.first_name.present? && trade.account.last_name.present? %>
 
-                        <%= full_name %>
+                        <%= full_name.present? ? full_name : "Awaiting names" %>
 
                       </td>
                       <td>

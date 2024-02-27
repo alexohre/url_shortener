@@ -35,8 +35,8 @@
 									<td><%= number_to_currency(withdrawal.amount, precision: 2)  %></td>
 									<td><%= withdrawal.account.email %></td>
 									<td>
-										<% full_name = withdrawal.account.first_name + " " + withdrawal.account.last_name %>
-										<%= full_name %>
+										<% full_name = "#{withdrawal.account.first_name} #{withdrawal.account.last_name}" if withdrawal.account.first_name.present? && withdrawal.account.last_name.present? %>
+										<%= full_name.present? ? full_name : "Awaiting names" %>
 									</td>
 									<td><%= withdrawal.payment_method.name %></td>
 									<td><%= withdrawal.created_at.strftime("	%d-%m-%Y ") %></td>

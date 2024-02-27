@@ -81,11 +81,11 @@
                         <%= deposit.payment_method.name %>
                       </td>
                       <td>
-                        <% if deposit.status == "Pending" %>
+                        <% if deposit.status == "pending" %>
                             <span class="badge bg-label-warning me-1"><%= deposit.status %></span>
-                          <% elsif deposit.status == "Approved" %>
+                          <% elsif deposit.status == "approved" %>
                             <span class="badge bg-label-success me-1"><%= deposit.status %></span>
-                          <% elsif deposit.status == "Cancelled" %>
+                          <% elsif deposit.status == "declined" %>
                           <span class="badge bg-label-danger me-1"><%= deposit.status %></span>
                         <% end %>
                       </td>

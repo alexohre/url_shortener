@@ -5,9 +5,11 @@ class Account < ApplicationRecord
          :recoverable, :rememberable, :validatable, 
          :timeoutable, :trackable, :confirmable
 
+  before_create :generate_username
+
   has_one_attached :avatar 
   validate :date_of_birth_must_be_past_18_years
-  validates :first_name, :last_name, :gender, :state, :country, :zip_code, :address, presence: { on: :update }
+  validates :first_name, :last_name, :gender, :state, :country, :zip_code, :address, :username, presence: true, unless: :new_record?
 
   has_many :trades
   has_many :deposits
@@ -19,5 +21,12 @@ class Account < ApplicationRecord
     if date_of_birth.present? && date_of_birth > 18.years.ago.to_date
       errors.add(:date_of_birth, "must be at least 18 years ago")
     end
+  end
+
+  def generate_username
+    # Split email at "@" and append 6 random characters
+    prefix, domain = email.split('@')
+    random_chars = SecureRandom.hex(3) # 6 random characters in hexadecimal form
+    self.username = "#{prefix}_#{random_chars}"
   end
 end

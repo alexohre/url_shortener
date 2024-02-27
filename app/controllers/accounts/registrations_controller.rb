@@ -11,15 +11,15 @@ class Accounts::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  def create
-    super do |resource|
-      if resource.persisted?
-        # Customize the username creation here
-        username = generate_username(resource.email)
-        resource.update(username: username)
-      end
-    end
-  end
+  # def create
+  #   super do |resource|
+  #     if resource.persisted?
+  #       # Customize the username creation here
+  #       username = generate_username(resource.email)
+  #       resource.update(username: username)
+  #     end
+  #   end
+  # end
 
   # GET /resource/edit
   # def edit
@@ -62,7 +62,12 @@ class Accounts::RegistrationsController < Devise::RegistrationsController
   protected
 
   def after_update_path_for(resource)
-    account_dashboard_path
+    account_settings_profile_path
+  end
+  
+  # The path used after sign up.
+  def after_sign_up_path_for(resource)
+    new_account_session_path
   end
 
   # If you have extra params to permit, append them to the sanitizer.
@@ -75,10 +80,6 @@ class Accounts::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :username, :date_of_birth, :gender, :phone_number, :address, :zip_code, :state, :country, :avatar])
   end
 
-  # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   super(resource)
-  # end
 
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)
@@ -106,13 +107,6 @@ class Accounts::RegistrationsController < Devise::RegistrationsController
 
   def update_resource(resource, params)
     resource.update_without_password(params)
-  end
-
-  def generate_username(email)
-    # Split email at "@" and append 6 random characters
-    prefix, domain = email.split('@')
-    random_chars = SecureRandom.hex(3) # 6 random characters in hexadecimal form
-    "#{prefix}_#{random_chars}"
   end
 
   def set_layout
