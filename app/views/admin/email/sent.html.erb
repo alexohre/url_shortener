@@ -19,7 +19,7 @@
 								</h2>
 								<div id="accordion<%= mail.id %>" class="accordion-collapse collapse" data-bs-parent="#accordionExample<%= mail.id %>" style="">
 									<div class="accordion-body">
-										<%= simple_format(mail.content) %>
+										<%= mail.content.body if mail.content %>
 									</div>
 								</div>
 							</div>

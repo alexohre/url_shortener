@@ -31,7 +31,7 @@
 										</div>
 										<div class="mb-3">
 											<label for="defaultFormControlInput" class="form-label">Message Content</label>
-											<%= f.text_area :content, class: "form-control", placeholder: "Enter your message here...", cols: 30, rows: 5 %>
+											<%= f.rich_text_area :content, class: "form-control", placeholder: "Enter your message here...", style: "min-height: 10rem !important;" %>
 										</div>
 										<div class="demo-inline-spacing">
 											<button type="submit" class="btn btn-primary float-end" data-turbo="false">
