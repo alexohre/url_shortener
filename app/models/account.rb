@@ -9,7 +9,7 @@ class Account < ApplicationRecord
 
   has_one_attached :avatar 
   validate :date_of_birth_must_be_past_18_years
-  validates :first_name, :last_name, :gender, :state, :country, :zip_code, :address, :username, presence: true, unless: :new_record?
+  validates :first_name, :last_name, :username, :address, :state, :country, :gender, presence: true, unless: :new_record?
 
   has_many :trades
   has_many :deposits

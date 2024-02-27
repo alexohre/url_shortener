@@ -80,6 +80,18 @@
 			<div class="card mb-4">
 				<%= form_with(model: [:account, @trade]) do |form| %>
 					<div class="card-body">
+						<% if @trade.errors.any? %>
+							<div id="error_explanation">
+								<div class="alert alert-danger alert-dismissible pb-1" role="alert">
+									<ul>
+										<% @trade.errors.full_messages.each do |message| %>
+											<li><%= message %></li>
+										<% end %>
+										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+									</ul>
+								</div>
+							</div>
+						<% end %>
 						<div class="mb-3">
 							<%= form.label :account_type, class: "form-label" %>
 							<%= form.text_field :account_type, value: "Main Account", class: "form-control", readonly: true %>
@@ -100,10 +112,10 @@
 						<div class="row">
 							<div class="col d-flex justify-content-between mt-3">
 								<div class="text-end">
-									<%= form.submit 'Sell', name: 'trade_type', value: 'sell', class: 'btn btn-danger' %>
+									<%= form.submit 'Sell', name: 'trade_type', value: 'sell', class: 'btn btn-danger', data: {turbo: false} %>
 								</div>
 								<div class="text-start">
-									<%= form.submit 'Buy', name: 'trade_type', value: 'buy', class: 'btn btn-success' %>
+									<%= form.submit 'Buy', name: 'trade_type', value: 'buy', class: 'btn btn-success', data: {turbo: false} %>
 								</div>
 							</div>
 						</div>

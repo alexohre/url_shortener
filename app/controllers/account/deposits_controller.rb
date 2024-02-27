@@ -1,4 +1,6 @@
 class Account::DepositsController < AccountController
+  before_action :check_profile_completion
+
   def deposit
     @title = "Deposit funds to your account"
     @payment_methods = PaymentMethod.includes(wallet_qrcode_attachment: :blob)
@@ -28,5 +30,11 @@ class Account::DepositsController < AccountController
 
   def deposit_params
     params.require(:deposit).permit(:amount, :payment_proof, :payment_method_id, :order_id, :account_id)
+  end
+
+  def check_profile_completion
+    if current_account && (current_account.first_name.blank? || current_account.last_name.blank? || current_account.address.blank? || current_account.state.blank? || current_account.country.blank?)
+      redirect_to edit_account_registration_path, alert: "Please complete your profile information."
+    end
   end
 end

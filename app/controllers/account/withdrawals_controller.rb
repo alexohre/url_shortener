@@ -1,4 +1,6 @@
 class Account::WithdrawalsController < AccountController
+  before_action :check_profile_completion
+
   def withdraw
     @title = "Making Withdrawal"
     @withdrawal = Withdrawal.new
@@ -33,5 +35,11 @@ class Account::WithdrawalsController < AccountController
 
   def withdrawal_params
     params.require(:withdrawal).permit(:amount, :payment_method_id, :address, :status, :order_id)
+  end
+
+  def check_profile_completion
+    if current_account && (current_account.first_name.blank? || current_account.last_name.blank? || current_account.address.blank? || current_account.state.blank? || current_account.country.blank?)
+      redirect_to edit_account_registration_path, alert: "Please complete your profile information."
+    end
   end
 end

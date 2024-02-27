@@ -1,4 +1,5 @@
 class Account::TradesController < AccountController
+  before_action :check_profile_completion
 
   def new_trade
     @title = "Place a trade"
@@ -28,7 +29,9 @@ class Account::TradesController < AccountController
         end
         redirect_to account_trades_trade_history_path, notice: 'Trade was successfully created.'
       else
-        redirect_to account_trades_new_trade_path, alert: 'Oops, Something went wrong please try again'
+        # redirect_to account_trades_new_trade_path, alert: 'Oops, Something went wrong please try again'
+        @currency_pairs = CurrencyPair.all
+        render :new_trade, status: :unprocessable_entity
       end
     else
       redirect_to account_trades_new_trade_path, alert: 'Trade amount exceeds your account balance.'
@@ -71,6 +74,12 @@ class Account::TradesController < AccountController
 
   def trade_params
     params.require(:trade).permit(:currency_pair_id, :amount, :time_duration, :trade_type, :status, :account_type, :account_id)
+  end
+
+  def check_profile_completion
+    if current_account && (current_account.first_name.blank? || current_account.last_name.blank? || current_account.address.blank? || current_account.state.blank? || current_account.country.blank?)
+      redirect_to edit_account_registration_path, alert: "Please complete your profile information."
+    end
   end
 
   def extract_duration_in_minutes(time_duration)

@@ -28,19 +28,19 @@
 						<%= render "accounts/shared/error_messages", resource: resource %>
 						<div class="row">
 							<div class="mb-3 col-md-6">
-								<%= f.label :first_name, class: "form-label" %>
+								<%= f.label :first_name, class: "form-label" %> <span class="text-danger">*</span>
 								<%= f.text_field :first_name, class: "form-control", placeholder: "John" %>
 							</div>
 							<div class="mb-3 col-md-6">
-								<%= f.label :last_name, class: "form-label" %>
+								<%= f.label :last_name, class: "form-label" %> <span class="text-danger">*</span>
 								<%= f.text_field :last_name, class: "form-control", placeholder: "Doe" %>
 							</div>
 							<div class="mb-3 col-md-6">
-								<%= f.label :email, class: "form-label" %>
+								<%= f.label :email, class: "form-label" %> <span class="text-danger">*</span>
 								<%= f.email_field :email, autocomplete: "email", class: "form-control", readonly: true %>
 							</div>
 							<div class="mb-3 col-md-6">
-								<%= f.label :username, class: "form-label" %>
+								<%= f.label :username, class: "form-label" %> <span class="text-danger">*</span>
 								<%= f.text_field :username, class: "form-control" %>
 							</div>
 							<div class="mb-3 col-md-6">
@@ -48,11 +48,11 @@
 								<%= f.text_field :phone_number, class: "form-control", placeholder: "(+1) 202 555 0111" %>
 							</div>
 							<div class="mb-3 col-md-6">
-								<%= f.label :address, class: "form-label" %>
+								<%= f.label :address, class: "form-label" %> <span class="text-danger">*</span>
 								<%= f.text_area :address, class: "form-control", placeholder: "123 Main Str" %>
 							</div>
 							<div class="mb-3 col-md-6">
-								<%= f.label :state, class: "form-label" %>
+								<%= f.label :state, class: "form-label" %> <span class="text-danger">*</span>
 								<%= f.text_field :state, class: "form-control", placeholder: "California" %>
 							</div>
 							<div class="mb-3 col-md-6">
@@ -60,7 +60,7 @@
 								<%= f.text_field :zip_code, class: "form-control", placeholder: "231465", maxlength: 6 %>
 							</div>
 							<div class="mb-3 col-md-6">
-								<%= f.label :country, class: "form-label" %>
+								<%= f.label :country, class: "form-label" %> <span class="text-danger">*</span>
 								<%= f.text_field :country, class: "form-control", placeholder: "United States" %>
 							</div>
 							<div class="mb-3 col-md-6">
@@ -68,8 +68,8 @@
 								<%= f.date_field :date_of_birth, class: "form-control" %>
 							</div>
 							<div class="mb-3 col-md-6">
-								<%= f.label :gender, class: "form-label" %>
-								<%= f.select :gender, options_for_select([['Male', 'male'], ['Female', 'female'], ['Rather not say', 'rather not say']], selected: resource.gender), { prompt: "Select gender" }, class: "form-control" %>
+								<%= f.label :gender, class: "form-label" %> <span class="text-danger">*</span>
+								<%= f.select :gender, options_for_select([['Male', 'male'], ['Female', 'female'], ['Trans', 'trans'], ['Binary', 'binary'],['Non Binary', 'non binary'],['Genderfluid', 'genderfluid'],['Agender', 'agender'],['Rather not say', 'rather not say']], selected: resource.gender), { prompt: "Select gender" }, class: "form-control" %>
 							</div>
 						</div>
 						<div class="mt-2">
