@@ -82,7 +82,7 @@
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><%= deposit.order_id %></strong></td>
                         <td><%= number_to_currency(deposit.amount, precision: 2) %></td>
                         <td>
-                          <% full_name = "#{deposit.account.first_name} #{deposit.account.last_name}" if deposit.account.first_name.present? && deposit.account.last_name.present? %>
+                          <% full_name = "#{deposit.account&.first_name} #{deposit.account&.last_name}" if deposit.account&.first_name.present? && deposit.account&.last_name.present? %>
                           <%= full_name.present? ? full_name : "Awaiting names" %>
                         </td>
                         <td>
@@ -182,7 +182,7 @@
                       <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><%= trade.order_id %></strong></td>
                       <td><%= number_to_currency(trade.amount, precision: 2) %></td>
                       <td>
-                        <% full_name = "#{trade.account.first_name} #{trade.account.last_name}" if trade.account.first_name.present? && trade.account.last_name.present? %>
+                        <% full_name = "#{trade.account&.first_name} #{trade.account&.last_name}" if trade.account&.first_name.present? && trade.account&.last_name.present? %>
 
                         <%= full_name.present? ? full_name : "Awaiting names" %>
 

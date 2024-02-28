@@ -13,7 +13,7 @@
 						<div class="mb-3" id="address_field" style="display: none;">
 							<%= f.label :address, class: "form-label" %>
 							<div class="input-group">
-								<%= f.text_field :wallet_address, class: "form-control", value: :wallet_address, aria_label: "Recipient's address" %>
+								<input class="form-control" aria_label="Recipient's address" readonly="readonly" type="text" name="" id="deposit_wallet_address">
 								<button class="btn btn-primary" type="button" id="copyButton">Copy</button>
 							</div>
 						</div>

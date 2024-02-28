@@ -12,6 +12,19 @@ class Admin::DashboardController < AdminController
 
   def users
     @title = "Users"
-    @pagy, @accounts = pagy(Account.order(id: :desc), items: 8)
+    @pagy, @accounts = pagy(Account.includes(avatar_attachment: :blob).order(id: :desc), items: 8)
+  end
+
+  def show
+    @account = Account.find(params[:id])
+    @title = "#{@account.first_name.presence || @account.username}'s profile"
+  end
+
+  def destroy
+    @account = Account.find(params[:id])
+    if @account.present?
+      @account.destroy
+      redirect_to admin_users_path, notice: "Account Deleted successfully!"
+    end
   end
 end

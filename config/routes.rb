@@ -35,6 +35,9 @@ Rails.application.routes.draw do
     resource :site, only: [:new, :create, :edit, :update]
     get 'dashboard', to: 'dashboard#home'
     get 'users', to: 'dashboard#users'
+    get 'users/:id', to: 'dashboard#show'
+    # delete account
+    delete 'users/:id', to: 'dashboard#destroy'
     # mails
     get 'emails', to: 'email#sent'
     get 'email/new', to: 'email#new'
@@ -63,6 +66,7 @@ Rails.application.routes.draw do
     get 'settings/site_details', to: 'setting#site_details'
     get 'settings/currency_pairs', to: 'setting#currency_pairs'
     get 'settings/payment_method', to: 'setting#payment_methods'
+
   end
 
   devise_for :accounts, controllers: {

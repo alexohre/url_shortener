@@ -33,9 +33,9 @@
 								<tr>
 									<td><strong><%= deposit.order_id %></strong></td>
 									<td><%= number_to_currency(deposit.amount, precision: 2)  %></td>
-									<td><%= deposit.account.email %></td>
+									<td><%= deposit.account&.email %></td>
 									<td>
-										<% full_name = "#{deposit.account.first_name} #{deposit.account.last_name}" if deposit.account.first_name.present? && deposit.account.last_name.present? %>
+										<% full_name = "#{deposit.account&.first_name} #{deposit.account&.last_name}" if deposit.account&.first_name.present? && deposit.account&.last_name.present? %>
 										<%= full_name.present? ? full_name : "Awaiting names" %>
 									</td>
 									<td><%= deposit.payment_method.name %></td>

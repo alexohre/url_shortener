@@ -1,7 +1,7 @@
 class Deposit < ApplicationRecord
   belongs_to :account
   belongs_to :payment_method
-  has_one_attached :payment_proof
+  has_one_attached :payment_proof, dependent: :destroy
 
   enum status: { "pending": 0, "approved": 1, "declined": 2 }
 
