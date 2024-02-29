@@ -15,13 +15,23 @@ class Account < ApplicationRecord
   has_many :trades, dependent: :destroy
   has_many :deposits, dependent: :destroy
   has_many :withdrawals, dependent: :destroy
-
+  
+  
   private
-
+  
   def date_of_birth_must_be_past_18_years
     if date_of_birth.present? && date_of_birth > 18.years.ago.to_date
       errors.add(:date_of_birth, "must be at least 18 years ago")
     end
+  end
+  
+  def self.ransackable_attributes(auth_object = nil)
+    %w[email first_name last_name]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["avatar_attachment", "avatar_blob"]
+    # ["avatar_attachment", "avatar_blob", "deposits", "trades", "withdrawals"]
   end
 
   def generate_username

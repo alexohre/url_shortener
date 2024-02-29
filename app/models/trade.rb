@@ -9,4 +9,8 @@ class Trade < ApplicationRecord
   scope :active, -> { where(status: :running) }
   scope :inactive, -> { where(status: [:completed, :cancelled]) }
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["account_id", "account_type", "amount", "created_at", "currency_pair_id", "id", "job_id", "order_id", "profit_loss", "status", "time_duration", "trade_type", "updated_at"]
+  end
+
 end

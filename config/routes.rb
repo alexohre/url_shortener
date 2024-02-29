@@ -45,6 +45,7 @@ Rails.application.routes.draw do
     # trade
     get 'trade/active', to: 'trade#active'
     get 'trade/inactive', to: 'trade#inactive'
+    delete 'trade/:id', to: 'trade#destroy'
     # deposit 
     get 'deposit/pending', to: 'deposit#pending'
     get 'deposit/approved', to: 'deposit#approved'

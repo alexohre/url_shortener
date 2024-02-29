@@ -1,17 +1,20 @@
 class Admin::WithdrawalController < AdminController
   def pending
     @title = "Pending Withdrawals"
-    @pagy, @pending_withdrawals = pagy(Withdrawal.pending.includes(:account, :payment_method).order(id: :asc), items: 8)
+    @q = Withdrawal.pending.ransack(params[:q])
+    @pagy, @pending_withdrawals = pagy(@q.result(distinct: true).includes(:account, :payment_method).order(id: :asc), items: 8)
   end
 
   def approved
     @title = "Approved Withdrawals"
-    @pagy, @approved_withdrawals = pagy(Withdrawal.approved.includes(:account, :payment_method).order(id: :asc), items: 8)
+    @q = Withdrawal.approved.ransack(params[:q])
+    @pagy, @approved_withdrawals = pagy(@q.result(distinct: true).includes(:account, :payment_method).order(id: :asc), items: 8)
   end
 
   def declined 
     @title = "Declined Withdrawals"
-    @pagy, @declined_withdrawals = pagy(Withdrawal.declined.includes(:account, :payment_method).order(id: :asc), items: 8)
+    @q = Withdrawal.declined.ransack(params[:q])
+    @pagy, @declined_withdrawals = pagy(@q.result(distinct: true).includes(:account, :payment_method).order(id: :asc), items: 8)
   end
 
   def show

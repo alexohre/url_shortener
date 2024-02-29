@@ -1,17 +1,21 @@
 class Admin::DepositController < AdminController
   def pending
     @title = "Pending Deposit"
-    @pagy, @pending_deposits = pagy(Deposit.pending.includes(:account, :payment_method).order(id: :asc), items: 8)
+    @q = Deposit.pending.ransack(params[:q]) # Apply Ransack search to the pending scope
+    @pagy, @pending_deposits = pagy(@q.result(distinct: true).includes(:account, :payment_method).order(id: :asc), items: 8)
   end
+
 
   def approved
     @title = "Approved Deposit"
-    @pagy, @approved_deposits = pagy(Deposit.approved.includes(:payment_method, :account).order(id: :desc), items: 8)
+    @q = Deposit.approved.ransack(params[:q])
+    @pagy, @approved_deposits = pagy(@q.result(distinct: true).includes(:payment_method, :account).order(id: :desc), items: 8)
   end
 
   def declined 
     @title = "Declined Deposit"
-    @pagy, @declined_deposits = pagy(Deposit.declined.includes(:payment_method, :account).order(id: :desc), items: 8)
+    @q = Deposit.declined.ransack(params[:q])
+    @pagy, @declined_deposits = pagy(@q.result(distinct: true).includes(:payment_method, :account).order(id: :desc), items: 8)
 
   end
 

@@ -12,7 +12,9 @@ class Admin::DashboardController < AdminController
 
   def users
     @title = "Users"
-    @pagy, @accounts = pagy(Account.includes(avatar_attachment: :blob).order(id: :desc), items: 8)
+    @q = Account.ransack(params[:q])
+    @pagy, @accounts = pagy(@q.result(distinct: true).includes(avatar_attachment: :blob).order(id: :desc), items: 8)
+    # @pagy, @accounts = pagy(Account.includes(avatar_attachment: :blob).order(id: :desc), items: 8)
   end
 
   def show

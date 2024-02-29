@@ -72,3 +72,5 @@ gem "devise", "~> 4.9"
 
 gem "pagy", "~> 6.0"
 gem "sidekiq", "~> 7.2"
+
+gem "ransack", "~> 4.1"

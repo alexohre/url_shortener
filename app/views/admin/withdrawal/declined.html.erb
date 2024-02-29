@@ -3,15 +3,15 @@
 	<div class="row">
 		<div class="card">
 			<div class="col-md-3">
-				<form action="">
+				<%= search_form_for @q, url: :admin_withdrawal_declined do |f| %>
 					<div class="input-group mt-3 mb-2">
-						<input type="text" class="form-control" placeholder="Search User..." aria-label="Search User..." aria-describedby="button-addon2">
+						<%= f.search_field :order_id_cont, class: "form-control", placeholder: "Search Ref no..." %>
 						<button class="btn btn-primary" type="submit" id="button-addon2" data-turbo="false">
 							<span class="tf-icons bx bx-search-alt"></span>
 							Search
 						</button>
 					</div>
-				</form>
+				<% end %>
 			</div>
 			<div class="table-responsive text-nowrap">
 				<table class="table table-striped mb-5">

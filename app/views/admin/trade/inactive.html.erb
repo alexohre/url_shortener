@@ -3,15 +3,15 @@
 	<div class="row">
 		<div class="card">
 			<div class="col-md-3">
-				<form action="">
+				<%= search_form_for @q, url: :admin_trade_inactive do |f| %>
 					<div class="input-group mt-3 mb-2">
-						<input type="text" class="form-control" placeholder="Search User..." aria-label="Search User..." aria-describedby="button-addon2">
+						<%= f.search_field :order_id_cont, class: "form-control", placeholder: "Search Ref no..." %>
 						<button class="btn btn-primary" type="submit" id="button-addon2" data-turbo="false">
 							<span class="tf-icons bx bx-search-alt"></span>
 							Search
 						</button>
 					</div>
-				</form>
+				<% end %>
 			</div>
 			<div class="table-responsive text-nowrap">
 				<table class="table table-striped mb-5">
@@ -34,7 +34,7 @@
 							<% @inactive_trades.each do |trade| %>
 								<tr>
 									<td><strong><%= trade.order_id %></strong></td>
-									<td><%= trade.account.email %></td>
+									<td><%= trade.account&.email %></td>
 									<td><%= number_to_currency(trade.amount, precision: 2) %></td>
 									<td><%= trade.currency_pair.base_currency %> / <%= trade.currency_pair.quote_currency %></td>
 									<td><%= trade.time_duration %></td>
@@ -63,9 +63,9 @@
 										<% end %>
 									</td>
 									<td>
-										<button type="button" class="btn btn-sm btn-outline-danger">
+										<a href="/admin/trade/<%= trade.id%>" data-turbo-confirm="Are you sure?" data-turbo-method="delete" class="btn btn-sm btn-outline-danger">
 											<span class="tf-icons bx bx-candles"></span>&nbsp; Delete Trade
-										</button>
+										</a>
 									</td>
 								</tr>
 							<% end %>
