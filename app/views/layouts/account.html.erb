@@ -6,7 +6,7 @@
 	data-assets-path="../assets/"
 	data-template="vertical-menu-template-free">
 	<head>
-		<title>Dashboard - Account</title>
+		<title>Dashboard - <%= @title.present? ? @title : "Account" %></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1">
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -35,6 +35,7 @@
 
 					<!-- Content wrapper -->
         	<div class="content-wrapper">
+						<%= render 'account/shared/masquerade' %>
 						<%= render 'account/shared/notice' %>
 
 						<%= yield %>

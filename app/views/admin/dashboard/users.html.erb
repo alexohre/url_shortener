@@ -49,7 +49,7 @@
 										<div class="dropdown-menu" >
 											<a class="dropdown-item text-info" href="<%= admin_url(account) %>" data-turbo="false"><i class="bx bx-show-alt me-1"></i> view</a>
 											<%# <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a> %>
-											<a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-log-in me-1"></i> Login as</a>
+											<a class="dropdown-item" href="<%= admin_masquerade_as_account_path(id: account.id) %>" data-turbo-method="post"><i class="bx bx-log-in me-1"></i> Login as</a>
 											<a class="dropdown-item text-danger" href="<%= admin_url(account) %>" data-turbo-method="delete" data-turbo-confirm="Are you sure? all the records of <%= "#{full_name}" %> will be deleted "><i class="bx bx-trash me-1"></i> Delete</a>
 										</div>
 									</div>

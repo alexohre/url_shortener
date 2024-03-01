@@ -175,7 +175,7 @@
 						</a>
 					</li>
 					<!-- User interface -->
-					<li class="menu-item <%= 'active open' if request.path == admin_settings_account_path || request.path == admin_settings_site_details_path || request.path == admin_settings_currency_pairs_path || request.path == admin_settings_payment_method_path %>">
+					<li class="menu-item <%= 'active open' if request.path == admin_settings_account_path || request.path == admin_settings_site_details_path || request.path == admin_settings_currency_pairs_path || request.path == admin_settings_payment_method_path || request.path == admin_settings_password_path %>">
 						<a href="javascript:void(0)" class="menu-link menu-toggle">
 							<i class="menu-icon tf-icons bx bx-cog"></i>
 							<div data-i18n="User interface">Settings</div>
@@ -184,6 +184,11 @@
 							<li class="menu-item <%= 'active' if request.path == admin_settings_account_path %>">
 								<a href="<%= admin_settings_account_path %>" class="menu-link" data-turbo="false">
 									<div data-i18n="Accordion">Account</div>
+								</a>
+							</li>
+							<li class="menu-item <%= 'active' if request.path == admin_settings_password_path %>">
+								<a href="<%= admin_settings_password_path %>" class="menu-link" data-turbo="false">
+									<div data-i18n="Accordion">Password</div>
 								</a>
 							</li>
 							<li class="menu-item <%= 'active' if request.path == admin_settings_payment_method_path %>">

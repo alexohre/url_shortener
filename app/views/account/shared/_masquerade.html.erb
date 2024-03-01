@@ -1,0 +1,10 @@
+<% if session[:masquerade_user_id].present? %>
+	<div class="container mt-3 mb-0">
+		<div class="col-md-12 col-lg-6 mx-auto">
+			<div class="alert alert-info" role="alert">
+				<% full_name = "#{current_account&.first_name} #{current_account&.last_name}" if current_account&.first_name.present? && current_account&.last_name.present? %>
+				You are logged in as <strong style="color: black"><%= full_name.present? ? full_name : current_account.email %></strong>, Click the switch button to go back to Admin account <%= link_to "Switch", account_revert_masquerade_path, class: "btn btn-sm btn-primary", data: {turbo_method: :post} %>
+			</div>
+		</div>
+	</div>
+<% end %>

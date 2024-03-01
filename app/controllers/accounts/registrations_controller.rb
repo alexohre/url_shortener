@@ -92,8 +92,9 @@ class Accounts::RegistrationsController < Devise::RegistrationsController
       bypass_sign_in(resource)
       redirect_to after_update_path_for(resource), notice: "Your password has been updated successfully."
     else
-      error_message = resource.errors.full_messages.join("\n ")
-      redirect_to account_settings_change_password_path, alert: "Failed to update password: #{error_message}".html_safe
+      render :change_password, status: :unprocessable_entity
+      # error_message = resource.errors.full_messages.join("\n ")
+      # redirect_to account_settings_change_password_path, alert: "Failed to update password: #{error_message}".html_safe
     end
   end
 

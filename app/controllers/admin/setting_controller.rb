@@ -1,6 +1,14 @@
 class Admin::SettingController < AdminController
   def account
     @title = "Account Details"
+    @resource = current_user
+    @resource_name = :user
+  end
+
+  def admin_password
+    @title = "Account Password"
+    @resource = current_user
+    @resource_name = :user
   end
 
   def site_details

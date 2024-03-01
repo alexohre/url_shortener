@@ -2,6 +2,11 @@ class AccountController < ActionController::Base
   before_action :authenticate_account!
   # before_action :check_profile_completion
 
+  # Define user_masquerade? method here
+  def user_masquerade?
+    session[:masquerade_user_id].present?
+  end
+
   include Pagy::Backend
   layout "account"
 

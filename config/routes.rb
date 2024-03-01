@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   
   namespace :account do
     get 'dashboard', to: 'dashboard#home'
+    post 'revert_masquerade', to: "dashboard#revert_masquerade"
     # setting
     get 'settings/change_password', to: 'setting#change_password'
     get 'settings/profile', to: 'setting#profile'
@@ -36,6 +37,7 @@ Rails.application.routes.draw do
     get 'dashboard', to: 'dashboard#home'
     get 'users', to: 'dashboard#users'
     get 'users/:id', to: 'dashboard#show'
+    post 'masquerade_as_account', to: 'dashboard#masquerade_as_account'
     # delete account
     delete 'users/:id', to: 'dashboard#destroy'
     # mails
@@ -64,6 +66,7 @@ Rails.application.routes.draw do
 
     # settings
     get 'settings/account', to: 'setting#account'
+    get 'settings/password', to: 'setting#admin_password'
     get 'settings/site_details', to: 'setting#site_details'
     get 'settings/currency_pairs', to: 'setting#currency_pairs'
     get 'settings/payment_method', to: 'setting#payment_methods'
