@@ -1,0 +1,64 @@
+<div class="container-xxl flex-grow-1 container-p-y">
+	<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Urls /</span>New url</h4>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="col-md mb-4 mb-md-0">
+				<div class="accordion mt-3" id="accordionExample">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="card mb-4">
+								<div class="card-body">
+									<%= form_with(model: [:account, @url], url: account_urls_path, method: :post) do |form| %>
+										<% if @url.errors.any? %>
+											<div id="error_explanation">
+												<div class="alert alert-danger alert-dismissible pb-1" role="alert">
+													<ul>
+														<% @url.errors.full_messages.each do |message| %>
+															<li><%= message %></li>
+														<% end %>
+														<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+													</ul>
+												</div>
+											</div>
+										<% end %>
+										<div class="mb-3">
+											<%= form.label :title, class: "form-label" %>
+											<%= form.text_field :title, class: "form-control", placeholder: "Enter link title" %>
+										</div>
+										<div class="mb-3">
+											<%= form.label :long_url, class: "form-label" %>
+											<%= form.text_field :long_url, class: "form-control", placeholder: "https://www.example.com/your-long-link-url-you-copied/" %>
+										</div>
+										<div class="row mb-3">
+											<div class="col">
+												<label for="" class="form-label">Domain</label>
+												<input type="text" class="form-control" placeholder="bit.sh/" value="bit.sh/" id="basic-url1" aria-describedby="basic-addon14" readonly="readonly">
+											</div>
+											<div class="col">
+												<div class="">
+													<%= form.label :short_code, "customize back-half (optional)", class: "form-label" %>
+													<%= form.text_field :short_code, class: "form-control" %>
+												</div>
+											</div>
+										</div>
+										<div class="actions">
+											<%= form.submit 'Create URL', class: "btn btn-primary" %>
+										</div>
+									<% end %>
+								</div>
+							</div>
+						</div>
+						<%# photo %>
+						<div class="col-md-6">
+							<div class="card mb-4">
+								<div class="card-body">
+									phote goes in here
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

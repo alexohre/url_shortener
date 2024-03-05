@@ -74,3 +74,13 @@ gem "pagy", "~> 6.0"
 gem "sidekiq", "~> 7.2"
 
 gem "ransack", "~> 4.1"
+
+gem "useragent", "~> 0.16.10"
+
+gem 'bullet', group: :development
+
+gem "rqrcode", "~> 2.2"
+
+gem "chunky_png", "~> 1.4"
+
+gem "mini_magick", "~> 4.12"

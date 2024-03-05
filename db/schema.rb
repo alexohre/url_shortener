@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_01_021501) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_04_193534) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,10 +41,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_01_021501) do
     t.string "zip_code"
     t.string "state"
     t.string "country"
-    t.decimal "balance", precision: 10, scale: 2, default: "0.0"
-    t.integer "trade", default: 0
-    t.integer "deposit", default: 0
-    t.integer "withdrawal", default: 0
     t.index ["confirmation_token"], name: "index_accounts_on_confirmation_token", unique: true
     t.index ["email"], name: "index_accounts_on_email", unique: true
     t.index ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true
@@ -88,35 +84,25 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_01_021501) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "currency_pairs", force: :cascade do |t|
-    t.string "base_currency"
-    t.string "quote_currency"
+  create_table "clicks", force: :cascade do |t|
+    t.uuid "url_id", null: false
+    t.string "source"
+    t.string "user_agent"
+    t.string "ip_address"
+    t.string "city"
+    t.string "country"
+    t.string "browser"
+    t.string "device"
+    t.string "os"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "deposits", force: :cascade do |t|
-    t.string "order_id"
-    t.decimal "amount", precision: 10, scale: 2
-    t.integer "payment_method_id"
-    t.integer "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "account_id"
-    t.index ["account_id"], name: "index_deposits_on_account_id"
+    t.index ["url_id"], name: "index_clicks_on_url_id"
   end
 
   create_table "emailers", force: :cascade do |t|
     t.string "email"
     t.string "subject"
     t.text "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "payment_methods", force: :cascade do |t|
-    t.string "name"
-    t.text "wallet"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -129,19 +115,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_01_021501) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "trades", force: :cascade do |t|
-    t.integer "currency_pair_id"
-    t.decimal "amount", precision: 10, scale: 2, default: "0.0"
-    t.decimal "profit_loss", precision: 10, scale: 2, default: "0.0"
-    t.integer "time_duration"
-    t.string "trade_type"
-    t.string "account_type"
-    t.string "order_id"
-    t.integer "status"
-    t.integer "account_id"
+  create_table "urls", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "title"
+    t.string "long_url"
+    t.string "short_code"
+    t.integer "click_count", default: 0
+    t.bigint "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "job_id"
+    t.index ["account_id"], name: "index_urls_on_account_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -159,21 +141,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_01_021501) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "withdrawals", force: :cascade do |t|
-    t.decimal "amount", precision: 10, scale: 2
-    t.bigint "payment_method_id", null: false
-    t.text "address"
-    t.integer "status"
-    t.bigint "account_id", null: false
-    t.string "order_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_withdrawals_on_account_id"
-    t.index ["payment_method_id"], name: "index_withdrawals_on_payment_method_id"
-  end
-
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "withdrawals", "accounts"
-  add_foreign_key "withdrawals", "payment_methods"
+  add_foreign_key "clicks", "urls"
+  add_foreign_key "urls", "accounts"
 end

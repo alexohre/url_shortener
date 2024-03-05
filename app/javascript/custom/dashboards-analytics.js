@@ -3,8 +3,8 @@
  */
 import ApexCharts from "apexcharts";
 
-("use strict");
 document.addEventListener("turbo:load", (event) => {
+	("use strict");
 	(function () {
 		let cardColor, headingColor, axisColor, shadeColor, borderColor;
 

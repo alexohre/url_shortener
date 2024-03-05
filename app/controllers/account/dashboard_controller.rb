@@ -1,7 +1,7 @@
 class Account::DashboardController < AccountController
   def home
-    @recent_trades = current_account.trades.includes(:currency_pair).order(id: :desc).limit(5)
-    @recent_deposits = current_account.deposits.order(id: :desc).limit(5)
+    @title = "Account Dashboard"
+    @clicks_count = current_account.urls.map(&:click_count).sum
   end
 
   def revert_masquerade

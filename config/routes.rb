@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  # constraints(domain: 'bit.sh') do
+  #   get '/:short_code', to: 'urls#redirect', as: :bit_redirect
+  # end
+  
+  get '/:short_code', to: 'urls#redirect'
   
   namespace :account do
     get 'dashboard', to: 'dashboard#home'
@@ -6,21 +11,14 @@ Rails.application.routes.draw do
     # setting
     get 'settings/change_password', to: 'setting#change_password'
     get 'settings/profile', to: 'setting#profile'
-    # Trade
-    get 'trades/new_trade', to: 'trades#new_trade'
-    get 'trades/trade_history', to: 'trades#trade_history'
-    post 'trades/:id/cancel', to: 'trades#cancel', as: 'cancel_trade'
-    resources :trades
 
-    # deposit
-    get 'deposits/deposit', to: 'deposits#deposit'
-    get 'deposits/deposit_history', to: 'deposits#deposit_history'
-    resource :deposits, only: [:create]
+    resources :urls do
+      # get '/:short_code', to: redirect('/%{short_code}')/
+      get '/:short_code', to: 'urls#redirect'
+    end
+    get '/:short_code', to: redirect('/%{short_code}')
 
-    # withdrawals
-    get 'withdrawals/withdraw', to: 'withdrawals#withdraw'
-    get 'withdrawals/withdraw_history', to: 'withdrawals#withdraw_history'
-    resource :withdrawals, only: [:create]
+   
   end
 
 
@@ -44,27 +42,7 @@ Rails.application.routes.draw do
     get 'emails', to: 'email#sent'
     get 'email/new', to: 'email#new'
     post 'emails', to: 'email#create'
-    # trade
-    get 'trade/active', to: 'trade#active'
-    get 'trade/inactive', to: 'trade#inactive'
-    delete 'trade/:id', to: 'trade#destroy'
-    # deposit 
-    get 'deposit/pending', to: 'deposit#pending'
-    get 'deposit/approved', to: 'deposit#approved'
-    get 'deposit/declined', to: 'deposit#declined'
-    post 'deposit/approve/:id', to: 'deposit#approve', as: 'deposit_approve'
-    post 'deposit/decline/:id', to: 'deposit#decline', as: 'deposit_decline'
-    resources :deposit, only: [:show]
- 
-    # withdrawals
-    get 'withdrawal/pending', to: 'withdrawal#pending'
-    get 'withdrawal/approved', to: 'withdrawal#approved'
-    get 'withdrawal/declined', to: 'withdrawal#declined'
-    post 'withdrawal/approve/:id', to: 'withdrawal#approve', as: 'withdrawal_approve'
-    post 'withdrawal/decline/:id', to: 'withdrawal#decline', as: 'withdrawal_decline'
-    resources :withdrawal, only: [:show]
-
-    # settings
+        # settings
     get 'settings/account', to: 'setting#account'
     get 'settings/password', to: 'setting#admin_password'
     get 'settings/site_details', to: 'setting#site_details'

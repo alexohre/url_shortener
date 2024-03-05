@@ -30,12 +30,11 @@
             <div class="card-body">
               <div class="card-title d-flex align-items-start justify-content-between">
                 <div class="avatar flex-shrink-0">
-                  <%= image_tag "img/icons/unicons/cc-primary.png", alt: "credit card", class: "rounded" %>
+                  <i class="menu-icon fs-2 fw-bold tf-icons bx bx-link"></i>
                 </div>
-                
               </div>
-              <span class="fw-semibold d-block mb-1">Balance</span>
-              <h3 class="card-title mb-2"><%= number_to_currency(current_account.balance, precision: 2) %></h3>
+              <span class="fw-semibold d-block mb-1">Links</span>
+              <h3 class="card-title mb-2"><%= current_account.urls.count %></h3>
             </div>
           </div>
         </div>
@@ -44,11 +43,11 @@
             <div class="card-body">
               <div class="card-title d-flex align-items-start justify-content-between">
                 <div class="avatar flex-shrink-0">
-                  <%= image_tag "img/icons/unicons/wallet-info.png", alt: "wallet", class: "rounded" %>
+                  <i class="menu-icon fs-2 fw-bold tf-icons bx bx-link"></i>
                 </div>
               </div>
-              <span>Deposits</span>
-              <h3 class="card-title text-nowrap mb-1"><%= current_account.deposit %></h3>
+              <span>Clicks</span>
+              <h3 class="card-title text-nowrap mb-1"><%= @clicks_count %></h3>
             </div>
           </div>
         </div>
@@ -152,123 +151,9 @@
           </div>
         </div>
       </div> %>
-      <div class="card mt-4">
-        <div class="row row-bordered g-0">
-          <div class="col">
-            <h5 class="card-header m-0 me-2 pb-3">(5) Recent Trades</h5>
-            <div class="table-responsive text-nowrap">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>Reference</th>
-                    <th>Amount</th>
-                    <th>User</th>
-                    <th>Status</th>
-                    <th>Date</th>
-                  </tr>
-                </thead>
-                <tbody class="table-border-bottom-0">
-                  <% if @recent_trades.present? %>
-                  <% @recent_trades.each do |trade| %>
-                    <tr>
-                      <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><%= trade.order_id %></strong></td>
-                      <td><%= number_to_currency(trade.amount, precision: 2) %></td>
-                      <td>
-                        <%= trade.currency_pair.base_currency %> / <%= trade.currency_pair.quote_currency %>
-                      </td>
-                      <td>
-                        <% if trade.status == "running" %>
-                          <span class="badge bg-label-warning me-1"><%= trade.status %></span>
-                        <% elsif trade.status == "completed" %>
-                          <span class="badge bg-label-success me-1"><%= trade.status %></span>
-                        <% elsif trade.status == "cancelled" %>
-                         <span class="badge bg-label-danger me-1"><%= trade.status %></span>
-                        <% end %>
-                      </td>
-                      <td>
-                        <%= trade.created_at.strftime("	%d-%m-%Y ") %>
-                      </td>
-                    </tr>
-                    
-                  <% end %>
-                  <% else %>
-                    <tr >
-                      <td colspan="5" class="text-center fs-3 ">No Trades Yet </td>
-                    </tr>
-                  <% end %>
-                  
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
+     
     </div>
 
-    
-    <!--/ Total Revenue -->
-    <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
-      <div class="row">
-        <div class="col-6 mb-4">
-          <div class="card">
-            <div class="card-body">
-              <div class="card-title d-flex align-items-start justify-content-between">
-                <div class="avatar flex-shrink-0">
-                  <%= image_tag "img/icons/unicons/wallet-info.png", alt: "wallet", class: "rounded" %>
-                </div>
-                
-              </div>
-              <span class="d-block mb-1">Withdrawals</span>
-              <h3 class="card-title text-nowrap mb-2"><%= current_account.withdrawal %></h3>
-            </div>
-          </div>
-        </div>
-        <div class="col-6 mb-4">
-          <div class="card">
-            <div class="card-body">
-              <div class="card-title d-flex align-items-start justify-content-between">
-                <div class="avatar flex-shrink-0">
-                  <%= image_tag "img/icons/unicons/chart-success.png", alt: "chart success", class: "rounded" %>
-                </div>
-              </div>
-              <span class="fw-semibold d-block mb-1">Trades</span>
-              <h3 class="card-title mb-2"><%= current_account.trade %></h3>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-12 mb-4">
-          <div class="card">
-            <div class="card-body">
-              <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
-                <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
-                  <div class="card-title">
-                    <h5 class="text-nowrap mb-2">Deposits Stats</h5>
-                  </div>
-                  <div class="mt-sm-auto">
-                    
-                     <p class="mb-2 d-flex  fs-16 text-black font-w500">Pending
-                      <span class="ms-auto text-dark fs-14 font-w400">0/45</span>
-                    </p>
-                    <div class="progress mb-3" style="height:18px;">
-                      <div class="progress-bar bg-primary progress-animated" style="width:0%; height:18px;" role="progressbar"></div>
-                    </div>
-                    <p class="mb-2 d-flex  fs-16 text-black font-w500">Completed
-                      <span class="ms-auto text-dark fs-14 font-w400">0/45</span>
-                    </p>
-                    <div class="progress mb-3" style="height:18px">
-                      <div class="progress-bar bg-primary progress-animated" style="width:0%; height:18px;" role="progressbar"></div>
-                    </div>
-                    <span class="text-white">Lorem, ipsum dolor sit amet consectetur adipisicing elit. </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-      </div>
-    </div>
     
   </div>
  
