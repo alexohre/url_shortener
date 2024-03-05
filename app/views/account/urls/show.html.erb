@@ -22,7 +22,7 @@
 							<ul class="dropdown-menu dropdown-menu-end" style="">
 								<li><a class="dropdown-item" href="<%= account_url_path(@url) %>">Link Details</a></li>
 								<li><a class="dropdown-item" href="<%= edit_account_url_path(@url) %>">Edit Link</a></li>
-								<li><a class="dropdown-item" href="javascript:void(0);">Delete Link</a></li>
+								<li><a class="dropdown-item text-danger" href="<%= account_url_path(@url) %>" data-turbo-confirm="Are you sure?" data-turbo-method="delete">Delete Link</a></li>
 								<li>
 									<hr class="dropdown-divider">
 								</li>

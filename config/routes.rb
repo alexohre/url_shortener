@@ -12,11 +12,8 @@ Rails.application.routes.draw do
     get 'settings/change_password', to: 'setting#change_password'
     get 'settings/profile', to: 'setting#profile'
 
-    resources :urls do
-      # get '/:short_code', to: redirect('/%{short_code}')/
-      get '/:short_code', to: 'urls#redirect'
-    end
-    get '/:short_code', to: redirect('/%{short_code}')
+    resources :urls
+    # get '/:short_code', to: redirect('/%{short_code}')
 
    
   end

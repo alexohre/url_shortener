@@ -1,4 +1,5 @@
 class Account::UrlsController < AccountController
+  before_action :set_url, only: [:show, :edit, :update, :destroy]
 
   def index 
     @urls = current_account.urls.order(created_at: :desc)
@@ -9,7 +10,6 @@ class Account::UrlsController < AccountController
   end
 
   def show 
-    @url = Url.includes(:clicks).find(params[:id])
     # counting clicks
     @clicks_count = @url.clicks.count
     # conting clicks for last 7 days
@@ -19,19 +19,41 @@ class Account::UrlsController < AccountController
     @weekly_change_percentage = calculate_weekly_change_percentage(@url)
 
     # scanned count
-    @scanned_qr_count = Click.where(source: "qr").count
+    @scanned_qr_count = @url.clicks.where(source: "qr").count
   end
 
   def create
     @url = current_account.urls.new(url_params)
     if @url.save
-      redirect_to account_urls_path, notice: 'URL was successfully created.'
+      redirect_to account_url_path(@url), notice: 'URL was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
   end
 
+  def edit 
+  end
+
+  def update
+   if @url.update(url_params)
+      redirect_to account_url_path(@url), notice: 'URL was successfully updated.'
+    else
+      render :edit
+    end
+  end
+
+  def destroy 
+    if @url.present?
+      @url.destroy
+      redirect_to account_urls_url, notice: 'URL was successfully destroyed.'
+    end
+  end
+
   private
+
+  def set_url
+    @url = Url.find(params[:id])
+  end
 
   def url_params
     params.require(:url).permit(:long_url, :short_code, :title)

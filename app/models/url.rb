@@ -1,9 +1,9 @@
 class Url < ApplicationRecord
   before_create :generate_unique_code, unless: -> { short_code.present? }
-  before_save :set_default_click_count
-  after_create :generate_qr_code_svg
-  after_create :generate_qr_code_png
-  after_create :generate_qr_code_jpg
+  before_save :set_default_click_count, :generate_qr_code_svg, :generate_qr_code_png, :generate_qr_code_jpg
+  # after_create :generate_qr_code_svg
+  # after_create :generate_qr_code_png
+  # after_create :generate_qr_code_jpg
   validates :long_url, presence: true, format: { with: URI.regexp }
   validates :short_code, uniqueness: true
   belongs_to :account
@@ -67,7 +67,7 @@ class Url < ApplicationRecord
       fill: 'white',              # Background color
       color: 'black',             # Color of the QR code modules (dots)
       size: 160,
-      border_modules: 4,
+      border_modules: 1,
       module_px_size: 6,
       file: nil  # Don't write the PNG to a file
     )
