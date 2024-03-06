@@ -457,6 +457,7 @@ document.addEventListener("turbo:load", (event) => {
 		// Access the data attributes
 		const clicksCount = parseInt(chartDataElement.dataset.clicksCount);
 		const scanQrCount = parseInt(chartDataElement.dataset.scanQrCount);
+		const totalCount = parseInt(chartDataElement.dataset.totalClicksCount);
 
 		const chartOrderStatistics = document.querySelector(
 			"#orderStatisticsChart"
@@ -516,9 +517,9 @@ document.addEventListener("turbo:load", (event) => {
 									show: true,
 									fontSize: "0.8125rem",
 									color: axisColor,
-									label: "Weekly",
+									label: "Total Clicks",
 									formatter: function (w) {
-										return "0";
+										return totalCount;
 									},
 								},
 							},
@@ -579,9 +580,9 @@ document.addEventListener("turbo:load", (event) => {
 									show: true,
 									fontSize: "0.8125rem",
 									color: axisColor,
-									label: "Weekly",
+									label: "Total Clicks",
 									formatter: function (w) {
-										return "0";
+										return totalCount;
 									},
 								},
 							},
