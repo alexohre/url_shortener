@@ -85,7 +85,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_04_193534) do
   end
 
   create_table "clicks", force: :cascade do |t|
-    t.uuid "url_id", null: false
+    t.bigint "url_id", null: false
     t.string "source"
     t.string "user_agent"
     t.string "ip_address"
@@ -115,7 +115,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_04_193534) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "urls", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "urls", force: :cascade do |t|
     t.string "title"
     t.string "long_url"
     t.string "short_code"

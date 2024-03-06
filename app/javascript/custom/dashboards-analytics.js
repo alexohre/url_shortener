@@ -2,10 +2,29 @@
  * Dashboard Analytics
  */
 import ApexCharts from "apexcharts";
+// import "./config";
 
 document.addEventListener("turbo:load", (event) => {
 	("use strict");
 	(function () {
+		let config = {
+			colors: {
+				primary: "#696cff",
+				secondary: "#8592a3",
+				success: "#71dd37",
+				info: "#03c3ec",
+				warning: "#ffab00",
+				danger: "#ff3e1d",
+				dark: "#233446",
+				black: "#000",
+				white: "#fff",
+				body: "#f4f5fb",
+				headingColor: "#566a7f",
+				axisColor: "#a1acb8",
+				borderColor: "#eceef1",
+			},
+		};
+
 		let cardColor, headingColor, axisColor, shadeColor, borderColor;
 
 		cardColor = config.colors.white;
@@ -433,10 +452,162 @@ document.addEventListener("turbo:load", (event) => {
 
 		// Order Statistics Chart
 		// --------------------------------------------------------------------
+		const chartDataElement = document.getElementById("chartData");
+
+		// Access the data attributes
+		const clicksCount = parseInt(chartDataElement.dataset.clicksCount);
+		const scanQrCount = parseInt(chartDataElement.dataset.scanQrCount);
+
 		const chartOrderStatistics = document.querySelector(
-				"#orderStatisticsChart"
-			),
+			"#orderStatisticsChart"
+		);
+		let orderChartConfig;
+
+		if (clicksCount === 0 && scanQrCount === 0) {
 			orderChartConfig = {
+				chart: {
+					height: 165,
+					width: 130,
+					type: "donut",
+				},
+				labels: ["No Data"],
+				series: [100],
+				colors: [config.colors.secondary],
+				stroke: {
+					width: 5,
+					colors: cardColor,
+				},
+				dataLabels: {
+					enabled: false,
+					formatter: function (val, opt) {
+						return parseInt(val) + "%";
+					},
+				},
+				legend: {
+					show: false,
+				},
+				grid: {
+					padding: {
+						top: 0,
+						bottom: 0,
+						right: 15,
+					},
+				},
+				plotOptions: {
+					pie: {
+						donut: {
+							size: "75%",
+							labels: {
+								show: true,
+								value: {
+									fontSize: "1.5rem",
+									fontFamily: "Public Sans",
+									color: headingColor,
+									offsetY: -15,
+									formatter: function (val) {
+										return parseInt(val) + "%";
+									},
+								},
+								name: {
+									offsetY: 20,
+									fontFamily: "Public Sans",
+								},
+								total: {
+									show: true,
+									fontSize: "0.8125rem",
+									color: axisColor,
+									label: "Weekly",
+									formatter: function (w) {
+										return "0";
+									},
+								},
+							},
+						},
+					},
+				},
+			};
+		} else {
+			orderChartConfig = {
+				chart: {
+					height: 165,
+					width: 130,
+					type: "donut",
+				},
+				labels: ["Clicks", "Scan"],
+				series: [clicksCount, scanQrCount],
+				colors: [config.colors.primary, config.colors.info],
+				stroke: {
+					width: 5,
+					colors: cardColor,
+				},
+				dataLabels: {
+					enabled: false,
+					formatter: function (val, opt) {
+						return parseInt(val) + "%";
+					},
+				},
+				legend: {
+					show: false,
+				},
+				grid: {
+					padding: {
+						top: 0,
+						bottom: 0,
+						right: 15,
+					},
+				},
+				plotOptions: {
+					pie: {
+						donut: {
+							size: "75%",
+							labels: {
+								show: true,
+								value: {
+									fontSize: "1.5rem",
+									fontFamily: "Public Sans",
+									color: headingColor,
+									offsetY: -15,
+									formatter: function (val) {
+										return parseInt(val) + "%";
+									},
+								},
+								name: {
+									offsetY: 20,
+									fontFamily: "Public Sans",
+								},
+								total: {
+									show: true,
+									fontSize: "0.8125rem",
+									color: axisColor,
+									label: "Weekly",
+									formatter: function (w) {
+										return "0";
+									},
+								},
+							},
+						},
+					},
+				},
+			};
+		}
+
+		if (
+			typeof chartOrderStatistics !== undefined &&
+			chartOrderStatistics !== null
+		) {
+			const statisticsChart = new ApexCharts(
+				chartOrderStatistics,
+				orderChartConfig
+			);
+			statisticsChart.render();
+		}
+
+		// Order Statistics Chart1
+		// --------------------------------------------------------------------
+		const chartOrderStatistics1 = document.querySelector(
+				"#orderStatisticsChart1"
+			),
+			orderChart1Config = {
 				chart: {
 					height: 165,
 					width: 130,
@@ -504,14 +675,14 @@ document.addEventListener("turbo:load", (event) => {
 				},
 			};
 		if (
-			typeof chartOrderStatistics !== undefined &&
-			chartOrderStatistics !== null
+			typeof chartOrderStatistics1 !== undefined &&
+			chartOrderStatistics1 !== null
 		) {
-			const statisticsChart = new ApexCharts(
-				chartOrderStatistics,
-				orderChartConfig
+			const statisticsChart1 = new ApexCharts(
+				chartOrderStatistics1,
+				orderChart1Config
 			);
-			statisticsChart.render();
+			statisticsChart1.render();
 		}
 
 		// Income Chart - Area chart

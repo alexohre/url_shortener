@@ -1,16 +1,24 @@
 class Url < ApplicationRecord
   before_create :generate_unique_code, unless: -> { short_code.present? }
-  before_save :set_default_click_count, :generate_qr_code_svg, :generate_qr_code_png, :generate_qr_code_jpg
-  # after_create :generate_qr_code_svg
-  # after_create :generate_qr_code_png
-  # after_create :generate_qr_code_jpg
+  after_create :generate_qr_codes
+  before_save :set_default_click_count
+
   validates :long_url, presence: true, format: { with: URI.regexp }
   validates :short_code, uniqueness: true
+
   belongs_to :account
   has_many :clicks, dependent: :destroy
   has_one_attached :qr_code, dependent: :destroy
   has_one_attached :qr_code_png, dependent: :destroy
   has_one_attached :qr_code_jpg, dependent: :destroy
+
+  def generate_qr_codes
+    generate_qr_code_svg
+    generate_qr_code_png
+    generate_qr_code_jpg
+  rescue => e
+    Rails.logger.error "Error generating QR codes: #{e.message}"
+  end
 
   # before_validation :generate_unique_code, unless: -> { short_code.present? }
   private
@@ -62,15 +70,29 @@ class Url < ApplicationRecord
     qr_code = RQRCode::QRCode.new(qr_code_short_code)
 
     png = qr_code.as_png(
+      bit_depth: 1,
       resize_gte_to: false,
       resize_exactly_to: 160,
       fill: 'white',              # Background color
       color: 'black',             # Color of the QR code modules (dots)
       size: 160,
+      color_mode: ChunkyPNG::COLOR_GRAYSCALE,
       border_modules: 1,
-      module_px_size: 6,
+      module_px_size: 2,
       file: nil  # Don't write the PNG to a file
     )
+
+    # Load logo image
+    # logo_path = ActionController::Base.helpers.asset_path('logo.png')
+    # logo = ChunkyPNG::Image.from_file(logo_path)
+
+    # # Calculate the position to center the logo
+    # logo_size = 40  # Adjust as needed
+    # x_offset = (png.width - logo_size) / 2
+    # y_offset = (png.height - logo_size) / 2
+
+    # # Overlay logo onto the QR code
+    # png.compose!(logo.resize(logo_size, logo_size), x_offset, y_offset)
 
     # Convert the PNG data to binary format
     png_binary = png.to_s

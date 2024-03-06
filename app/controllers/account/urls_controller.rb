@@ -1,5 +1,5 @@
 class Account::UrlsController < AccountController
-  before_action :set_url, only: [:show, :edit, :update, :destroy]
+  before_action :set_url, only: [:show, :edit, :update]
 
   def index 
     @urls = current_account.urls.order(created_at: :desc)
@@ -20,6 +20,7 @@ class Account::UrlsController < AccountController
 
     # scanned count
     @scanned_qr_count = @url.clicks.where(source: "qr").count
+    @clicks_count = @url.clicks.where(source: nil).count
   end
 
   def create
@@ -43,9 +44,12 @@ class Account::UrlsController < AccountController
   end
 
   def destroy 
+    @url = Url.find(params[:id])
     if @url.present?
       @url.destroy
       redirect_to account_urls_url, notice: 'URL was successfully destroyed.'
+    else
+      redirect_to account_urls_url, alert: 'URL not found.'
     end
   end
 
