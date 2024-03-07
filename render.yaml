@@ -1,6 +1,6 @@
 databases:
   - name: url_shortener
-    databaseName: url_shortener
+    databaseName: url_shortner_production
     user: deploy
     plan: free
 
