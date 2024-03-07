@@ -2,6 +2,7 @@ class Url < ApplicationRecord
   before_create :generate_unique_code, unless: -> { short_code.present? }
   after_create :generate_qr_codes
   before_save :set_default_click_count
+  before_save :regenerate_qr_codes_if_short_code_changed
 
   validates :long_url, presence: true, format: { with: URI.regexp }
   validates :short_code, uniqueness: true
@@ -25,6 +26,12 @@ class Url < ApplicationRecord
 
   def set_default_click_count
     self.click_count ||= 0
+  end
+
+  def regenerate_qr_codes_if_short_code_changed
+    if short_code_changed?
+      generate_qr_codes
+    end
   end
   
   def generate_unique_code

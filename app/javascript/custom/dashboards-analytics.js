@@ -530,8 +530,8 @@ document.addEventListener("turbo:load", (event) => {
 		} else {
 			orderChartConfig = {
 				chart: {
-					height: 165,
-					width: 130,
+					height: 250,
+					width: 200,
 					type: "donut",
 				},
 				labels: ["Clicks", "Scan"],
@@ -564,12 +564,25 @@ document.addEventListener("turbo:load", (event) => {
 							labels: {
 								show: true,
 								value: {
-									fontSize: "1.5rem",
+									fontSize: "2rem",
 									fontFamily: "Public Sans",
 									color: headingColor,
 									offsetY: -15,
-									formatter: function (val) {
-										return parseInt(val) + "%";
+									formatter: function (val, opt) {
+										// Access the series data from the opt object
+										var seriesData = opt.config.series;
+
+										// Calculate the total count of all series
+										var totalCount = seriesData.reduce(
+											(acc, series) => acc + series,
+											0
+										);
+
+										// Calculate the percentage of the current value
+										var percentage = (val / totalCount) * 100;
+
+										// Return the formatted percentage
+										return percentage + "%";
 									},
 								},
 								name: {
@@ -614,8 +627,8 @@ document.addEventListener("turbo:load", (event) => {
 					width: 130,
 					type: "donut",
 				},
-				labels: ["Electronic", "Sports", "Decor", "Fashion"],
-				series: [85, 15, 50, 50],
+				labels: ["Desktop", "Tablet", "Mobile"],
+				series: [50, 25, 25],
 				colors: [
 					config.colors.primary,
 					config.colors.secondary,
