@@ -582,7 +582,12 @@ document.addEventListener("turbo:load", (event) => {
 										var percentage = (val / totalCount) * 100;
 
 										// Return the formatted percentage
-										return percentage + "%";
+										// return percentage.toFixed(2) + "%";
+										if (percentage % 1 !== 0) {
+											return percentage.toFixed(2) + "%";
+										} else {
+											return percentage + "%";
+										}
 									},
 								},
 								name: {
@@ -618,23 +623,35 @@ document.addEventListener("turbo:load", (event) => {
 
 		// Order Statistics Chart1
 		// --------------------------------------------------------------------
+		const chartDeviceElement = document.getElementById("chartDeviceData");
+		// access the datas
+		const desktopCount = parseInt(chartDeviceElement.dataset.desktopCount);
+		const tabletCount = parseInt(chartDeviceElement.dataset.tabletCount);
+		const mobileCount = parseInt(chartDeviceElement.dataset.mobileCount);
+		const totalDeviceCount = parseInt(
+			chartDeviceElement.dataset.totalDeviceCount
+		);
+
+		// Use the device counts as needed
+		console.log("Desktop count:", desktopCount);
+		console.log("Tablet count:", tabletCount);
+		console.log("Mobile count:", mobileCount);
+		console.log("Total count:", totalDeviceCount);
+
 		const chartOrderStatistics1 = document.querySelector(
-				"#orderStatisticsChart1"
-			),
+			"#orderStatisticsChart1"
+		);
+		let orderChart1Config;
+		if (desktopCount === 0 && tabletCount === 0 && mobileCount === 0) {
 			orderChart1Config = {
 				chart: {
 					height: 165,
 					width: 130,
 					type: "donut",
 				},
-				labels: ["Desktop", "Tablet", "Mobile"],
-				series: [50, 25, 25],
-				colors: [
-					config.colors.primary,
-					config.colors.secondary,
-					config.colors.info,
-					config.colors.success,
-				],
+				labels: ["No Data"],
+				series: [100],
+				colors: [config.colors.secondary],
 				stroke: {
 					width: 5,
 					colors: cardColor,
@@ -678,9 +695,9 @@ document.addEventListener("turbo:load", (event) => {
 									show: true,
 									fontSize: "0.8125rem",
 									color: axisColor,
-									label: "Weekly",
+									label: "Device",
 									formatter: function (w) {
-										return "38%";
+										return totalDeviceCount;
 									},
 								},
 							},
@@ -688,6 +705,89 @@ document.addEventListener("turbo:load", (event) => {
 					},
 				},
 			};
+		} else {
+			orderChart1Config = {
+				chart: {
+					height: 165,
+					width: 130,
+					type: "donut",
+				},
+				labels: ["Desktop", "Tablet", "Mobile"],
+				series: [desktopCount, tabletCount, mobileCount],
+				colors: [
+					config.colors.primary,
+					config.colors.secondary,
+					config.colors.info,
+				],
+				stroke: {
+					width: 5,
+					colors: cardColor,
+				},
+				dataLabels: {
+					enabled: false,
+					formatter: function (val, opt) {
+						return parseInt(val) + "%";
+					},
+				},
+				legend: {
+					show: false,
+				},
+				grid: {
+					padding: {
+						top: 0,
+						bottom: 0,
+						right: 15,
+					},
+				},
+				plotOptions: {
+					pie: {
+						donut: {
+							size: "75%",
+							labels: {
+								show: true,
+								value: {
+									fontSize: "1.5rem",
+									fontFamily: "Public Sans",
+									color: headingColor,
+									offsetY: -15,
+									formatter: function (val, opt) {
+										// access the series data from the object
+										var seriesDataD = opt.config.series;
+										console.log(seriesDataD);
+										var totalDeviceCount = seriesDataD.reduce(
+											(acc, series) => acc + series,
+											0
+										);
+										// calculate percentage
+										var percentage = (val / totalDeviceCount) * 100;
+										// return parseInt(val) + "%";
+										if (percentage % 1 !== 0) {
+											return percentage.toFixed(2) + "%";
+										} else {
+											return percentage + "%";
+										}
+									},
+								},
+								name: {
+									offsetY: 20,
+									fontFamily: "Public Sans",
+								},
+								total: {
+									show: true,
+									fontSize: "0.8125rem",
+									color: axisColor,
+									label: "Device",
+									formatter: function (w) {
+										return totalDeviceCount;
+									},
+								},
+							},
+						},
+					},
+				},
+			};
+		}
+
 		if (
 			typeof chartOrderStatistics1 !== undefined &&
 			chartOrderStatistics1 !== null
