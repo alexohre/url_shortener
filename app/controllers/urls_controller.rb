@@ -1,6 +1,6 @@
 class UrlsController < ApplicationController
-  require 'net/http'
-  require 'json'
+  # require 'net/http'
+  # require 'json'
 
   def redirect
     # Find the URL record based on the short code
