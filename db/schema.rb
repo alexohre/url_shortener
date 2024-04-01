@@ -91,6 +91,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_04_193534) do
     t.string "ip_address"
     t.string "city"
     t.string "country"
+    t.string "region"
+    t.string "timezone"
     t.string "browser"
     t.string "device"
     t.string "os"

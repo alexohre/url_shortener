@@ -32,7 +32,7 @@
 										<div class="row mb-3">
 											<div class="col">
 												<label for="" class="form-label">Domain</label>
-												<input type="text" class="form-control" placeholder="bit.sh/" value="bit.sh/" id="basic-url1" aria-describedby="basic-addon14" readonly="readonly">
+												<input type="text" class="form-control" placeholder="" value="<%= @domain_url %>/" id="basic-url1" aria-describedby="basic-addon14" readonly="readonly">
 											</div>
 											<div class="col">
 												<div class="">
@@ -51,8 +51,8 @@
 						<%# photo %>
 						<div class="col-md-6">
 							<div class="card mb-4">
-								<div class="card-body">
-									phote goes in here
+								<div class="card-body p-2">
+									<%= image_tag "Link.jpg", class: "img-fluid", width: "100%" %>
 								</div>
 							</div>
 						</div>

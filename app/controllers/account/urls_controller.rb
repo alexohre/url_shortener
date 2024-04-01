@@ -7,6 +7,7 @@ class Account::UrlsController < AccountController
 
   def new 
     @url = Url.new
+    @domain_url = @url.domain_url
   end
 
   def show 
@@ -33,6 +34,7 @@ class Account::UrlsController < AccountController
   end
 
   def edit 
+    @domain_url = @url.domain_url
   end
 
   def update

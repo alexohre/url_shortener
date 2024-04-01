@@ -7,6 +7,8 @@ class CreateClicks < ActiveRecord::Migration[7.0]
       t.string :ip_address
       t.string :city
       t.string :country
+      t.string :region
+      t.string :timezone
       t.string :browser
       t.string :device
       t.string :os

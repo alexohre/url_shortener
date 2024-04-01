@@ -19,7 +19,7 @@ class UrlsController < ApplicationController
         device = infer_device(user_agent_string)
 
         # Retrieve user's city and country from IP address
-        city, country = retrieve_location_from_ip(ip_address)
+        city, region, country, timezone = retrieve_location_from_ip(ip_address)
 
         # Increment click count
         url.increment!(:click_count)
@@ -31,11 +31,12 @@ class UrlsController < ApplicationController
           user_agent: user_agent_string,
           ip_address: ip_address,
           city: city,
+          region: region,
           country: country,
+          timezone: timezone,
           browser: browser,
           device: device
         )
-
         
         redirect_to url.long_url, allow_other_host: true
 
@@ -51,17 +52,24 @@ class UrlsController < ApplicationController
   private
 
   def retrieve_location_from_ip(ip_address)
-    # Send a request to the geolocation API to retrieve the user's location based on their IP address
-    response = Net::HTTP.get_response(URI("https://ipinfo.io/#{ip_address}/json"))
+    if Rails.env.development?
+    # If in development environment, return a default region
+      return ['Local City', 'Local Region', 'Local Country', 'Local Timezone']
+    else
+      # Send a request to the geolocation API to retrieve the user's location based on their IP address
+      response = Net::HTTP.get_response(URI("https://ipinfo.io/#{ip_address}/json"))
 
-    # Parse the JSON response
-    data = JSON.parse(response.body)
+      # Parse the JSON response
+      data = JSON.parse(response.body)
 
-    # Extract the city and country from the response
-    city = data['city']
-    country = data['country']
+      # Extract the city and country from the response
+      city = data['city']
+      region = data['region']
+      country = data['country']
+      timezone = data['timezone']
 
-    [city, country] # Return city and country as an array
+      [city, region, country, timezone] # Return city and country as an array
+    end
   end
 
   def infer_device(user_agent_string)
