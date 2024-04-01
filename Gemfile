@@ -84,3 +84,11 @@ gem "rqrcode", "~> 2.2"
 gem "chunky_png", "~> 1.4"
 
 gem "mini_magick", "~> 4.12"
+
+
+gem 'capistrano'
+gem 'capistrano-rails'
+gem 'capistrano-passenger'
+gem 'capistrano-rbenv'
+
+gem 'aws-sdk-s3'

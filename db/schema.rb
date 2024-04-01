@@ -118,6 +118,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_04_193534) do
   create_table "urls", force: :cascade do |t|
     t.string "title"
     t.string "long_url"
+    t.string "short_url"
     t.string "short_code"
     t.integer "click_count", default: 0
     t.bigint "account_id", null: false

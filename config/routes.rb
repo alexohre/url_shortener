@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   # end
   
   get '/:short_code', to: 'urls#redirect'
+  # Short URL redirect route
+  constraints(host: 'bit.sh') do
+    get '/:short_code', to: 'urls#redirect'
+  end
   
   namespace :account do
     get 'dashboard', to: 'dashboard#home'

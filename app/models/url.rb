@@ -37,6 +37,7 @@ class Url < ApplicationRecord
   def generate_unique_code
     length = SecureRandom.random_number(4) + 5
     self.short_code = SecureRandom.base58(length)
+    self.short_url = "url.softalx.com/#{short_code}"
   end
 
   def generate_qr_code_svg

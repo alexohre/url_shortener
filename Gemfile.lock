@@ -68,6 +68,24 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
+    airbrussh (1.5.1)
+      sshkit (>= 1.6.1, != 1.7.0)
+    aws-eventstream (1.3.0)
+    aws-partitions (1.904.0)
+    aws-sdk-core (3.191.5)
+      aws-eventstream (~> 1, >= 1.3.0)
+      aws-partitions (~> 1, >= 1.651.0)
+      aws-sigv4 (~> 1.8)
+      jmespath (~> 1, >= 1.6.1)
+    aws-sdk-kms (1.78.0)
+      aws-sdk-core (~> 3, >= 3.191.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-s3 (1.146.1)
+      aws-sdk-core (~> 3, >= 3.191.0)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.8)
+    aws-sigv4 (1.8.0)
+      aws-eventstream (~> 1, >= 1.0.2)
     bcrypt (3.1.20)
     bindex (0.8.1)
     bootsnap (1.18.3)
@@ -76,6 +94,21 @@ GEM
     bullet (7.1.6)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
+    capistrano (3.18.1)
+      airbrussh (>= 1.0.0)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (>= 1.9.0)
+    capistrano-bundler (2.1.0)
+      capistrano (~> 3.1)
+    capistrano-passenger (0.2.1)
+      capistrano (~> 3.0)
+    capistrano-rails (1.6.3)
+      capistrano (~> 3.1)
+      capistrano-bundler (>= 1.1, < 3)
+    capistrano-rbenv (2.2.0)
+      capistrano (~> 3.1)
+      sshkit (~> 1.3)
     chunky_png (1.4.0)
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
@@ -106,6 +139,7 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    jmespath (1.6.2)
     jsbundling-rails (1.3.0)
       railties (>= 6.0.0)
     launchy (2.5.2)
@@ -126,6 +160,7 @@ GEM
     mini_mime (1.1.5)
     minitest (5.22.2)
     msgpack (1.7.2)
+    mutex_m (0.2.0)
     net-imap (0.4.10)
       date
       net-protocol
@@ -133,8 +168,13 @@ GEM
       net-protocol
     net-protocol (0.2.2)
       timeout
+    net-scp (4.0.0)
+      net-ssh (>= 2.6.5, < 8.0.0)
+    net-sftp (4.0.0)
+      net-ssh (>= 5.0.0, < 8.0.0)
     net-smtp (0.4.0.1)
       net-protocol
+    net-ssh (7.2.2)
     nio4r (2.7.0)
     nokogiri (1.16.2-x86_64-linux)
       racc (~> 1.4)
@@ -211,6 +251,11 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    sshkit (1.22.0)
+      mutex_m
+      net-scp (>= 1.1.2)
+      net-sftp (>= 2.1.2)
+      net-ssh (>= 2.8.0)
     stimulus-rails (1.3.3)
       railties (>= 6.0.0)
     stringio (3.1.0)
@@ -240,8 +285,13 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  aws-sdk-s3
   bootsnap
   bullet
+  capistrano
+  capistrano-passenger
+  capistrano-rails
+  capistrano-rbenv
   chunky_png (~> 1.4)
   debug
   devise (~> 4.9)
