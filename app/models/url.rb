@@ -42,7 +42,7 @@ class Url < ApplicationRecord
 
   def generate_qr_code_svg
     # Add ?s=qr to the short code
-    qr_code_short_code = "#{short_code}?s=qr"
+    qr_code_short_code = "#{short_url}?s=qr"
 
     qr_code = RQRCode::QRCode.new(qr_code_short_code)
 
@@ -73,7 +73,7 @@ class Url < ApplicationRecord
   def generate_qr_code_png
     # Generate the PNG data
     # Add ?s=qr to the short code
-    qr_code_short_code = "#{short_code}?s=qr"
+    qr_code_short_code = "#{short_url}?s=qr"
 
     qr_code = RQRCode::QRCode.new(qr_code_short_code)
 
@@ -116,7 +116,7 @@ class Url < ApplicationRecord
   def generate_qr_code_jpg
     # Generate the PNG data
     # Add ?s=qr to the short code
-    qr_code_short_code = "#{short_code}?s=qr"
+    qr_code_short_code = "#{short_url}?s=qr"
 
   qr_code = RQRCode::QRCode.new(qr_code_short_code)
 
