@@ -290,10 +290,10 @@ DEPENDENCIES
   aws-sdk-s3
   bootsnap
   bullet
-  capistrano
-  capistrano-passenger
-  capistrano-rails
-  capistrano-rbenv
+  capistrano (~> 3.11)
+  capistrano-passenger (~> 0.2.0)
+  capistrano-rails (~> 1.4)
+  capistrano-rbenv (~> 2.1, >= 2.1.4)
   chunky_png (~> 1.4)
   debug
   devise (~> 4.9)
