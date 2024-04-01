@@ -25,6 +25,10 @@ module BaseApp
 
     # config.active_job.queue_adapter = :sidekiq
 
+    config.action_mailer.default_url_options = {
+      host: Rails.env.production? ? 'https://shorturl.softalx.com' : 'localhost:3000'
+    }
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

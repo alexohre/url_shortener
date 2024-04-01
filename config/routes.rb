@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   
   get '/:short_code', to: 'urls#redirect'
   # Short URL redirect route
-  constraints(host: 'bit.sh') do
+  constraints(host: 'url.softalx.com') do
     get '/:short_code', to: 'urls#redirect'
   end
   
