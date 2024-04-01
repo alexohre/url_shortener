@@ -9,7 +9,6 @@
 server '161.35.32.73', user: 'deploy', roles: %w{app db web}
 
 
-
 # role-based syntax
 # ==================
 
