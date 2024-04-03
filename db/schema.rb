@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_04_193534) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_03_233013) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -91,13 +91,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_04_193534) do
     t.string "ip_address"
     t.string "city"
     t.string "country"
-    t.string "region"
-    t.string "timezone"
     t.string "browser"
     t.string "device"
     t.string "os"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "region"
+    t.string "timezone"
     t.index ["url_id"], name: "index_clicks_on_url_id"
   end
 
