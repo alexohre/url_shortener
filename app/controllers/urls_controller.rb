@@ -17,6 +17,7 @@ class UrlsController < ApplicationController
         user_agent = UserAgent.parse(user_agent_string)
         browser = user_agent.browser
         device = infer_device(user_agent_string)
+        os = user_agent.os
 
         # Retrieve user's city and country from IP address
         city, region, country, timezone = retrieve_location_from_ip(ip_address)
@@ -35,7 +36,8 @@ class UrlsController < ApplicationController
           country: country,
           timezone: timezone,
           browser: browser,
-          device: device
+          device: device,
+          os: os
         )
         
         redirect_to url.long_url, allow_other_host: true
@@ -67,6 +69,7 @@ class UrlsController < ApplicationController
       region = data['region']
       country = data['country']
       timezone = data['timezone']
+      os = data['os']
 
       [city, region, country, timezone] # Return city and country as an array
     end
@@ -83,22 +86,22 @@ class UrlsController < ApplicationController
     end
   end
 
-  def infer_os(user_agent_string)
-    # Infer OS based on keywords in the user agent string
-    if user_agent_string.downcase.include?('windows')
-      'Windows'
-    elsif user_agent_string.downcase.include?('macintosh') || user_agent_string.downcase.include?('mac os')
-      'Mac OS'
-    elsif user_agent_string.downcase.include?('linux')
-      'Linux'
-    elsif user_agent_string.downcase.include?('iphone')
-      'iOS'
-    elsif user_agent_string.downcase.include?('android')
-      'Android'
-    else
-      'Unknown'
-    end
-  end
+  # def infer_os(user_agent_string)
+  #   # Infer OS based on keywords in the user agent string
+  #   if user_agent_string.downcase.include?('windows')
+  #     'Windows'
+  #   elsif user_agent_string.downcase.include?('macintosh') || user_agent_string.downcase.include?('mac os')
+  #     'Mac OS'
+  #   elsif user_agent_string.downcase.include?('linux')
+  #     'Linux'
+  #   elsif user_agent_string.downcase.include?('iphone')
+  #     'iOS'
+  #   elsif user_agent_string.downcase.include?('android')
+  #     'Android'
+  #   else
+  #     'Unknown'
+  #   end
+  # end
 
   
   

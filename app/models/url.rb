@@ -22,7 +22,7 @@ class Url < ApplicationRecord
   end
   
   def domain_url
-    Rails.env.production? ? 'https://shorturl.softalx.com' : 'localhost:3000'
+    Rails.env.production? ? 'https://url.softalx.com' : 'localhost:3000'
   end
 
   # before_validation :generate_unique_code, unless: -> { short_code.present? }
