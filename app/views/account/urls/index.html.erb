@@ -6,7 +6,7 @@
 				<% @urls.each do |url| %>
 					<div class="card mb-3">
 						<div class="card-header d-flex justify-content-between align-items-center border-bottom mb-1">
-							<h5 class="card-title mb-0"><%= link_to url.title, account_url_path(url), class: "text-dark" %></h5>
+							<h5 class="card-title mb-0"><%= link_to url.title, account_url_path(url), data: {turbo: false}, class: "text-dark" %></h5>
 							<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 								<div class="btn-group me-2" role="group" aria-label="First group">
 									<button type="button" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-original-title="" class="btn btn-sm btn-outline-secondary">
@@ -23,9 +23,9 @@
 										<i class="bx bx-dots-vertical-rounded"></i>
 									</button>
 									<ul class="dropdown-menu dropdown-menu-end" style="">
-										<li><a class="dropdown-item" href="<%= account_url_path(url) %>">Link Details</a></li>
-										<li><a class="dropdown-item" href="<%= edit_account_url_path(url) %>">Edit Link</a></li>
-										<li><a class="dropdown-item text-danger" href="<%= account_url_path(url) %>" data-turbo-confirm="Are you sure?" data-turbo-method="delete">Delete Link</a></li>
+										<li><a class="dropdown-item" data-turbo="false" href="<%= account_url_path(url) %>">Link Details</a></li>
+										<li><a class="dropdown-item" data-turbo="false" href="<%= edit_account_url_path(url) %>">Edit Link</a></li>
+										<li><a class="dropdown-item text-danger" data-turbo="false" href="<%= account_url_path(url) %>" data-turbo-confirm="Are you sure?" data-turbo-method="delete">Delete Link</a></li>
 										<li>
 											<hr class="dropdown-divider">
 										</li>
@@ -35,7 +35,7 @@
 							</div>
 						</div>
 						<div class="card-body demo-vertical-spacing demo-only-element">
-							<a href="http://<%= url.short_url %>" class="text-primary fs-5 " target="_blank"><%= url.short_url %></a>
+							<a href="<%= url.short_url %>" class="text-primary fs-5 " data-turbo="false" target="_blank"><%= url.short_url %></a>
 							<h5 class="text-black fs-6 "><%= url.long_url %></h5>
 							<div class="col-lg-4 col-md-6">
 								<span>

@@ -8,7 +8,7 @@
 						<div class="col-md-6">
 							<div class="card mb-4">
 								<div class="card-body">
-									<%= form_with(model: [:account, @url], url: account_urls_path, method: :post) do |form| %>
+									<%= form_with(model: [:account, @url], url: account_urls_path, data: {turbo: false}, method: :post) do |form| %>
 										<% if @url.errors.any? %>
 											<div id="error_explanation">
 												<div class="alert alert-danger alert-dismissible pb-1" role="alert">
