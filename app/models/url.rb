@@ -13,6 +13,10 @@ class Url < ApplicationRecord
   has_one_attached :qr_code_png, dependent: :destroy
   has_one_attached :qr_code_jpg, dependent: :destroy
 
+  def to_param
+    short_code
+  end
+
   def generate_qr_codes
     generate_qr_code_svg
     generate_qr_code_png

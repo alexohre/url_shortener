@@ -4,10 +4,13 @@ Rails.application.routes.draw do
   # end
   
   get '/:short_code', to: 'urls#redirect'
-  # Short URL redirect route
-  constraints(host: 'url.softalx.com') do
-    get '/:short_code', to: 'urls#redirect'
+  # Define the route for redirecting from url.softalx.com to shorturl.softalx.com
+  constraints(host: 'url.softalx.com', path: '') do
+    redirect('https://shorturl.softalx.com')
   end
+
+  # Route for redirecting short codes to the corresponding URLs
+  get '/:short_code', to: 'urls#redirect', constraints: { host: 'url.softalx.com' }
   
   namespace :account do
     get 'dashboard', to: 'dashboard#home'
@@ -16,10 +19,8 @@ Rails.application.routes.draw do
     get 'settings/change_password', to: 'setting#change_password'
     get 'settings/profile', to: 'setting#profile'
 
-    resources :urls
+    resources :urls, param: :short_code
     # get '/:short_code', to: redirect('/%{short_code}')
-
-   
   end
 
 

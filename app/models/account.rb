@@ -8,7 +8,7 @@ class Account < ApplicationRecord
   before_create :generate_username
 
   has_one_attached :avatar, dependent: :destroy
-  
+
   validate :date_of_birth_must_be_past_18_years
   validates :first_name, :last_name, :username, :address, :state, :country, :gender, presence: true, unless: :new_record?
 

@@ -6,7 +6,7 @@
 				<% @urls.each do |url| %>
 					<div class="card mb-3">
 						<div class="card-header d-flex justify-content-between align-items-center border-bottom mb-1">
-							<h5 class="card-title mb-0"><%= link_to url.title, account_url_path(url), data: {turbo: false}, class: "text-dark" %></h5>
+							<h3 class="card-title mb-0"><%= link_to url.title, account_url_path(url), data: {turbo: false}, class: "text-dark" %></h3>
 							<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 								<div class="btn-group me-2" role="group" aria-label="First group">
 									<button type="button" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-original-title="" class="btn btn-sm btn-outline-secondary">
@@ -25,11 +25,12 @@
 									<ul class="dropdown-menu dropdown-menu-end" style="">
 										<li><a class="dropdown-item" data-turbo="false" href="<%= account_url_path(url) %>">Link Details</a></li>
 										<li><a class="dropdown-item" data-turbo="false" href="<%= edit_account_url_path(url) %>">Edit Link</a></li>
-										<li><a class="dropdown-item text-danger" data-turbo="false" href="<%= account_url_path(url) %>" data-turbo-confirm="Are you sure?" data-turbo-method="delete">Delete Link</a></li>
 										<li>
 											<hr class="dropdown-divider">
 										</li>
-										<li><a class="dropdown-item" href="javascript:void(0);">Separated link</a></li>
+										<li><button class="btn btn-danger btn-sm w-100">Delete Link</button></li>
+										<%= button_to "Delete Link", account_url_path(url), confirm: "Are you sure!", method: :delete %>
+										<!--	<li><a class="dropdown-item text-danger" data-turbo="false" href="<%= account_url_path(url) %>" data-turbo-confirm="Are you sure?" data-turbo-method="delete">Delete Link</a></li> -->
 									</ul>
 								</div>
 							</div>

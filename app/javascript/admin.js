@@ -11,6 +11,6 @@ import "./custom/jq-script";
 import "./custom/bootstrap";
 import "./custom/perfect-scrollbar";
 import "./custom/menu";
-import "./custom/apexcharts";
+// import "./custom/apexcharts";
 import "./custom/main";
 import "./custom/dashboards-analytics";

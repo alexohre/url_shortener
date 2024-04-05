@@ -1,2 +1,8 @@
 <h1>Pages#home</h1>
 <p>Find me in app/views/pages/home.html.erb</p>
+<% if current_account? %>
+	<%= button_to "sign out", destroy_account_session_path, class: "btn btn-danger", method: :delete %>
+<% else %>
+	<%= link_to "sign in", new_account_session_path %>
+	<%= link_to "sign up", new_account_registration_path %>
+<% end %>

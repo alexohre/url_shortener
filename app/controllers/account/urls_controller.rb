@@ -46,7 +46,7 @@ class Account::UrlsController < AccountController
   end
 
   def destroy 
-    @url = Url.find(params[:id])
+    @url = Url.find_by(short_code: params[:short_code])
     if @url.present?
       @url.destroy
       redirect_to account_urls_url, notice: 'URL was successfully destroyed.'
@@ -58,8 +58,9 @@ class Account::UrlsController < AccountController
   private
 
   def set_url
-    @url = Url.find(params[:id])
+    @url = Url.find_by(short_code: params[:short_code])
   end
+
 
   def url_params
     params.require(:url).permit(:long_url, :short_code, :title)
