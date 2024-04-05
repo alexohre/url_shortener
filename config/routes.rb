@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get '/:short_code', to: 'urls#redirect'
   # Define the route for redirecting from url.softalx.com to shorturl.softalx.com
   constraints(host: 'url.softalx.com', path: '') do
-    redirect('https://shorturl.softalx.com')
+    redirect_to 'https://shorturl.softalx.com', allow_other_host: true
   end
 
   # Route for redirecting short codes to the corresponding URLs
