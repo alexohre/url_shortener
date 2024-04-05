@@ -7,7 +7,8 @@
 				<div class="card-body">
 					<div class="d-flex align-items-start align-items-sm-center gap-4" data-controller="previews">
 						<% if current_account.avatar.present? %>
-							<%= image_tag(current_account.avatar.variant(resize_to_fill: [200, 200]),  class: "d-block rounded", height: 200, width: 200, id: "uploadAvatar", alt: "account-avatar") %>
+							<%#= image_tag(current_account.avatar.variant(resize_to_fill: [200, 200]),  class: "d-block rounded", height: 200, width: 200, id: "uploadAvatar", alt: "account-avatar") %>
+							<%= image_tag(current_account.avatar_thumbnail.url,  class: "d-block rounded", height: 200, width: 200, id: "uploadAvatar", alt: "account-avatar") %>
 						<% else %>
 							<%= image_tag "img/avatars/1.png", alt: "account-avatar", class: "d-block rounded", height: 200, width: 200  %>
 						<% end %>
