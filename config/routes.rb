@@ -5,12 +5,11 @@ Rails.application.routes.draw do
   
   get '/:short_code', to: 'urls#redirect'
   # Define the route for redirecting from url.softalx.com to shorturl.softalx.com
-  constraints(host: 'url.softalx.com', path: '') do
-    redirect_to 'https://shorturl.softalx.com', allow_other_host: true
-  end
+  constraints(host: 'url.softalx.com') do
+    get '/', to: redirect('https://shorturl.softalx.com')  # Redirect root path
 
-  # Route for redirecting short codes to the corresponding URLs
-  get '/:short_code', to: 'urls#redirect', constraints: { host: 'url.softalx.com' }
+    get '/:short_code', to: 'urls#redirect'  # Handle shortened URLs
+  end
   
   namespace :account do
     get 'dashboard', to: 'dashboard#home'
