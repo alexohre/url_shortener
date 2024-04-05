@@ -14,15 +14,6 @@ class Account < ApplicationRecord
 
   has_many :urls, class_name: 'Url', foreign_key: 'account_id', dependent: :destroy
   
-  # Define variants with resizing
-  def avatar_thumbnail
-    if avatar.attached?
-      avatar.variant(resize_to_fill: [200, 200])
-    else
-      'img/avatars/1.png' # Provide a default image if avatar is not attached
-    end
-  end
-  
   private
   
   def date_of_birth_must_be_past_18_years

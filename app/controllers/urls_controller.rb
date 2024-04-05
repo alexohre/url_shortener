@@ -17,7 +17,7 @@ class UrlsController < ApplicationController
         user_agent = UserAgent.parse(user_agent_string)
         browser = user_agent.browser
         device = infer_device(user_agent_string)
-        os = user_agent.os
+        os = user_agent.os.split(' ').first
 
         # Retrieve user's city and country from IP address
         city, region, country, timezone = retrieve_location_from_ip(ip_address)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_03_233013) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_05_171755) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -126,6 +126,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_03_233013) do
     t.bigint "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "show_url"
     t.index ["account_id"], name: "index_urls_on_account_id"
   end
 

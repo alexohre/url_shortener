@@ -25,6 +25,10 @@ class Url < ApplicationRecord
     Rails.env.production? ? 'https://url.softalx.com' : 'http://localhost:3000'
   end
 
+  def show_domain_url
+    Rails.env.production? ? 'url.softalx.com' : 'localhost:3000'
+  end
+
   # before_validation :generate_unique_code, unless: -> { short_code.present? }
   private
 
@@ -43,10 +47,12 @@ class Url < ApplicationRecord
     length = SecureRandom.random_number(4) + 5
     self.short_code = SecureRandom.base58(length)
     self.short_url = "#{domain_url}/#{short_code}"
+    self.show_url = "#{show_domain_url}/#{short_code}"
   end
 
   def update_short_url
     self.short_url = "#{domain_url}/#{short_code}"
+    self.show_url = "#{show_domain_url}/#{short_code}"
   end
 
   def generate_qr_code_svg

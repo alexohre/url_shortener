@@ -36,7 +36,7 @@
 							<div class="d-flex">
 								<div class="flex-shrink-0 me-3">
 									<div class="avatar avatar-online">
-										<%= current_account.avatar.present? ? image_tag(current_account.avatar.variant(resize_to_fill: [40, 40]), alt: "avatar", class: "w-px-40 h-auto rounded-circle") : image_tag("img/avatars/1.png", alt: "avatar", class: "w-px-40 h-auto rounded-circle") %>
+										<%= current_account.avatar.present? ? image_tag(current_account.avatar.variant(resize_to_fill: [40, 40]).blob.url, alt: "avatar", class: "w-px-40 h-auto rounded-circle") : image_tag("img/avatars/1.png", alt: "avatar", class: "w-px-40 h-auto rounded-circle") %>
 									</div>
 								</div>
 								<div class="flex-grow-1">
