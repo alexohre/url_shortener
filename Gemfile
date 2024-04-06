@@ -92,3 +92,4 @@ gem 'capistrano-passenger', '~> 0.2.0'
 gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'
 
 gem 'aws-sdk-s3'
+gem "rack-cors", "~> 2.0"

@@ -9,13 +9,13 @@
 					<div class="card-body">
 						<div class="d-flex align-items-start align-items-sm-center gap-4" data-controller="previews">
 							<% if current_account.avatar.present? %>
-								<%= image_tag(current_account.avatar.variant(resize_to_fill: [100, 100]), data: {previews_target: "preview"}, class: "d-block rounded", height: 100, width: 100, id: "uploadAvatar", alt: "avatar") %>
+								<%= image_tag(current_account.avatar.blob.url, data: {previews_target: "preview"}, class: "d-block rounded", height: 100, width: 100, id: "uploadAvatar", alt: "avatar") %>
 							<% else %>
-								<%=  image_tag "img/avatars/1.png", data: {previews_target: "preview"}, alt: "account-avatar", class: "d-block rounded", height: 100, width: 100, id: "uploadedAvatar" %>
+								<%=  image_tag "logo.png", data: {previews_target: "preview"}, alt: "account-avatar", class: "d-block rounded", height: 100, width: 100, id: "uploadedAvatar" %>
 							<% end %>
 							<div class="button-wrapper">
 								<label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-									<span class="d-none d-sm-block">Upload photo</span>
+									<span class="d-none d-sm-block">Upload Logo</span>
 									<i class="bx bx-upload d-block d-sm-none"></i>
 									<%= f.file_field :avatar, id: "upload", style: "display: none", data: { previews_target: "input", action: "change->previews#preview" } %>
 								</label>

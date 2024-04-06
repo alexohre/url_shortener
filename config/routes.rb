@@ -80,4 +80,6 @@ Rails.application.routes.draw do
   }
 
   root 'pages#home'
+
+  post '/fetch_title', to: 'title_fetcher#fetch_title'
 end

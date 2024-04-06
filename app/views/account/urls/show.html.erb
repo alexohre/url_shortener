@@ -1,33 +1,41 @@
+<meta property="og:title" content="<%= @url.title %>" />
+<meta property="og:description" content="<%= @long_url %>" />
 <div class="container-xxl flex-grow-1 container-p-y">
 	<div class="row">
 		<div class="col-lg-10 col-sm-12 mx-auto">
 			<div class="card mb-3">
 				<div class="card-header d-flex justify-content-between align-items-center ">
-					<h1 class="card-title fw-bold mb-0"><%= @url.title %></h1>
-					<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-						<div class="btn-group me-2" role="group" aria-label="First group">
-							<button type="button" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-original-title="" class="btn btn-sm btn-outline-secondary">
-								<i class="tf-icons bx bx-copy fw-bold"></i> Copy
-							</button>
+					<div class="row">
+						<div class="col-lg-10">
+							<h1 class="card-title fw-bold mb-0"><%= @url.title %></h1>
 						</div>
-						<div class="btn-group me-2" role="group" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-original-title="Share Link" aria-label="Third group">
-							<button type="button" class="btn btn-sm btn-outline-secondary">
-								<i class="tf-icons bx bxs-share-alt fw-bold"></i>
-							</button>
-						</div>
-						<div class="btn-group " role="group">
-							<button type="button" class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false">
-								<i class="bx bx-dots-vertical-rounded"></i>
-							</button>
-							<ul class="dropdown-menu dropdown-menu-end" style="">
-								<li><a class="dropdown-item" href="<%= account_url_path(@url) %>">Link Details</a></li>
-								<li><a class="dropdown-item" href="<%= edit_account_url_path(@url) %>">Edit Link</a></li>
-								<li><a class="dropdown-item text-danger" href="<%= account_url_path(@url) %>" data-turbo-confirm="Are you sure?" data-turbo-method="delete">Delete Link</a></li>
-								<li>
-									<hr class="dropdown-divider">
-								</li>
-								<li><a class="dropdown-item" href="javascript:void(0);">Separated link</a></li>
-							</ul>
+						<div class="col-lg-2">
+							<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+								<div class="btn-group me-2" role="group" aria-label="First group">
+									<button type="button" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-original-title="" class="btn btn-sm btn-outline-secondary">
+										<i class="tf-icons bx bx-copy fw-bold"></i> Copy
+									</button>
+								</div>
+								<div class="btn-group me-2" role="group" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-original-title="Share Link" aria-label="Third group">
+									<button type="button" class="btn btn-sm btn-outline-secondary">
+										<i class="tf-icons bx bxs-share-alt fw-bold"></i>
+									</button>
+								</div>
+								<div class="btn-group " role="group">
+									<button type="button" class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false">
+										<i class="bx bx-dots-vertical-rounded"></i>
+									</button>
+									<ul class="dropdown-menu dropdown-menu-end" style="">
+										<li><a class="dropdown-item" href="<%= account_url_path(@url) %>">Link Details</a></li>
+										<li><a class="dropdown-item" href="<%= edit_account_url_path(@url) %>">Edit Link</a></li>
+										<li><a class="dropdown-item text-danger" href="<%= account_url_path(@url) %>" data-turbo-confirm="Are you sure?" data-turbo-method="delete">Delete Link</a></li>
+										<li>
+											<hr class="dropdown-divider">
+										</li>
+										<li><a class="dropdown-item" href="javascript:void(0);">Separated link</a></li>
+									</ul>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

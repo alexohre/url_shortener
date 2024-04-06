@@ -21,13 +21,15 @@
 												</div>
 											</div>
 										<% end %>
-										<div class="mb-3">
-											<%= form.label :title, class: "form-label" %>
-											<%= form.text_field :title, class: "form-control", placeholder: "Enter link title" %>
-										</div>
-										<div class="mb-3">
-											<%= form.label :long_url, class: "form-label" %>
-											<%= form.text_field :long_url, class: "form-control", placeholder: "https://www.example.com/your-long-link-url-you-copied/" %>
+										<div data-controller="fetch-title">
+											<div class="mb-3">
+												<%= form.label :long_url, class: "form-label" %>
+												<%= form.text_field :long_url, class: "form-control", placeholder: "https://www.example.com/your-long-link-url-you-copied/", data: {fetch_title_target: "longUrl"} %>
+											</div>
+											<div class="mb-3">
+												<%= form.label :title, "title (optional)", class: "form-label" %>
+												<%= form.text_field :title, class: "form-control", placeholder: "Enter link title", data: {fetch_title_target: "title"} %>
+											</div>
 										</div>
 										<div class="row mb-3">
 											<div class="col">
