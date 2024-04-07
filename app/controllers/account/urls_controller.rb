@@ -2,7 +2,17 @@ class Account::UrlsController < AccountController
   before_action :set_url, only: [:show, :edit, :update]
 
   def index 
+    # @favicon_url = fetch_favicon(@url.long_url)
     @urls = current_account.urls.order(created_at: :desc)
+
+    @favicon_urls = {} # Initialize an empty hash to store favicon URLs for each URL
+    
+    @urls.each do |url|
+      if url.long_url.present?
+        @favicon_urls[url.id] = fetch_favicon(url.long_url)
+        # Handle the case where long_url is not present for a URL
+      end
+    end
   end
 
   def new 
@@ -11,6 +21,7 @@ class Account::UrlsController < AccountController
   end
 
   def show 
+    @favicon_url = fetch_favicon(@url.long_url)
     # counting clicks
     @clicks_count = @url.clicks.count
     # conting clicks for last 7 days
@@ -53,6 +64,13 @@ class Account::UrlsController < AccountController
     else
       redirect_to account_urls_url, alert: 'URL not found.'
     end
+  end
+
+  def fetch_favicon(long_url)
+    domain = URI.parse(long_url).host
+    "https://www.google.com/s2/favicons?domain=#{domain}&sz=40"
+  rescue URI::InvalidURIError
+    nil
   end
 
   private

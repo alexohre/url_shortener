@@ -7,8 +7,6 @@ class UrlsController < ApplicationController
     url = Url.find_by(short_code: params[:short_code])
     #  check if the url is present
     if url
-
-      title = fetch_title(url.long_url)
       # Track additional information
       source = params[:s]
        if source == "qr" || source.blank?
@@ -42,7 +40,7 @@ class UrlsController < ApplicationController
           os: os
         )
         
-        redirect_to url.long_url, title: title, allow_other_host: true
+        redirect_to url.long_url, allow_other_host: true
 
        else
         render plain: "Invalid source parameter", status: :bad_request
@@ -54,15 +52,6 @@ class UrlsController < ApplicationController
   end
 
   private
-
-  def fetch_title(url)
-    html = URI.open(url)
-    doc = Nokogiri::HTML(html)
-    doc.title
-  rescue StandardError => e
-    Rails.logger.error("Error fetching title: #{e.message}")
-    nil
-  end
 
   def retrieve_location_from_ip(ip_address)
     if Rails.env.development?

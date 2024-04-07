@@ -12,7 +12,7 @@ export default class extends Controller {
 		this.longUrlTarget.removeEventListener("input", this.debouncedFetchTitle);
 	}
 
-	debouncedFetchTitle = this.debounce(this.fetchTitle, 3000); // 4 seconds debounce
+	debouncedFetchTitle = this.debounce(this.fetchTitle, 2000); // 4 seconds debounce
 
 	debounce(func, delay) {
 		let timeoutId;
