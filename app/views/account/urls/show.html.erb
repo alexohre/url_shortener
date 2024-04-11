@@ -1,11 +1,11 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 	<div class="row">
-		<div class="col-lg-10 col-sm-12 mx-auto">
-			<div class="card mb-3">
+		<div class="col-lg-10 col-sm-12 mx-auto" data-controller="link-copy" >
+			<div class="card mb-3" data-controller="link-copy-mobile">
 				<div class="card-body demo-vertical-spacing demo-only-element">
 					<div class="flex">
 						<div class="row">
-							<div class="col-lg-10 col-sm-12">
+							<div class="col-lg-9 col-sm-12">
 								<div class="d-flex flex-column flex-grow-1 gap-2">
 									<div class="d-flex flex-column gap-2">
 										<h2 class="card-title fw-bold mb-0"><%= @url.title %></h2>
@@ -14,7 +14,7 @@
 												<img src="<%= @favicon_url %>" class="rounded-circle border border-secondary border-1" alt="icon">
 											</div>
 											<div class="d-flex flex-column flex-grow-1 gap-2">
-												<a href="<%= @url.short_url %>" class="text-primary fs-5" target="_blank"><%= @url.show_url %></a>
+												<span><a href="<%= @url.short_url %>" data-link-copy-target="link" data-link-copy-mobile-target="link" class="text-primary fs-5" target="_blank"><%= @url.show_url %></a></span>
 												<%#= link_to @url.short_code, '/' + @url.short_code %>
 												<h5 class="text-black fs-6 "><%= @url.long_url %></h5>
 											</div>
@@ -22,16 +22,16 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-2 d-none d-sm-block">
+							<div class="col-lg-3 d-none d-sm-block">
 								<div class="d-flex flex-row align-items-start justify-content-end gap-2">
 									<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 										<div class="btn-group me-2" role="group" aria-label="First group">
-											<button type="button" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-original-title="" class="btn btn-sm btn-outline-secondary">
+											<button type="button" data-bs-toggle="tooltip" data-action="click->link-copy#copyDesktopLink" data-link-copy-target="button"  data-bs-offset="0,4" data-bs-placement="top" data-bs-original-title="" class="btn btn-sm btn-outline-secondary">
 												<i class="tf-icons bx bx-copy fw-bold"></i> Copy
 											</button>
 										</div>
 										<div class="btn-group me-2" role="group" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-original-title="Share Link" aria-label="Third group">
-											<button type="button" class="btn btn-sm btn-outline-secondary">
+											<button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"  data-bs-target="#modalCenter">
 												<i class="tf-icons bx bxs-share-alt fw-bold"></i>
 											</button>
 										</div>
@@ -42,11 +42,10 @@
 											<ul class="dropdown-menu dropdown-menu-end" style="">
 												<li><a class="dropdown-item" href="<%= account_url_path(@url) %>">Link Details</a></li>
 												<li><a class="dropdown-item" href="<%= edit_account_url_path(@url) %>">Edit Link</a></li>
-												<li><a class="dropdown-item text-danger" href="<%= account_url_path(@url) %>" data-turbo-confirm="Are you sure?" data-turbo-method="delete">Delete Link</a></li>
 												<li>
 													<hr class="dropdown-divider">
 												</li>
-												<li><a class="dropdown-item" href="javascript:void(0);">Separated link</a></li>
+												<li><a class="dropdown-item text-danger" href="<%= account_url_path(@url) %>" data-turbo-confirm="Are you sure?" data-turbo-method="delete">Delete Link</a></li>
 											</ul>
 										</div>
 									</div>
@@ -64,12 +63,12 @@
 							<hr>
 							<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 								<div class="btn-group me-2" role="group" aria-label="First group">
-									<button type="button" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-original-title="" class="btn btn-sm btn-outline-secondary">
+									<button type="button" data-bs-toggle="tooltip" data-action="click->link-copy-mobile#copyMobileLink" data-link-copy-mobile-target="button" data-bs-offset="0,4" data-bs-placement="top" data-bs-original-title="" class="btn btn-sm btn-outline-secondary">
 										<i class="tf-icons bx bx-copy fw-bold"></i> Copy
 									</button>
 								</div>
 								<div class="btn-group me-2" role="group" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-original-title="Share Link" aria-label="Third group">
-									<button type="button" class="btn btn-sm btn-outline-secondary">
+									<button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"  data-bs-target="#modalCenter">
 										<i class="tf-icons bx bxs-share-alt fw-bold"></i>
 									</button>
 								</div>
@@ -80,11 +79,10 @@
 									<ul class="dropdown-menu dropdown-menu-end" style="">
 										<li><a class="dropdown-item" href="<%= account_url_path(@url) %>">Link Details</a></li>
 										<li><a class="dropdown-item" href="<%= edit_account_url_path(@url) %>">Edit Link</a></li>
-										<li><a class="dropdown-item text-danger" href="<%= account_url_path(@url) %>" data-turbo-confirm="Are you sure?" data-turbo-method="delete">Delete Link</a></li>
 										<li>
 											<hr class="dropdown-divider">
 										</li>
-										<li><a class="dropdown-item" href="javascript:void(0);">Separated link</a></li>
+										<li><a class="dropdown-item text-danger" href="<%= account_url_path(@url) %>" data-turbo-confirm="Are you sure?" data-turbo-method="delete">Delete Link</a></li>
 									</ul>
 								</div>
 							</div>
@@ -439,6 +437,46 @@
 							<% end %>
 						</tbody>
 					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalCenterTitle">Share Link</h5>
+				<button	type="button"	class="btn-close"	data-bs-dismiss="modal"	aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col mb-3">
+						<div class="input-group mb-3">
+							<input type="text" class="form-control" placeholder="Recipient's username" value="<%= @url.short_url %>" aria-label="Recipient's username" aria-describedby="button-addon2">
+							<button class="btn btn-outline-primary" type="button" id="button-addon2">
+								<i class="tf-icons bx bx-copy fw-bold"></i> Copy
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="row g-2">
+					<div class="col-8 col-md-12 mb-2 mx-auto">
+						<button class="btn btn-success w-100">
+							<i class="tf-icons bx bx-copy fw-bold"></i> WhatsApp
+						</button>
+					</div>
+					<div class="col-8 col-md-12 mb-2 mx-auto">
+						<button class="btn btn-dark w-100">
+							<i class="tf-icons bx bx-copy fw-bold"></i> X (Twitter)
+						</button>
+					</div>
+					<div class="col-8 col-md-12 mb-2 mx-auto">
+						<button class="btn w-100 text-white" style="background-color: blue">
+							<i class="tf-icons bx bx-copy fw-bold"></i> Facebook
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -10,8 +10,8 @@
 			<% if @urls.present? %>
 				<% @urls.each do |url| %>
 					<div class="card mb-3">
-						<div class="card-body demo-vertical-spacing demo-only-element">
-							<div class="flex">
+						<div class="card-body demo-vertical-spacing demo-only-element" data-controller="link-copy">
+							<div class="flex" data-controller="link-copy-mobile">
 								<div class="row">
 									<div class="col-lg-10 col-sm-12">
 										<div class="d-flex flex-column flex-grow-1 gap-2">
@@ -22,7 +22,7 @@
 													</div>
 													<div class="d-flex flex-column flex-grow-1 gap-2">
 														<h3 class="card-title mb-0"><%= link_to url.title, account_url_path(url), data: {turbo: false}, class: "text-dark hover-text-decoration-underline" %></h3>
-														<a href="<%= url.short_url %>" class="text-primary fs-5" target="_blank"><%= url.show_url %></a>
+														<span><a href="<%= url.short_url %>" data-link-copy-target="link" data-link-copy-mobile-target="link" class="text-primary fs-5" target="_blank"><%= url.show_url %></a></span>
 														<%#= link_to url.short_code, '/' + url.short_code %>
 														<h5 class="text-black fs-6 "><%= url.long_url %></h5>
 													</div>
@@ -34,7 +34,7 @@
 										<div class="d-flex flex-row align-items-start justify-content-end gap-2">
 											<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 												<div class="btn-group me-2" role="group" aria-label="First group">
-													<button type="button" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-original-title="" class="btn btn-sm btn-outline-secondary">
+													<button type="button" data-bs-toggle="tooltip" data-action="click->link-copy#copyDesktopLink" data-link-copy-target="button" data-bs-offset="0,4" data-bs-placement="top" data-bs-original-title="" class="btn btn-sm btn-outline-secondary">
 														<i class="tf-icons bx bx-copy fw-bold"></i> Copy
 													</button>
 												</div>
@@ -50,11 +50,10 @@
 													<ul class="dropdown-menu dropdown-menu-end" style="">
 														<li><a class="dropdown-item" href="<%= account_url_path(url) %>">Link Details</a></li>
 														<li><a class="dropdown-item" href="<%= edit_account_url_path(url) %>">Edit Link</a></li>
-														<li><a class="dropdown-item text-danger" href="<%= account_url_path(url) %>" data-turbo-confirm="Are you sure?" data-turbo-method="delete">Delete Link</a></li>
 														<li>
 															<hr class="dropdown-divider">
 														</li>
-														<li><a class="dropdown-item" href="javascript:void(0);">Separated link</a></li>
+														<li><a class="dropdown-item text-danger" href="<%= account_url_path(url) %>" data-turbo-confirm="Are you sure?" data-turbo-method="delete">Delete Link</a></li>
 													</ul>
 												</div>
 											</div>
@@ -76,7 +75,7 @@
 									<hr>
 									<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 										<div class="btn-group me-2" role="group" aria-label="First group">
-											<button type="button" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-original-title="" class="btn btn-sm btn-outline-secondary">
+											<button type="button" data-bs-toggle="tooltip" data-action="click->link-copy-mobile#copyMobileLink" data-link-copy-mobile-target="button" data-bs-offset="0,4" data-bs-placement="top" data-bs-original-title="" class="btn btn-sm btn-outline-secondary">
 												<i class="tf-icons bx bx-copy fw-bold"></i> Copy
 											</button>
 										</div>
@@ -92,11 +91,10 @@
 											<ul class="dropdown-menu dropdown-menu-end" style="">
 												<li><a class="dropdown-item" href="<%= account_url_path(url) %>">Link Details</a></li>
 												<li><a class="dropdown-item" href="<%= edit_account_url_path(url) %>">Edit Link</a></li>
-												<li><a class="dropdown-item text-danger" href="<%= account_url_path(url) %>" data-turbo-confirm="Are you sure?" data-turbo-method="delete">Delete Link</a></li>
 												<li>
 													<hr class="dropdown-divider">
 												</li>
-												<li><a class="dropdown-item" href="javascript:void(0);">Separated link</a></li>
+												<li><a class="dropdown-item text-danger" href="<%= account_url_path(url) %>" data-turbo-confirm="Are you sure?" data-turbo-method="delete">Delete Link</a></li>
 											</ul>
 										</div>
 									</div>

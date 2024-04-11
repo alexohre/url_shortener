@@ -633,10 +633,10 @@ document.addEventListener("turbo:load", (event) => {
 		);
 
 		// Use the device counts as needed
-		console.log("Desktop count:", desktopCount);
-		console.log("Tablet count:", tabletCount);
-		console.log("Mobile count:", mobileCount);
-		console.log("Total count:", totalDeviceCount);
+		// console.log("Desktop count:", desktopCount);
+		// console.log("Tablet count:", tabletCount);
+		// console.log("Mobile count:", mobileCount);
+		// console.log("Total count:", totalDeviceCount);
 
 		const chartOrderStatistics1 = document.querySelector(
 			"#orderStatisticsChart1"
