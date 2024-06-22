@@ -22,6 +22,7 @@ class Account::UrlsController < AccountController
 
   def show 
     @favicon_url = fetch_favicon(@url.long_url)
+    @og_data = fetch_metadata(@url.long_url)
     # counting clicks
     @clicks_count = @url.clicks.count
     # conting clicks for last 7 days
@@ -77,6 +78,20 @@ class Account::UrlsController < AccountController
 
   def set_url
     @url = Url.find_by(short_code: params[:short_code])
+  end
+
+  def fetch_metadata(long_url)
+    og_data = {}
+    begin
+      doc = Nokogiri::HTML(URI.open(long_url))
+      og_data[:title] = doc.at('meta[property="og:title"]')&.[]('content') || doc.title
+      og_data[:description] = doc.at('meta[property="og:description"]')&.[]('content') || doc.at('meta[name="description"]')&.[]('content')
+      og_data[:image] = doc.at('meta[property="og:image"]')&.[]('content')
+      og_data[:favicon] = doc.at('link[rel="icon"]')&.[]('href') || doc.at('link[rel="shortcut icon"]')&.[]('href')
+    rescue => e
+      Rails.logger.error("Failed to fetch metadata: #{e.message}")
+    end
+    og_data
   end
 
 

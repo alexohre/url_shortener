@@ -21,15 +21,9 @@
 	<body>
 		<div class="layout-wrapper layout-content-navbar">
 			<div class="layout-container">
-				<%= render 'account/shared/sidebar' %>
-				<div class="layout-page">
-					<%= render 'account/shared/topbar' %>
-					<!-- Content wrapper -->
-					<div class="content-wrapper">
-						<%= render 'account/shared/masquerade' %>
-						<%= render 'account/shared/notice' %>
-						<%= yield %>
-					</div>
+				<!-- Content wrapper -->
+				<div class="content-wrapper">
+					<%= yield %>
 				</div>
 			</div>
 		</div>

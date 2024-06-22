@@ -1,3 +1,11 @@
+<%#  %>
+<%= content_for :og_meta_tags do %>
+	<meta property="og:title" content="<%= @og_data[:title] %>">
+	<meta property="og:description" content="<%= @og_data[:description] %>">
+	<meta property="og:image" content="<%= @og_data[:image] %>">
+	<meta property="og:url" content="<%= @url.long_url %>">
+<% end %>
+<%#  %>
 <div class="container-xxl flex-grow-1 container-p-y">
 	<div class="row">
 		<div class="col-lg-10 col-sm-12 mx-auto" data-controller="link-copy" >

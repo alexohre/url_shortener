@@ -1,0 +1,92 @@
+<%= content_for :og_meta_tags do %>
+	<meta property="og:title" content="<%= @og_data[:title] %>">
+	<meta property="og:description" content="<%= @og_data[:description] %>">
+	<meta property="og:image" content="<%= @og_data[:image] %>">
+	<meta property="og:url" content="<%= @url.long_url %>">
+<% end %>
+<style>
+	.disabled {
+	  pointer-events: none;
+	  opacity: 0.6;
+	}
+</style>
+<div class="container mt-5">
+	<div class="row ">
+		<div class="col-lg-10 mx-auto">
+			<div class="card">
+				<div class="card-body">
+					This is some text within a card body.
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="px-4 py-5 my-5 text-center">
+		<h1 class="display-5 fw-bold text-body-emphasis">Redirection to url...</h1>
+		<div class="col-lg-6 mx-auto">
+			<h5 class="lead mb-4"><%= @url.long_url %></h5>
+			<div id="countdown" class="lead mb-4">Redirecting in <span class="h3" id="timer">5</span> seconds...</div>
+			<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+				<button type="button" id="skipBtn" class="btn btn-outline-primary btn-lg px-4 disabled" onclick="skipAds()">Skip Ads</button>
+			</div>
+		</div>
+	</div>
+	<div class="row mb-4">
+		<div class="col-lg-10 mx-auto">
+			<div class="card">
+				<div class="card-body">
+					This is some text within a card body.
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row ">
+		<div class="col-lg-10 mx-auto">
+			<div class="card">
+				<div class="card-body">
+					This is some text within a card body.
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--
+<script>
+	setTimeout(function() {
+	  window.location.href = "<%= @url.long_url %>";
+	}, 5000); // Adjust the delay as needed
+</script>
+-->
+<script>
+	let countdown = 10; // countdown starts at 10 seconds
+	const timerElement = document.getElementById('timer');
+	const skipBtn = document.getElementById('skipBtn');
+	const redirectUrl = "<%= @url.long_url %>";
+
+	function updateTimer() {
+	  if (countdown > 0) {
+	    countdown--;
+	    timerElement.textContent = countdown;
+
+	    if (countdown === 5) {
+	      // Enable the skip button after 5 seconds
+	      skipBtn.classList.remove('disabled');
+	    }
+	  } else {
+	    skipAds();
+	  }
+	}
+
+	const timerInterval = setInterval(updateTimer, 1000);
+
+	function skipAds() {
+	  clearInterval(timerInterval);
+	  window.location.href = redirectUrl;
+	}
+
+	// Automatically redirect after 10 seconds if the button is not clicked
+	setTimeout(() => {
+	  if (countdown > 0) {
+	    skipAds();
+	  }
+	}, countdown * 1000);
+</script>

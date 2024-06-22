@@ -39,8 +39,14 @@ class UrlsController < ApplicationController
           device: device,
           os: os
         )
+
+        # Fetch metadata from the long URL
+        @og_data = fetch_metadata(url.long_url)
+
+        # puts @og_data
         
         redirect_to url.long_url, allow_other_host: true
+        # redirect_to links_redirect_path(short_code: url.short_code)
 
        else
         render plain: "Invalid source parameter", status: :bad_request
@@ -71,8 +77,22 @@ class UrlsController < ApplicationController
       timezone = data['timezone']
       os = data['os']
 
-      [city, region, country, timezone] # Return city and country as an array
+      [city, region, country, timezone, os] # Return city and country as an array
     end
+  end
+
+  def fetch_metadata(long_url)
+    og_data = {}
+    begin
+      doc = Nokogiri::HTML(URI.open(long_url))
+      og_data[:title] = doc.at('meta[property="og:title"]')&.[]('content') || doc.title
+      og_data[:description] = doc.at('meta[property="og:description"]')&.[]('content') || doc.at('meta[name="description"]')&.[]('content')
+      og_data[:image] = doc.at('meta[property="og:image"]')&.[]('content')
+      og_data[:favicon] = doc.at('link[rel="icon"]')&.[]('href') || doc.at('link[rel="shortcut icon"]')&.[]('href')
+    rescue => e
+      Rails.logger.error("Failed to fetch metadata: #{e.message}")
+    end
+    og_data
   end
 
   def infer_device(user_agent_string)

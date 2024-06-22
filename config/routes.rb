@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'links/redirect/:short_code', to: 'links#redirect', as: :links_redirect
   # constraints(domain: 'bit.sh') do
   #   get '/:short_code', to: 'urls#redirect', as: :bit_redirect
   # end
