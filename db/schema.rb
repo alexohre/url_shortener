@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_05_171755) do
+ActiveRecord::Schema[7.0].define(version: 2024_12_10_100543) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -117,6 +117,19 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_05_171755) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "plan"
+    t.decimal "montly_price"
+    t.decimal "yearly_price"
+    t.datetime "trial_ends_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "billing_cycle", default: "monthly"
+    t.datetime "active_until"
+    t.index ["account_id"], name: "index_subscriptions_on_account_id"
+  end
+
   create_table "urls", force: :cascade do |t|
     t.string "title"
     t.string "long_url"
@@ -127,6 +140,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_05_171755) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "show_url"
+    t.integer "clicks_count", default: 0, null: false
+    t.integer "scanned_qr_count", default: 0, null: false
     t.index ["account_id"], name: "index_urls_on_account_id"
   end
 
@@ -148,5 +163,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_05_171755) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "clicks", "urls"
+  add_foreign_key "subscriptions", "accounts"
   add_foreign_key "urls", "accounts"
 end

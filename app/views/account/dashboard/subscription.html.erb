@@ -1,0 +1,165 @@
+<div class="container-xxl flex-grow-1 container-p-y">
+	<h4 class="fw-bold py-3 mb-4">
+		<span class="text-muted fw-light">Account /</span> Notifications
+	</h4>
+	<div class="row mb-5">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-6 col-xl-4">
+					<div class="card shadow-none  border border-secondary mb-3">
+						<div class="card-body">
+							<h2 class="card-title">Current Subscription</h2>
+							<p>Plan: <strong><%= @subscription.plan.capitalize if @subscription %></strong></p>
+							<p>Monthly Price: N<%= @subscription.monthly_price if @subscription %>.00</p>
+							<p>Expires on: <strong><%= @subscription.active_until.strftime("%B %d, %Y") if @subscription.active_until.present? %></strong></p>
+							<% if @subscription && @subscription.trial_ends_at.present? %>
+								<p>Trial ends at: <%= @subscription.trial_ends_at.strftime("%B %d, %Y") %></p>
+							<% end %>
+						</div>
+					</div>
+				</div>
+			</div>
+			<%#  %>
+			<div class="d-flex flex-column align-items-center justify-content-center">
+				<div class="form-check form-switch">
+					<input class="form-check-input border border-primary h4" type="checkbox" role="switch" id="yearly-toggle">
+				</div>
+				<p class="form-check-label" for="yearly-toggle">Get 15% off on Yearly plans</p>
+			</div>
+			<div class="row mb-5">
+				<% Subscription::PLANS.each do |plan_name, prices| %>
+					<div class="col-md-6 col-lg-4">
+						<div class="card text-center mb-3">
+							<div class="card-body">
+								<h2 class="card-title text-dark"><%= plan_name.capitalize %></h2>
+								<p class="card-text h4">
+									<span class="monthly-price"><%= number_to_currency(prices[:monthly]) %>/ Mon</span>
+									<span class="yearly-price d-none"><%= number_to_currency(prices[:yearly] - (prices[:yearly] * 15 / 100)) %>/ Mon</span>
+								</p>
+								<p class="card-title"><%= plan_name.capitalize %></p>
+								<%= button_to subscription_button_label(@subscription.plan, plan_name), 
+                          account_subscription_path, 
+                          params: { subscription: { plan: plan_name } }, 
+                          method: :patch, 
+                          class: "btn btn-primary #{'disabled' if @subscription.plan == plan_name}" %>
+							</div>
+						</div>
+					</div>
+				<% end %>
+			</div>
+			<%#  %>
+			<div class="card">
+				<!-- Notifications -->
+				<h5 class="card-header">Compare Plans</h5>
+				<div class="card-body">
+					<span>We need permission from your browser to show notifications.
+						<span class="notificationRequest"><strong>Request Permission</strong></span></span>
+					<div class="error"></div>
+				</div>
+				<div class="table-responsive">
+					<table class="table table-striped table-borderless border-bottom">
+						<thead>
+							<tr>
+								<th class="text-nowrap">Options</th>
+								<th class="text-nowrap text-center">✉️ Email</th>
+								<th class="text-nowrap text-center">🖥 Browser</th>
+								<th class="text-nowrap text-center">👩🏻‍💻 App</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="text-nowrap">A new device is linked</td>
+								<td>
+									<div class="form-check d-flex justify-content-center">
+										<input class="form-check-input" type="checkbox" id="defaultCheck10" >
+									</div>
+								</td>
+								<td>
+									<div class="form-check d-flex justify-content-center">
+										<input class="form-check-input" type="checkbox" id="defaultCheck11">
+									</div>
+								</td>
+								<td>
+									<div class="form-check d-flex justify-content-center">
+										<input class="form-check-input" type="checkbox" id="defaultCheck12" checked="">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-nowrap">A new browser used to sign in</td>
+								<td>
+									<div class="form-check d-flex justify-content-center">
+										<input class="form-check-input" type="checkbox" id="defaultCheck7" >
+									</div>
+								</td>
+								<td>
+									<div class="form-check d-flex justify-content-center">
+										<input class="form-check-input" type="checkbox" id="defaultCheck8" checked="">
+									</div>
+								</td>
+								<td>
+									<div class="form-check d-flex justify-content-center">
+										<input class="form-check-input" type="checkbox" id="defaultCheck9" checked="">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-nowrap">Account activity</td>
+								<td>
+									<div class="form-check d-flex justify-content-center">
+										<input class="form-check-input" type="checkbox" id="defaultCheck4" checked="">
+									</div>
+								</td>
+								<td>
+									<div class="form-check d-flex justify-content-center">
+										<input class="form-check-input" type="checkbox" id="defaultCheck5" checked="">
+									</div>
+								</td>
+								<td>
+									<div class="form-check d-flex justify-content-center">
+										<input class="form-check-input" type="checkbox" id="defaultCheck6" checked="">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="text-nowrap">New for you</td>
+								<td>
+									<div class="form-check d-flex justify-content-center">
+										<input class="form-check-input" type="checkbox" id="defaultCheck3" checked="">
+									</div>
+								</td>
+								<td>
+									<div class="form-check d-flex justify-content-center">
+										<input class="form-check-input" type="checkbox" id="defaultCheck2" checked="">
+									</div>
+								</td>
+								<td>
+									<div class="form-check d-flex justify-content-center">
+										<input class="form-check-input" type="checkbox" id="defaultCheck1" checked="">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<!-- /Notifications -->
+			</div>
+		</div>
+	</div>
+</div>
+<%#  %>
+<script>
+	document.getElementById('yearly-toggle').addEventListener('change', function(event) {
+	  const isYearly = event.target.checked;
+	  document.querySelectorAll('.monthly-price').forEach(el => el.classList.toggle('d-none', isYearly));
+	  document.querySelectorAll('.yearly-price').forEach(el => el.classList.toggle('d-none', !isYearly));
+
+	   // Update the link of each button based on the yearly toggle
+	    document.querySelectorAll('.subscription-button').forEach(button => {
+	      const plan = button.dataset.plan;
+	      const newBillingCycle = isYearly ? 'yearly' : 'monthly';
+	      button.dataset.billingCycle = newBillingCycle;
+	      button.href = `${button.href.split('?')[0]}?subscription[plan]=${plan}&subscription[billing_cycle]=${newBillingCycle}`;
+	    });
+	});
+</script>

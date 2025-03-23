@@ -4,6 +4,11 @@ class Account::DashboardController < AccountController
     @clicks_count = current_account.urls.map(&:click_count).sum
   end
 
+  def subscription
+    @title = "Account Subscription"
+    @subscription = current_account.subscription || @current_account.build_subscription(plan: 'free') # Create a subscription if not present
+  end
+
   def revert_masquerade
     # Ensure the current user is an admin and is masquerading as another user
     if current_account && user_masquerade?

@@ -13,14 +13,15 @@ Rails.application.routes.draw do
   end
   
   namespace :account do
+    resource :subscription, only: [ :update]
     get 'dashboard', to: 'dashboard#home'
+    get 'dashboard/subscription', to: 'dashboard#subscription'
     post 'revert_masquerade', to: "dashboard#revert_masquerade"
     # setting
     get 'settings/change_password', to: 'setting#change_password'
     get 'settings/profile', to: 'setting#profile'
 
     resources :urls, param: :short_code
-    # get '/:short_code', to: redirect('/%{short_code}')
   end
 
 

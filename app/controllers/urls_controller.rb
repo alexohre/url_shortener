@@ -43,10 +43,12 @@ class UrlsController < ApplicationController
         # Fetch metadata from the long URL
         @og_data = fetch_metadata(url.long_url)
 
-        # puts @og_data
-        
-        redirect_to url.long_url, allow_other_host: true
-        # redirect_to links_redirect_path(short_code: url.short_code)
+        # Check subscription status and redirect accordingly
+        if url.account&.paid_subscription?
+          redirect_to url.long_url, allow_other_host: true
+        else
+          redirect_to links_redirect_path(short_code: url.short_code)
+        end
 
        else
         render plain: "Invalid source parameter", status: :bad_request

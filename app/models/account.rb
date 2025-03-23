@@ -7,14 +7,31 @@ class Account < ApplicationRecord
 
   before_create :generate_username
 
+  after_create :create_default_subscription
+
   has_one_attached :avatar, dependent: :destroy
+
+  has_one :subscription, dependent: :destroy
 
   validate :date_of_birth_must_be_past_18_years
   validates :first_name, :last_name, :username, :address, :state, :country, :gender, presence: true, unless: :new_record?
 
   has_many :urls, class_name: 'Url', foreign_key: 'account_id', dependent: :destroy
   
+  def paid_subscription?
+    return false unless subscription
+    return false if subscription.plan == 'free'
+    
+    # Any non-free plan is considered paid
+    true
+  end
+
   private
+
+  def create_default_subscription
+    # Create a subscription with defaults, ensure it gets saved
+    self.create_subscription! unless self.subscription
+  end
 
   def date_of_birth_must_be_past_18_years
     if date_of_birth.present? && date_of_birth > 18.years.ago.to_date

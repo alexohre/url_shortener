@@ -8,7 +8,7 @@ class Url < ApplicationRecord
   validates :short_code, uniqueness: true
 
   belongs_to :account
-  has_many :clicks, dependent: :destroy
+  has_many :clicks, dependent: :destroy, counter_cache: true
   has_one_attached :qr_code, dependent: :destroy
   has_one_attached :qr_code_png, dependent: :destroy
   has_one_attached :qr_code_jpg, dependent: :destroy

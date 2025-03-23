@@ -207,28 +207,19 @@
 							</tr>
 						</thead>
 						<tbody>
-							<% click_counts = Click.where(url_id: @url.id).group(:country, :region, :city).count %>
-							<% total_clicks = click_counts.values.sum %>
-							<% if click_counts.present? %>
-								<% click_counts.each_with_index do |((country, region, city), count), index| %>
-									<tr>
-										<td><strong><%= index + 1 %></strong></td>
-										<td><%= country.present? ? country : "Unknown" %></td>
-										<td><%= city.present? ? city : "Unknown" %></td>
-										<!-- <td><%= city.present? ? city : "Unknown" %></td> -->
-										<td colspan="10">
-											<div class="progress" style="height: 7px; width: 100%;">
-												<div class="progress-bar" role="progressbar" style="width: <%= ((count.to_f / total_clicks) * 100).round(2) %>%" aria-valuenow="<%= ((count.to_f / total_clicks) * 100).round(2) %>" aria-valuemin="0" aria-valuemax="100"></div>
-											</div>
-										</td>
-										<td><%= count.to_i %></td>
-										<% percentage = ((count.to_f / total_clicks) * 100) %>
-										<td><%= (percentage % 1 == 0) ? percentage.to_i : number_with_precision(percentage, precision: 2) %>%</td>
-									</tr>
-								<% end %>
-							<% else %>
+							<% @location_stats.each do |location, count| %>
 								<tr>
-									<td colspan="14" class="text-center fs-4 fw-semibold">No Data</td>
+									<td><%= location[0] %></td>
+									<td><%= location[1] %></td>
+									<td><%= location[2] %></td>
+									<td colspan="10">
+										<div class="progress" style="height: 7px; width: 100%;">
+											<div class="progress-bar" role="progressbar" style="width: <%= ((count.to_f / @clicks_count) * 100).round(2) %>%" aria-valuenow="<%= ((count.to_f / @clicks_count) * 100).round(2) %>" aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+									</td>
+									<td><%= count.to_i %></td>
+									<% percentage = ((count.to_f / @clicks_count) * 100) %>
+									<td><%= (percentage % 1 == 0) ? percentage.to_i : number_with_precision(percentage, precision: 2) %>%</td>
 								</tr>
 							<% end %>
 						</tbody>
@@ -306,8 +297,7 @@
 						<div class="card-body">
 							<div class="d-flex justify-content-between align-items-center mb-3" style="position: relative;">
 								<div class="d-flex flex-column align-items-center gap-1">
-									<% device_counts = Click.where(url_id: @url.id).group(:device).count %>
-									<h2 class="mb-2"><%= device_counts.keys.count %></h2>
+									<h2 class="mb-2"><%= @device_stats.keys.count %></h2>
 								</div>
 								<div id="orderStatisticsChart1" style="min-height: 154.583px;">
 								</div>
@@ -320,76 +310,66 @@
 							</div>
 							<ul class="p-0 m-0" 
 								id="chartDeviceData" 
-								data-desktop-count="<%= device_counts["Desktop"] || 0 %>" 
-								data-tablet-count="<%= device_counts["Tablet"] || 0 %>" 
-								data-mobile-count="<%= device_counts["Mobile"] || 0 %>"
-								data-total-device-count="<%= device_counts.keys.count %>"
+								data-desktop-count="<%= @device_stats["Desktop"] || 0 %>" 
+								data-tablet-count="<%= @device_stats["Tablet"] || 0 %>" 
+								data-mobile-count="<%= @device_stats["Mobile"] || 0 %>"
+								data-total-device-count="<%= @device_stats.keys.count %>"
 								>
-								<% if device_counts.present? %>
-									<% device_counts.each do |device, count| %>
-										<li class="d-flex mb-4 pb-1">
-											<% if device == "Desktop" %>
-												<div class="avatar flex-shrink-0 me-3">
-													<span class="avatar-initial rounded bg-label-primary"><i class="bx bx-desktop"></i></span>
-												</div>
-												<div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-													<div class="me-2">
-														<h6 class="mb-0"><%= device.present? ? device : "Unknown" %></h6>
-														<small class="text-muted">Laptops, Tv's, etc </small>
-													</div>
-													<div class="user-progress">
-														<small class="fw-semibold"><%= count %></small>
-													</div>
-												</div>
-											<% elsif device == "Tablet" %>
-												<div class="avatar flex-shrink-0 me-3">
-													<span class="avatar-initial rounded bg-label-secondary"><i class="bx bx-tab"></i></span>
-												</div>
-												<div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-													<div class="me-2">
-														<h6 class="mb-0">Tablet</h6>
-														<small class="text-muted">Ipad, Tabs, etc</small>
-													</div>
-													<div class="user-progress">
-														<small class="fw-semibold"><%= count %></small>
-													</div>
-												</div>
-											<% elsif device == "Mobile" %>
-												<div class="avatar flex-shrink-0 me-3">
-													<span class="avatar-initial rounded bg-label-info"><i class="bx bx-mobile-alt"></i></span>
-												</div>
-												<div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-													<div class="me-2">
-														<h6 class="mb-0">Mobile</h6>
-														<small class="text-muted">Iphone, Samsung, etc</small>
-													</div>
-													<div class="user-progress">
-														<small class="fw-semibold"><%= count %></small>
-													</div>
-												</div>
-											<% else %>
-												<div class="avatar flex-shrink-0 me-3">
-													<span class="avatar-initial rounded bg-label-info"><i class="bx bx-mobile-alt"></i></span>
-												</div>
-												<div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-													<div class="me-2">
-														<h6 class="mb-0">Unknown</h6>
-														<small class="text-muted">Unknown</small>
-													</div>
-													<div class="user-progress">
-														<small class="fw-semibold"><%= count %></small>
-													</div>
-												</div>
-											<% end %>
-										</li>
-									<% end %>
-								<% else %>
-									<li class="d-flex justify-content-center align-items-center mb-4 pb-1">
-										<div class="w-100">
-											<div class="me-2">
-												<h6 class="mb-0 text-center fs-4 fw-semibold">No Data</h6>
+								<% @device_stats.each do |device, count| %>
+									<li class="d-flex mb-4 pb-1">
+										<% if device == "Desktop" %>
+											<div class="avatar flex-shrink-0 me-3">
+												<span class="avatar-initial rounded bg-label-primary"><i class="bx bx-desktop"></i></span>
 											</div>
-										</div>
+											<div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+												<div class="me-2">
+													<h6 class="mb-0"><%= device.present? ? device : "Unknown" %></h6>
+													<small class="text-muted">Laptops, Tv's, etc </small>
+												</div>
+												<div class="user-progress">
+													<small class="fw-semibold"><%= count %></small>
+												</div>
+											</div>
+										<% elsif device == "Tablet" %>
+											<div class="avatar flex-shrink-0 me-3">
+												<span class="avatar-initial rounded bg-label-secondary"><i class="bx bx-tab"></i></span>
+											</div>
+											<div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+												<div class="me-2">
+													<h6 class="mb-0">Tablet</h6>
+													<small class="text-muted">Ipad, Tabs, etc</small>
+												</div>
+												<div class="user-progress">
+													<small class="fw-semibold"><%= count %></small>
+												</div>
+											</div>
+										<% elsif device == "Mobile" %>
+											<div class="avatar flex-shrink-0 me-3">
+												<span class="avatar-initial rounded bg-label-info"><i class="bx bx-mobile-alt"></i></span>
+											</div>
+											<div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+												<div class="me-2">
+													<h6 class="mb-0">Mobile</h6>
+													<small class="text-muted">Iphone, Samsung, etc</small>
+												</div>
+												<div class="user-progress">
+													<small class="fw-semibold"><%= count %></small>
+												</div>
+											</div>
+										<% else %>
+											<div class="avatar flex-shrink-0 me-3">
+												<span class="avatar-initial rounded bg-label-info"><i class="bx bx-mobile-alt"></i></span>
+											</div>
+											<div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+												<div class="me-2">
+													<h6 class="mb-0">Unknown</h6>
+													<small class="text-muted">Unknown</small>
+												</div>
+												<div class="user-progress">
+													<small class="fw-semibold"><%= count %></small>
+												</div>
+											</div>
+										<% end %>
 									</li>
 								<% end %>
 							</ul>
@@ -421,26 +401,18 @@
 							</tr>
 						</thead>
 						<tbody>
-							<% click_counts = Click.where(url_id: @url.id).group(:os).count %>
-							<% total_clicks = click_counts.values.sum %>
-							<% if click_counts.present? %>
-								<% click_counts.each_with_index do |(os, count), index| %>
-									<tr>
-										<td><strong><%= index + 1 %></strong></td>
-										<td><%= os.present? ? (os.downcase.include?('os') && !os.downcase.include?('ios') ? 'Mac OS' : os) : "Unknown" %></td>
-										<td colspan="10">
-											<div class="progress" style="height: 7px; width: 100%;">
-												<div class="progress-bar" role="progressbar" style="width: <%= ((count.to_f / total_clicks) * 100).round(2) %>%" aria-valuenow="<%= ((count.to_f / total_clicks) * 100).round(2) %>" aria-valuemin="0" aria-valuemax="100"></div>
-											</div>
-										</td>
-										<td><%= count.to_i %></td>
-										<% percentage = ((count.to_f / total_clicks) * 100) %>
-										<td><%= (percentage % 1 == 0) ? percentage.to_i : number_with_precision(percentage, precision: 2) %>%</td>
-									</tr>
-								<% end %>
-							<% else %>
+							<% @os_stats.each_with_index do |(os, count), index| %>
 								<tr>
-									<td colspan="14" class="text-center fs-4 fw-semibold">No Data</td>
+									<td><%= index + 1 %></td>
+									<!-- This will display the index count -->
+									<td><%= os %></td>
+									<td colspan="10">
+										<div class="progress" style="height: 7px; width: 100%;">
+											<div class="progress-bar" role="progressbar" style="width: <%= ((count.to_f / @clicks_count) * 100).round(2) %>%" aria-valuenow="<%= ((count.to_f / @clicks_count) * 100).round(2) %>" aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+									</td>
+									<td><%= count %></td>
+									<td><%= ((count.to_f / @clicks_count) * 100).round(2) %></td>
 								</tr>
 							<% end %>
 						</tbody>

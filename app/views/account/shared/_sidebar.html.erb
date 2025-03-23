@@ -56,7 +56,7 @@
 					</g>
 				</svg>
 			</span>
-			<span class="app-brand-text demo menu-text fw-bolder ms-2">Sneat</span>
+			<span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform: capitalize;">Ting</span>
 		</a>
 		<a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
 			<i class="bx bx-chevron-left bx-sm align-middle"></i>
@@ -98,10 +98,24 @@
 				</ul>
 			</li>
 			<!-- Components -->
-			<li class="menu-item <%#= 'activ' if request.path == account_dashboard_path %>">
+			<li class="menu-item <%#= 'active' if request.path == account_dashboard_path %>">
 				<a href="<%#= account_dashboard_path %>" data-turbo="false" class="menu-link" >
 					<i class="menu-icon tf-icons bx bx-bar-chart"></i>
 					<div data-i18n="Analytics">Analytics</div>
+				</a>
+			</li>
+			<!-- Subscription -->
+			<li class="menu-item <%= 'active' if request.path == account_dashboard_subscription_path %>">
+				<a href="<%= account_dashboard_subscription_path %>" data-turbo="false" class="menu-link" >
+					<i class="menu-icon tf-icons bx bx-credit-card"></i>
+					<div data-i18n="Analytics">Subscription</div>
+				</a>
+			</li>
+			<!-- Billing -->
+			<li class="menu-item <%#= 'active' if request.path == account_dashboard_path %>">
+				<a href="<%#= account_dashboard_path %>" data-turbo="false" class="menu-link" >
+					<i class="menu-icon tf-icons bx bx-credit-card-alt"></i>
+					<div data-i18n="Analytics">Billing</div>
 				</a>
 			</li>
 			<!-- User interface -->

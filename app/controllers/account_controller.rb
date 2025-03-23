@@ -7,6 +7,8 @@ class AccountController < ActionController::Base
     session[:masquerade_user_id].present?
   end
 
+  include SubscriptionsHelper
+
   include Pagy::Backend
   layout "account"
 
